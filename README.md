@@ -72,6 +72,9 @@ _Diagrama De Bases De Datos:_
 
 ![alt text](docs/imagenes/DTOS.png)
 
+- Algunos Mappers:
+
+![alt text](docs/imagenes/mappers.png)
 ---
 
 3. 🔥 **Swagger**
