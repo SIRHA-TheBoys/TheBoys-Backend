@@ -78,3 +78,7 @@ _Diagrama De Bases De Datos:_
 ---
 
 3. 🔥 **Swagger**
+
+- Implementacion En codigo
+
+![alt text](docs/imagenes/swaggerCodigo.png)
