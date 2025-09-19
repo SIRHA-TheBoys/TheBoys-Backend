@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @Builder
 public class AcademicTrafficLightRequestDTO {
-
+    private int studentCode;
 }
