@@ -2,7 +2,7 @@ package java.edu.dosw.sirha.mapper;
 
 import java.edu.dosw.sirha.dto.AcademicTrafficLightRequestDTO;
 import java.edu.dosw.sirha.dto.AcademicTrafficLightResponseDTO;
-import java.edu.dosw.sirha.model.AcademicTrafficLight; // <--- Asegúrate de importar la entidad
+import java.edu.dosw.sirha.model.AcademicTrafficLight;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
