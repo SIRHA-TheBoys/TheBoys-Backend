@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ProfessorRepository extends MongoRepository<Professor, Integer> {
+public interface AcademicTrafficLightRepository extends MongoRepository<Professor, Integer> {
 
-    Professor findByProfessorId(int professorId);
+    AcademicTrafficLight findByAcademicId(Long id);
+
+    Student findByStudentId(Long id);
 
 }

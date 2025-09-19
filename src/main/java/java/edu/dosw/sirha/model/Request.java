@@ -16,7 +16,13 @@ import lombok.Data;
 @Builder
 public class Request {
     @Id
-    private Long id;
+    private UUID id = UUID.randomUUID();
+
+    private int studentId;
     private StatusOfRequest status;
     private String description;
+    private LocalDateTime requestDate;
+    private LocalDateTime responseDate;
+    private Integer currentGroup;
+    private Integer futureGroup;
 }
