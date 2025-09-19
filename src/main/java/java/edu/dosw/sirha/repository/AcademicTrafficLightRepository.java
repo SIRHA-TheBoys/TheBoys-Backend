@@ -10,4 +10,6 @@ public interface AcademicTrafficLightRepository extends MongoRepository<Professo
 
     AcademicTrafficLight findByAcademicId(Long id);
 
+    Student findByStudentId(Long id);
+
 }

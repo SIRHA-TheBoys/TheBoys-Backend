@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class User {
     @Id
-    private int code;
+    private Long code;
     private String name;
     @Indexed(unique = true)
     private String email;
