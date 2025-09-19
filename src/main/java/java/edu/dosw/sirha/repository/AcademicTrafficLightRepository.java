@@ -6,10 +6,8 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface RequestRepository extends MongoRepository<Request, Long> {
-    List<Request> findAll();
+public interface AcademicTrafficLightRepository extends MongoRepository<Professor, Integer> {
 
-    List<Request> findByStatus(StatusOfRequest status);
+    AcademicTrafficLight findByAcademicId(Long id);
 
-    List<Request> findByStudentId(int studentId);
 }

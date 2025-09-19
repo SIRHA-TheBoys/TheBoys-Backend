@@ -8,5 +8,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Data
 public class AdministratorRequestDTO extends UserRequestDTO {
-    private List<Long> studentsIds;
+
 }

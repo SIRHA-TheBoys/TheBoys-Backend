@@ -14,7 +14,7 @@ import lombok.Data;
 @Builder
 public class AcademicTrafficLight {
     @Id
-    private int id;
+    private Long id;
     private int studentCode;
     private double average;
     private int semester;
