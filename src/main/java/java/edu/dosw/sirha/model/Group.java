@@ -16,6 +16,7 @@ public class Group {
 
     @Id
     private int numberGroup;
+
     private int availableQuotas;
     private int capacity;
     private AcademicPeriod academicPeriod;

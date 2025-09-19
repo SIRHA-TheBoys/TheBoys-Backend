@@ -5,8 +5,8 @@ import java.util.List;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
-@SuperBuilder
 @Data
+@SuperBuilder
 public class AdministratorRequestDTO extends UserRequestDTO {
 
 }
