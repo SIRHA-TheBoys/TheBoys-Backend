@@ -8,4 +8,5 @@ import lombok.experimental.SuperBuilder;
 public class UserResponseDTO {
     private int code;
     private String name;
+    private String email;
 }

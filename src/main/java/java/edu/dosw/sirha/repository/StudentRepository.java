@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface StudentRepository extends MongoRepository<Student, Integer> {
 
-    Student findByStudentId(int id);
+    Student findByStudentId(Long id);
 
     List<Student> findByCareer(Career career);
 }

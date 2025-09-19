@@ -8,7 +8,7 @@ import lombok.Data;
 @Builder
 public class AcademicTrafficLightResponseDTO {
 
-    private int studentCode;
+    private Long studentCode;
     private double average;
     private int semester;
     private String academicPlan;
