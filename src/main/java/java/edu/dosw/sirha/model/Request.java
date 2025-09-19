@@ -23,7 +23,6 @@ public class Request {
     private String description;
     private LocalDateTime requestDate;
     private LocalDateTime responseDate;
-
     private Integer currentGroup;
     private Integer futureGroup;
 }

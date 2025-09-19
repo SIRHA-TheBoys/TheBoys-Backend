@@ -2,7 +2,6 @@ package java.edu.dosw.sirha.mapper;
 
 import java.edu.dosw.sirha.dto.UserRequestDTO;
 import java.edu.dosw.sirha.model.User;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
