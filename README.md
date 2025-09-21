@@ -34,7 +34,7 @@ _Diagrama De Componentes General:_
 
 Diagrama De Componentes Especifico:_
 
-![alt text](docs/imagenes/Diagrama%20de%20componentes%20específico.png)
+![alt text](docs/imagenes/DiagramaComponentesEspecifico.png)
 
 _Diagramas De Secuencia:_
 
