@@ -22,7 +22,7 @@ _Diagrama de Clases:_
 
 - Se realizó la diagramacion del problema a resolver aplicando patrones de diseño y siguiendo los principios SOLID:
 
-![alt text](docs/imagenes/clases.png)
+![alt text](docs/imagenes/diagramaDeClases.png)
 
 _Diagrama De Casos De Uso:_
 
