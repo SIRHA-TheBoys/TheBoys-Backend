@@ -1,6 +1,5 @@
 package java.edu.dosw.sirha.controller;
 
-import java.edu.dosw.sirha.service.DeaneryService;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -17,13 +16,11 @@ import jakarta.validation.Valid;
 import java.edu.dosw.sirha.dto.*;
 
 @RestController
-@RequestMapping("/deanerys")
-public class DeaneryController {
+@RequestMapping("/users")
+public class UserController {
 
-    private final DeaneryService deaneryService;
+    public UserController() {
 
-    public DeaneryController(DeaneryService deaneryService) {
-        this.deaneryService = deaneryService;
     }
 
 }

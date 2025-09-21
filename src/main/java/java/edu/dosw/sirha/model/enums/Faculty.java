@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Department {
+public enum Faculty {
     MATHEMATICS,
     INFORMATICS,
     HUMANITIES,

@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface GroupRepository extends MongoRepository<Group, Integer> {
-
     Group findByGroupById(int groupNumber);
 
     List<Group> findByCapacity(int capacity);

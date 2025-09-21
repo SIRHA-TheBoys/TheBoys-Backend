@@ -16,13 +16,9 @@ import lombok.Data;
 @Builder
 public class Subject {
     @Id
-    private Long id;
-    private String name;
-    @Indexed(unique = true)
     private String code;
+    @Indexed(unique = true)
+    private String name;
     private int credits;
-    private State state;
-    @DBRef
-    private ArrayList<Group> groups;
-
+    private Status status;
 }

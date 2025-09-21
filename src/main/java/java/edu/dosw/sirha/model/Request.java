@@ -1,13 +1,12 @@
 package java.edu.dosw.sirha.model;
 
-import java.util.*;
-import java.edu.dosw.sirha.model.*;
-import java.edu.dosw.sirha.model.enums.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,13 +15,9 @@ import lombok.Data;
 @Builder
 public class Request {
     @Id
-    private UUID id = UUID.randomUUID();
-
-    private int studentId;
-    private StatusOfRequest status;
+    private UUID id;
+    private Long userId;
+    private LocalDateTime creationDate;
+    private LocalDateTime endDate;
     private String description;
-    private LocalDateTime requestDate;
-    private LocalDateTime responseDate;
-    private Integer currentGroup;
-    private Integer futureGroup;
 }
