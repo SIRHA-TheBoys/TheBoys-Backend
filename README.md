@@ -40,7 +40,7 @@ _Diagramas De Secuencia:_
 
 - Se realizó el diseño de la mayoria de funciones que brinda el sistema SIRHA.
 
-![alt text](docs/imagenes/secuencia.png)
+![alt text](docs/imagenes/DiagramasDeSecuencia.png)
 
 _Diagrama De Bases De Datos:_
 ![alt text](docs/imagenes/AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
