@@ -43,7 +43,7 @@ _Diagramas De Secuencia:_
 ![alt text](docs/imagenes/secuencia.png)
 
 _Diagrama De Bases De Datos:_
-
+![alt text](AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
 ---
 
 2. 🔥 **Desarrollo De Codigo**
@@ -51,6 +51,7 @@ _Diagrama De Bases De Datos:_
 - Modelo:
 
 ![alt text](docs/imagenes/Modelo.png)
+
 
 - Repositorios:
 
