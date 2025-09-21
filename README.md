@@ -30,7 +30,7 @@ _Diagrama De Casos De Uso:_
 
 _Diagrama De Componentes General:_
 
-![alt text](OkaAAAIIIIAAAn4JEFT9kqXdvAi4b1flLhPIS6M0ggACCCCAAAKRECCoRqJMDBIBBBBAAAEEECg8gf8fdos4ZxnMpRsAAAAASUVORK5CYII.png)
+![alt text](docs/imagenes/OkaAAAIIIIAAAn4JEFT9kqXdvAi4b1flLhPIS6M0ggACCCCAAAKRECCoRqJMDBIBBBBAAAEEECg8gf8fdos4ZxnMpRsAAAAASUVORK5CYII.png)
 
 Diagrama De Componentes Especifico:_
 
@@ -43,7 +43,7 @@ _Diagramas De Secuencia:_
 ![alt text](docs/imagenes/secuencia.png)
 
 _Diagrama De Bases De Datos:_
-![alt text](AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
+![alt text](docs/imagenes/AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
 ---
 
 2. 🔥 **Desarrollo De Codigo**
