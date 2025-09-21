@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface RequestRepository extends MongoRepository<Request, UUID> {
     List<Request> findAll();
 
-    List<Request> findByStatus(StatusOfRequest status);
+    List<Request> findByStatus(Status status);
 
     List<Request> findByStudentId(Long id);
 }

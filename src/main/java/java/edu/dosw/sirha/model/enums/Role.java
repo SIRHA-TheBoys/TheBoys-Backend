@@ -5,9 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum State {
-    PENDIENT,
-    INPROGRESS,
-    APPROVED,
-    REJECTED
+public enum Role {
+    STUDENT,
+    ADMINISTRATOR,
+    DEANERY
 }

@@ -1,18 +1,20 @@
 package java.edu.dosw.sirha.model.enums;
 
+import java.edu.dosw.sirha.model.enums.Faculty;
+
 public enum Career {
-    CYBERSECURITY_ENGINEERING(Department.INFORMATICS),
-    SYSTEMS_ENGINEERING(Department.INFORMATICS),
-    ARTIFICIAL_INTELLIGENCE_ENGINEERING(Department.INFORMATICS),
-    STATISTICAL_ENGINEERING(Department.INFORMATICS);
+    CYBERSECURITY_ENGINEERING(Faculty.INFORMATICS),
+    SYSTEMS_ENGINEERING(Faculty.INFORMATICS),
+    ARTIFICIAL_INTELLIGENCE_ENGINEERING(Faculty.INFORMATICS),
+    STATISTICAL_ENGINEERING(Faculty.INFORMATICS);
 
-    private Department department;
+    private Faculty faculty;
 
-    Career(Department department) {
-        this.department = department;
+    Career(Faculty faculty) {
+        this.faculty = faculty;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Faculty getFaculty() {
+        return faculty;
     }
 }

@@ -5,9 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum StatusOfRequest {
-    PENDING,
-    UNDERREVIEW,
+public enum Status {
     APPROVED,
-    REJECTED
+    REPROVED,
+    INPROGRESS
 }

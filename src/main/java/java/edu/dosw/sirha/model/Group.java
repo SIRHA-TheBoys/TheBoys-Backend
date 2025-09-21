@@ -1,11 +1,11 @@
 package java.edu.dosw.sirha.model;
 
-import java.util.*;
-import java.edu.dosw.sirha.model.*;
-import org.springframework.data.annotation.Id;
+import java.util.ArrayList;
+
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,15 +13,12 @@ import lombok.Data;
 @Data
 @Builder
 public class Group {
-
     @Id
-    private int numberGroup;
-
-    private int availableQuotas;
+    private Long numberGroup;
     private int capacity;
-    private AcademicPeriod academicPeriod;
-    private ArrayList<Schedule> schedules;
+    private int availableQuotas;
+    private String subjectCode;
+    private Long userId;
     @DBRef
-    private Professor professor;
-
+    private ArrayList<Schedule> schedules;
 }
