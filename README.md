@@ -30,9 +30,9 @@ _Diagrama De Casos De Uso:_
 
 _Diagrama De Componentes General:_
 
-![alt text](docs/imagenes/componentesGeneral.png)
+![alt text](OkaAAAIIIIAAAn4JEFT9kqXdvAi4b1flLhPIS6M0ggACCCCAAAKRECCoRqJMDBIBBBBAAAEEECg8gf8fdos4ZxnMpRsAAAAASUVORK5CYII.png)
 
-_Diagrama De Componentes Especifico:_
+Diagrama De Componentes Especifico:_
 
 ![alt text](docs/imagenes/especifico.png)
 
