@@ -32,7 +32,7 @@ _Diagrama De Componentes General:_
 
 ![alt text](docs/imagenes/OkaAAAIIIIAAAn4JEFT9kqXdvAi4b1flLhPIS6M0ggACCCCAAAKRECCoRqJMDBIBBBBAAAEEECg8gf8fdos4ZxnMpRsAAAAASUVORK5CYII.png)
 
-Diagrama De Componentes Especifico:_
+Diagrama De Componentes Especifico:\_
 
 ![alt text](docs/imagenes/DiagramaComponentesEspecifico.png)
 
@@ -40,10 +40,19 @@ _Diagramas De Secuencia:_
 
 - Se realizó el diseño de la mayoria de funciones que brinda el sistema SIRHA.
 
-![alt text](docs/imagenes/DiagramasDeSecuencia.png)
+![alt text](docs/imagenes/secuencia1.png)
+
+![alt text](docs/imagenes/secuencia2.png)
+
+![alt text](docs/imagenes/secuencia3.png)
+
+![alt text](docs/imagenes/secuencia4.png)
+
+![alt text](docs/imagenes/secuencia5.png)
 
 _Diagrama De Bases De Datos:_
 ![alt text](docs/imagenes/AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
+
 ---
 
 2. 🔥 **Desarrollo De Codigo**
@@ -51,7 +60,6 @@ _Diagrama De Bases De Datos:_
 - Modelo:
 
 ![alt text](docs/imagenes/Modelo.png)
-
 
 - Repositorios:
 
@@ -75,4 +83,8 @@ _Diagrama De Bases De Datos:_
 
 ---
 
-3. 🔥 **Swagger**
+3. 🔥 **Jacoco**
+
+## ![alt text](docs/imagenes/jacoco.png)
+
+4. 🔥 **Swagger**
