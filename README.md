@@ -26,7 +26,7 @@ _Diagrama de Clases:_
 
 _Diagrama De Casos De Uso:_
 
-![alt text](docs/imagenes/casosDeUso.png)
+![alt text](docs/imagenes/bmbRDnJdKAkAAAAASUVORK5CYII.png)
 
 _Diagrama De Componentes General:_
 
