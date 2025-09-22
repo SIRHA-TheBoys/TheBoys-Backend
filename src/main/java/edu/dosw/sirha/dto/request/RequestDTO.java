@@ -1,4 +1,4 @@
-package edu.dosw.sirha.dto;
+package edu.dosw.sirha.dto.request;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +7,6 @@ import lombok.Data;
 @Builder
 public class RequestDTO {
 
-    private Long userId;
-    private String description;
+    private String userId;
 
 }

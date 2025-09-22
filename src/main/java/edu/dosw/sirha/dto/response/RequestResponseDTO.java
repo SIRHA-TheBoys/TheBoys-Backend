@@ -1,22 +1,18 @@
-package edu.dosw.sirha.model;
+package edu.dosw.sirha.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import edu.dosw.sirha.model.enums.State;
-import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
-@Document(collection = "requests")
 @Data
 @Builder
-public class Request {
-    @Id
+public class RequestResponseDTO {
+
     private ObjectId id;
 
     private String userId;
@@ -28,5 +24,4 @@ public class Request {
     private String description;
 
     private State state;
-
 }

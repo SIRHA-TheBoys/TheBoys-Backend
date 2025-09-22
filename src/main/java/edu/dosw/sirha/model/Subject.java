@@ -17,8 +17,11 @@ import lombok.Data;
 public class Subject {
     @Id
     private String code;
+
     @Indexed(unique = true)
     private String name;
+
     private int credits;
+
     private Status status;
 }

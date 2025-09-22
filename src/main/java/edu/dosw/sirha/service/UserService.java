@@ -1,12 +1,12 @@
 package edu.dosw.sirha.service;
 
-import edu.dosw.sirha.dto.UserRequestDTO;
-import edu.dosw.sirha.dto.UserResponseDTO;
+import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.UserResponseDTO;
 
 public interface UserService {
 
     UserResponseDTO createUser(UserRequestDTO dto);
 
-    UserResponseDTO updateUser(Long id, UserRequestDTO dto);
+    UserResponseDTO updateUser(String id, UserRequestDTO dto);
 
 }
