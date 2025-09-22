@@ -10,7 +10,7 @@ Integrantes:
 
 ---
 
-1.🔥 **Diseño**:
+1. **Diseño**:
 
 _Diagrama De Contexto_
 
