@@ -60,3 +60,9 @@ _Diagrama De Bases De Datos:_
 ## ![alt text](docs/imagenes/jacoco.png)
 
 3. 🔥 **Swagger**
+
+![alt text](docs/imagenes/swaggeer.png)
+
+4. 🔥 **MongoDB**
+
+![alt text](docs/imagenes/Mongo.png)
