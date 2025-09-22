@@ -22,27 +22,36 @@ _Diagrama de Clases:_
 
 - Se realizó la diagramacion del problema a resolver aplicando patrones de diseño y siguiendo los principios SOLID:
 
-![alt text](docs/imagenes/clases.png)
+![alt text](docs/imagenes/DiagramaDeClases.png)
 
 _Diagrama De Casos De Uso:_
 
-![alt text](docs/imagenes/casosDeUso.png)
+![alt text](docs/imagenes/bmbRDnJdKAkAAAAASUVORK5CYII.png)
 
 _Diagrama De Componentes General:_
 
-![alt text](docs/imagenes/componentesGeneral.png)
+![alt text](docs/imagenes/OkaAAAIIIIAAAn4JEFT9kqXdvAi4b1flLhPIS6M0ggACCCCAAAKRECCoRqJMDBIBBBBAAAEEECg8gf8fdos4ZxnMpRsAAAAASUVORK5CYII.png)
 
-_Diagrama De Componentes Especifico:_
+Diagrama De Componentes Especifico:\_
 
-![alt text](docs/imagenes/especifico.png)
+![alt text](docs/imagenes/DiagramaComponentesEspecifico.png)
 
 _Diagramas De Secuencia:_
 
 - Se realizó el diseño de la mayoria de funciones que brinda el sistema SIRHA.
 
-![alt text](docs/imagenes/secuencia.png)
+![alt text](docs/imagenes/secuencia1.png)
+
+![alt text](docs/imagenes/secuencia2.png)
+
+![alt text](docs/imagenes/secuencia3.png)
+
+![alt text](docs/imagenes/secuencia4.png)
+
+![alt text](docs/imagenes/secuencia5.png)
 
 _Diagrama De Bases De Datos:_
+![alt text](docs/imagenes/AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
 
 ---
 
@@ -77,8 +86,8 @@ _Diagrama De Bases De Datos:_
 ![alt text](docs/imagenes/mappers.png)
 ---
 
-3. 🔥 **Swagger**
+3. 🔥 **Jacoco**
 
-- Implementacion En codigo
+## ![alt text](docs/imagenes/jacoco.png)
 
-![alt text](docs/imagenes/swaggerCodigo.png)
+4. 🔥 **Swagger**
