@@ -10,7 +10,7 @@ Integrantes:
 
 ---
 
-1.🔥 **Diseño**:
+1. **Diseño**:
 
 _Diagrama De Contexto_
 
@@ -81,6 +81,9 @@ _Diagrama De Bases De Datos:_
 
 ![alt text](docs/imagenes/DTOS.png)
 
+- Algunos Mappers:
+
+![alt text](docs/imagenes/mappers.png)
 ---
 
 3. 🔥 **Jacoco**
