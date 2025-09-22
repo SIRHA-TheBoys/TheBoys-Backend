@@ -1,16 +1,18 @@
 package edu.dosw.sirha.repository;
 
-import edu.dosw.sirha.model.*;
-import edu.dosw.sirha.model.enums.*;
+import edu.dosw.sirha.model.Request;
+import edu.dosw.sirha.model.enums.State;
 import java.util.List;
-import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface RequestRepository extends MongoRepository<Request, UUID> {
+public interface RequestRepository extends MongoRepository<Request, ObjectId> {
+
     List<Request> findAll();
 
-    List<Request> findByStatus(Status status);
+    List<Request> findByState(State state);
 
-    List<Request> findByUserId(Long id);
+    List<Request> findByUserId(String userId);
+
 }

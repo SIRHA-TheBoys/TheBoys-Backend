@@ -14,11 +14,16 @@ import lombok.Data;
 @Builder
 public class Group {
     @Id
-    private Long numberGroup;
+    private String numberGroup;
+
     private int capacity;
+
     private int availableQuotas;
+
     private String subjectCode;
-    private Long userId;
+
+    private String userId;
+
     @DBRef
     private ArrayList<Schedule> schedules;
 }

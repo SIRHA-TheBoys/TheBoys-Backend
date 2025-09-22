@@ -1,18 +1,14 @@
-package edu.dosw.sirha.model;
+package edu.dosw.sirha.dto.response;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
-@Document(collection = "schedules")
 @Data
 @Builder
-public class Schedule {
-    @Id
+public class ScheduleResponseDTO {
+
     private String id;
 
     private LocalDateTime startSession;
@@ -20,4 +16,5 @@ public class Schedule {
     private LocalDateTime endSession;
 
     private String numberGroup;
+
 }

@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import edu.dosw.sirha.dto.UserRequestDTO;
-import edu.dosw.sirha.dto.UserResponseDTO;
+import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.model.User;
 import edu.dosw.sirha.model.enums.Career;
 import edu.dosw.sirha.model.enums.Faculty;

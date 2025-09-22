@@ -1,15 +1,21 @@
 package edu.dosw.sirha.service.Impl;
 
-import edu.dosw.sirha.dto.UserRequestDTO;
-import edu.dosw.sirha.dto.UserResponseDTO;
+import org.springframework.stereotype.Service;
+
+import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.model.User;
 import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.UserService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import edu.dosw.sirha.service.UserService;
 
+@Service
+@Slf4j
 public class StudentService implements UserService {
 
     private final UserRepository userRepository;
@@ -42,7 +48,7 @@ public class StudentService implements UserService {
                 .build();
     }
 
-    public UserResponseDTO updateUser(Long id, UserRequestDTO dto) {
+    public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
         User user = userRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
         user.setId(dto.getId());
         user.setName(dto.getName());

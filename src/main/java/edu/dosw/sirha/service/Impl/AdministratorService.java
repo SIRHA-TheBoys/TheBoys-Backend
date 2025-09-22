@@ -1,10 +1,10 @@
 package edu.dosw.sirha.service.Impl;
 
-import edu.dosw.sirha.dto.UserResponseDTO;
+import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.UserResponseDTO;
 
 import org.springframework.stereotype.Service;
 
-import edu.dosw.sirha.dto.UserRequestDTO;
 import edu.dosw.sirha.exception.DuplicateResourceException;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.model.User;
@@ -12,8 +12,10 @@ import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.UserService;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class AdministratorService implements UserService {
 
     private final UserRepository userRepository;
@@ -22,7 +24,7 @@ public class AdministratorService implements UserService {
         this.userRepository = userRepository;
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(String id) {
         if (!userRepository.existsById(id)) {
             throw ResourceNotFoundException.create("ID", id);
         }
@@ -56,7 +58,7 @@ public class AdministratorService implements UserService {
                 .build();
     }
 
-    public UserResponseDTO updateUser(Long id, UserRequestDTO dto) {
+    public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
         User user = userRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
         user.setId(dto.getId());
         user.setName(dto.getName());

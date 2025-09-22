@@ -18,15 +18,23 @@ import lombok.Data;
 @Builder
 public class User {
     @Id
-    private Long id;
+    private String id;
+
     private String name;
+
     @Indexed(unique = true)
     private String email;
+
     private String password;
+
     private Integer semester;
+
     private Faculty faculty;
+
     private Role role;
+
     private Career career;
+
     @DBRef
     private ArrayList<Group> groups;
 
