@@ -1,5 +1,11 @@
 package edu.dosw.sirha.service;
 
-public interface SubjectService {
+import org.springframework.stereotype.Service;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class SubjectService {
 
 }

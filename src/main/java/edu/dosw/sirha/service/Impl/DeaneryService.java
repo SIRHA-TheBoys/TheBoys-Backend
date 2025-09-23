@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import edu.dosw.sirha.dto.request.UserRequestDTO;
 import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
+import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.model.User;
 import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
@@ -17,30 +18,21 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class DeaneryService implements UserService {
+
     private final UserRepository userRepository;
 
-    public DeaneryService(UserRepository userRepository) {
+    private final UserMapper userMapper;
+
+    public DeaneryService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
-        User user = User.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .email(dto.getEmail())
-                .password(dto.getPassword())
-                .role(Role.DEANERY)
-                .faculty(null).build();
-
+        User user = userMapper.toEntity(dto);
         User saved = userRepository.save(user);
-
-        return UserResponseDTO.builder()
-                .id(saved.getId())
-                .name(saved.getName())
-                .email(saved.getEmail())
-                .faculty(null)
-                .build();
+        return userMapper.toDto(saved);
     }
 
     public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
@@ -54,14 +46,7 @@ public class DeaneryService implements UserService {
 
         User updated = userRepository.save(user);
 
-        return UserResponseDTO.builder()
-                .name(updated.getName())
-                .email(updated.getEmail())
-                .semester(updated.getSemester())
-                .faculty(updated.getFaculty())
-                .career(updated.getCareer())
-                .role(updated.getRole())
-                .build();
+        return userMapper.toDto(updated);
 
     }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.exception.DuplicateResourceException;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
+import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.model.User;
 import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
@@ -20,8 +21,11 @@ public class AdministratorService implements UserService {
 
     private final UserRepository userRepository;
 
-    public AdministratorService(UserRepository userRepository) {
+    private final UserMapper userMapper;
+
+    public AdministratorService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public void deleteUser(String id) {
@@ -34,28 +38,11 @@ public class AdministratorService implements UserService {
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
 
-        User user = User.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .email(dto.getEmail())
-                .password(dto.getPassword())
-                .role(Role.ADMINISTRATOR)
-                .semester(null)
-                .faculty(null)
-                .career(null)
-                .build();
+        User user = userMapper.toEntity(dto);
 
         User savedUser = userRepository.save(user);
 
-        return UserResponseDTO.builder()
-                .id(savedUser.getId())
-                .name(savedUser.getName())
-                .email(savedUser.getEmail())
-                .role(savedUser.getRole())
-                .semester(null)
-                .faculty(null)
-                .career(null)
-                .build();
+        return userMapper.toDto(savedUser);
     }
 
     public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
@@ -71,14 +58,6 @@ public class AdministratorService implements UserService {
 
         User updated = userRepository.save(user);
 
-        return UserResponseDTO.builder()
-                .id(updated.getId())
-                .name(updated.getName())
-                .email(updated.getEmail())
-                .role(updated.getRole())
-                .semester(updated.getSemester())
-                .faculty(updated.getFaculty())
-
-                .build();
+        return userMapper.toDto(updated);
     }
 }
