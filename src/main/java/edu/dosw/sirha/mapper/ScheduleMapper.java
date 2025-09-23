@@ -10,5 +10,5 @@ import edu.dosw.sirha.model.Schedule;
 public interface ScheduleMapper {
     Schedule toEntity(ScheduleRequestDTO dto);
 
-    ScheduleResponseDTO tDto(Schedule schedule);
+    ScheduleResponseDTO toDto(Schedule schedule);
 }

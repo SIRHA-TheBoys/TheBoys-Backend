@@ -10,5 +10,5 @@ import edu.dosw.sirha.model.Request;
 public interface RequestMapper {
     Request toEntity(RequestDTO dto);
 
-    RequestResponseDTO tDto(Request request);
+    RequestResponseDTO toDto(Request request);
 }
