@@ -14,6 +14,10 @@ public class SubjectRequestDTO {
     @NotNull(message = "The name cannot be blank")
     private String code;
 
+    private String name;
+
+    private int credits;
+
     private Status status;
 
 }

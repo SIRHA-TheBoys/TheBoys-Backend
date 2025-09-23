@@ -9,4 +9,6 @@ public interface UserService {
 
     UserResponseDTO updateUser(String id, UserRequestDTO dto);
 
+    void deleteUser(String id);
+
 }

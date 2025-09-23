@@ -1,5 +1,7 @@
 package edu.dosw.sirha.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 
 import edu.dosw.sirha.dto.request.RequestDTO;
@@ -11,4 +13,8 @@ public interface RequestMapper {
     Request toEntity(RequestDTO dto);
 
     RequestResponseDTO toDto(Request request);
+
+    List<Request> toEntityList(List<RequestDTO> dto);
+
+    List<RequestResponseDTO> toDtoList(List<Request> request);
 }

@@ -1,8 +1,12 @@
 package edu.dosw.sirha.service.Impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import edu.dosw.sirha.dto.request.RequestDTO;
 import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.UserMapper;
@@ -22,6 +26,8 @@ public class StudentService implements UserService {
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
+
+    private final RequestService requestService;
 
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
@@ -50,5 +56,14 @@ public class StudentService implements UserService {
         }
         userRepository.deleteById(id);
     }
+    //Delegación a Request Service
+    public RequestResponseDTO createRequest(RequestDTO dto){
+        return requestService.createRequest(dto);
+    }
 
+
+    //Consultar todas las solicitudes del estudiante
+    public List<RequestResponseDTO> consultRequestByStudentId(String userId){
+        return requestService.allRequestByStudentId(userId);
+    }
 }

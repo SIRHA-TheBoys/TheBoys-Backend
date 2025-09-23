@@ -9,8 +9,11 @@ import lombok.Data;
 public class SubjectReponseDTO {
 
     private String code;
+
     private String name;
+
     private int credits;
+    
     private Status status;
 
 }

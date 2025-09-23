@@ -14,5 +14,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     User findByRoleAndFaculty(Role role, Faculty faculty); // Decanos?
 
+    Optional<User> findByRoleAndId(Role role, String id);
+
     Optional<User> findByEmail(String email);
 }

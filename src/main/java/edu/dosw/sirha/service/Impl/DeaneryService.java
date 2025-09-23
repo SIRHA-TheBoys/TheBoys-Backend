@@ -1,5 +1,6 @@
 package edu.dosw.sirha.service.Impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 public class DeaneryService implements UserService {
 
     private final UserRepository userRepository;
+
+    private final RequestService requestService;
 
     private final UserMapper userMapper;
 
@@ -52,6 +55,10 @@ public class DeaneryService implements UserService {
             throw ResourceNotFoundException.create("ID", id);
         }
         userRepository.deleteById(id);
+    }
+
+    public List<RequestResponseDTO> consultRequestsByUserId(){
+        
     }
 
 }
