@@ -1,5 +1,6 @@
 package edu.dosw.sirha.dto.request;
 
+import edu.dosw.sirha.model.enums.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -12,5 +13,7 @@ public class SubjectRequestDTO {
     @Schema(description = "The name of the subject", example = "DOSW")
     @NotNull(message = "The name cannot be blank")
     private String code;
+
+    private Status status;
 
 }

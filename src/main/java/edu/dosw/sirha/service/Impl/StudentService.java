@@ -11,20 +11,17 @@ import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.UserService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class StudentService implements UserService {
 
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
-
-    public StudentService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
 
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
