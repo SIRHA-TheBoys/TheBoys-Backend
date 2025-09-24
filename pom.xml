@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.30</version>
+			<version>1.18.32</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -124,11 +124,13 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/controller/*</exclude>
                                 <exclude>**/model/*</exclude>
                                 <exclude>**/dto/*</exclude>
 								<exclude>**/enums/**</exclude>
                                 <exclude>**/config/*</exclude>
+								<exclude>**/mapper/*</exclude>
+								<exclude>**/exception/*</exclude>
+								<exclude>**/common/*</exclude>
                                 <exclude>**/TheBoysApplication.class</exclude>
                             </excludes>
                         </configuration>
@@ -158,11 +160,13 @@
                                 </rule>
                             </rules>
                             <excludes>
-                                <exclude>**/controller/*</exclude>
                                 <exclude>**/model/*</exclude>
                                 <exclude>**/dto/*</exclude>
 								<exclude>**/enums/**</exclude>
                                 <exclude>**/config/*</exclude>
+								<exclude>**/mapper/*</exclude>
+								<exclude>**/exception/*</exclude>
+								<exclude>**/common/*</exclude>
                                 <exclude>**/TheBoysApplication.class</exclude>
                             </excludes>
                         </configuration>
