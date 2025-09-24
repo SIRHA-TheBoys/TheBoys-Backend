@@ -1,6 +1,9 @@
 package edu.dosw.sirha.Services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +21,7 @@ import edu.dosw.sirha.model.enums.Career;
 import edu.dosw.sirha.model.enums.Faculty;
 import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
+import edu.dosw.sirha.service.UserService;
 import edu.dosw.sirha.service.Impl.AdministratorService;
 import edu.dosw.sirha.service.Impl.DeaneryService;
 import edu.dosw.sirha.service.Impl.StudentService;
@@ -32,6 +36,10 @@ public class UserServiceTest {
 
     @InjectMocks
     private StudentService studentService;
+
+    //@InjectMocks
+    //private UserService userService;
+    //Prueba Rep Andres
 
     @InjectMocks
     private DeaneryService deaneryService;
@@ -309,6 +317,15 @@ public class UserServiceTest {
         assertEquals(Role.ADMINISTRATOR, response.getRole());
 
     }
+    /* 
+    @Test
+    Prueba Rep Andres
+    void shouldDeleteUser(){
+        doNothing().when(userRepository).deleteById("1");
+        userService.deleteUser("1");
+        verify(userRepository,times(1)).deleteById("1");
+    }
+     */
 
     @Test 
     void shouldDeleteStudent(){
