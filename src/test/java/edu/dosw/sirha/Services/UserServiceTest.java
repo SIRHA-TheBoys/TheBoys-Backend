@@ -309,5 +309,46 @@ public class UserServiceTest {
         assertEquals(Role.ADMINISTRATOR, response.getRole());
 
     }
-        
+
+    @Test 
+    void shouldDeleteStudent(){
+
+        User actualUser = User.builder()
+                .id("111111111")
+                .name("Mister")
+                .email("misterr@escuelaing.edu.co")
+                .role(Role.STUDENT)
+                .build();
+        when(userRepository.findById("1000099099")).thenReturn(java.util.Optional.of(actualUser));
+        studentService.deleteUser("1000099099");
+        //Assert ?
+    }
+
+    @Test
+    void shouldDeleteDeanery(){
+        User actualUser = User.builder()
+                .id("1999999")
+                .name("DecanoSistemas")
+                .email("decanaturaSistemas@escuelaing.edu.co")
+                .role(Role.DEANERY)
+                .build();
+        when(userRepository.findById("1999999")).thenReturn(java.util.Optional.of(actualUser));
+        deaneryService.deleteUser("1999999");
+        //Assert ?
+
+    }
+
+    @Test
+    void shouldDeleteAdmin(){
+        User actualUser = User.builder()
+                .id("000001")
+                .name("adminSupremo")
+                .email("elmejorAdmin@escuelaing.edu.co")
+                .role(Role.DEANERY)
+                .build();
+        when(userRepository.findById("000001")).thenReturn(java.util.Optional.of(actualUser));
+        deaneryService.deleteUser("000001");
+        //Assert ?
+
+    }
 }
