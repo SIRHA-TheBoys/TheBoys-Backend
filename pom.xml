@@ -124,11 +124,13 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/controller/*</exclude>
                                 <exclude>**/model/*</exclude>
                                 <exclude>**/dto/*</exclude>
 								<exclude>**/enums/**</exclude>
                                 <exclude>**/config/*</exclude>
+								<exclude>**/mapper/*</exclude>
+								<exclude>**/exception/*</exclude>
+								<exclude>**/common/*</exclude>
                                 <exclude>**/TheBoysApplication.class</exclude>
                             </excludes>
                         </configuration>
@@ -158,11 +160,13 @@
                                 </rule>
                             </rules>
                             <excludes>
-                                <exclude>**/controller/*</exclude>
                                 <exclude>**/model/*</exclude>
                                 <exclude>**/dto/*</exclude>
 								<exclude>**/enums/**</exclude>
                                 <exclude>**/config/*</exclude>
+								<exclude>**/mapper/*</exclude>
+								<exclude>**/exception/*</exclude>
+								<exclude>**/common/*</exclude>
                                 <exclude>**/TheBoysApplication.class</exclude>
                             </excludes>
                         </configuration>

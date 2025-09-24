@@ -27,7 +27,7 @@ public class RequestService {
     @Transactional
     public RequestResponseDTO createRequest(RequestDTO dto) {
 
-        Request request = requestMapper.toEntity(dto); //Toca iniciarlizar la solicitud en pending
+        Request request = requestMapper.toEntity(dto); // Toca iniciarlizar la solicitud en pending
 
         Request saveRequest = requestRepository.save(request);
 
@@ -35,7 +35,7 @@ public class RequestService {
     }
 
     @Transactional
-    public RequestResponseDTO updateRequest(ObjectId id, RequestDTO dto){
+    public RequestResponseDTO updateRequest(ObjectId id, RequestDTO dto) {
 
         Request request = requestRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
 
@@ -47,22 +47,33 @@ public class RequestService {
 
         return requestMapper.toDto(updated);
 
-
     }
 
-    public List<RequestResponseDTO> allRequestByStudentId(String userId){
-        List<Request> requestStudent = requestRepository.findByUserId(userId).orElseThrow(() -> ResourceNotFoundException.create("User id: ", userId));
-        
-        return requestMapper.toDtoList(requestStudent);
-
+    @Transactional
+    public void deleteRequest(ObjectId id) {
+        if (!requestRepository.existsById(id)) {
+            throw ResourceNotFoundException.create("ID", id);
+        }
+        requestRepository.deleteById(id);
     }
-
-    public List<RequestResponseDTO> allRequests(){
-        
-        List<Request> requests = requestRepository.findAll().orElseThrow(() -> ResourceNotFoundException.create("User id: ", userId));
-
-        return requestMapper.toDtoList(requests);
-
-    }
-
+    /*
+     * // Consultas
+     * public List<RequestResponseDTO> allRequestByStudentId(String userId) {
+     * List<Request> requestStudent = requestRepository.findByUserId(userId)
+     * .orElseThrow(() -> ResourceNotFoundException.create("User id: ", userId));
+     * 
+     * return requestMapper.toDtoList(requestStudent);
+     * 
+     * }
+     * 
+     * // Consultas
+     * public List<RequestResponseDTO> allRequests() {
+     * 
+     * List<Request> requests = requestRepository.findAll()
+     * .orElseThrow(() -> ResourceNotFoundException.create("User id: ", userId));
+     * 
+     * return requestMapper.toDtoList(requests);
+     * 
+     * }
+     */
 }

@@ -32,6 +32,8 @@ public class GroupService {
 
     }
 
+    @Transactional
+    // Está es la actualización completa
     public GroupResponseDTO updateGroup(String numberGroup, GroupRequestDTO dto) {
 
         Group group = groupRepository.findByNumberGroup(numberGroup)
@@ -55,5 +57,5 @@ public class GroupService {
      * }
      */
 
-    //Revisar repositorio
+    // Revisar repositorio
 }

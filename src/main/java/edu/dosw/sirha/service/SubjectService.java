@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -31,8 +30,9 @@ public class SubjectService {
     }
 
     @Transactional
-    public SubjectReponseDTO updateSubject(String code, SubjectRequestDTO dto){
-        Subject subject = subjectRepository.findById(code).orElseThrow(() -> ResourceNotFoundException.create("Subject Code", code));
+    public SubjectReponseDTO updateSubject(String code, SubjectRequestDTO dto) {
+        Subject subject = subjectRepository.findById(code)
+                .orElseThrow(() -> ResourceNotFoundException.create("Subject Code", code));
         subject.setCode(dto.getCode());
         subject.setName(dto.getName());
         subject.setCredits(dto.getCredits());
@@ -44,8 +44,8 @@ public class SubjectService {
     }
 
     @Transactional
-    public void deleteSubject(String code){
-        if (!subjectRepository.existsById(code)){
+    public void deleteSubject(String code) {
+        if (!subjectRepository.existsById(code)) {
             throw ResourceNotFoundException.create("Code", code);
         }
         subjectRepository.deleteById(code);

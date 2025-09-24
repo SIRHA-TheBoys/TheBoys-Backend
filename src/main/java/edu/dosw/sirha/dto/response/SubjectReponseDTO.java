@@ -13,7 +13,7 @@ public class SubjectReponseDTO {
     private String name;
 
     private int credits;
-    
+
     private Status status;
 
 }

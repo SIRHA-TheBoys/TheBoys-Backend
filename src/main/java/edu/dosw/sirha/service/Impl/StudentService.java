@@ -13,13 +13,13 @@ import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.model.User;
 import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
+import edu.dosw.sirha.service.RequestService;
 import edu.dosw.sirha.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class StudentService implements UserService {
 
@@ -27,7 +27,10 @@ public class StudentService implements UserService {
 
     private final UserMapper userMapper;
 
-    private final RequestService requestService;
+    public StudentService(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
 
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
@@ -35,7 +38,8 @@ public class StudentService implements UserService {
         User saved = userRepository.save(user);
         return userMapper.toDto(saved);
     }
-    //Actualizar un usuario completo es buena idea?
+
+    // Actualizar un usuario completo es buena idea?
     public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
         User user = userRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
         user.setId(dto.getId());
@@ -44,8 +48,8 @@ public class StudentService implements UserService {
         user.setPassword(dto.getPassword());
         user.setSemester(dto.getSemester());
         user.setCareer(dto.getCareer());
-        user.setRole(Role.STUDENT);
-        user.setFaculty(null);
+        user.setRole(Role.STUDENT); // Se puede quitar da igual
+        user.setFaculty(null); // Se puede quitar un estudiante solo tiene una carrera
         User updated = userRepository.save(user);
         return userMapper.toDto(updated);
     }
@@ -56,23 +60,13 @@ public class StudentService implements UserService {
         }
         userRepository.deleteById(id);
     }
-    //Delegación a Request Service
-    public RequestResponseDTO createRequest(RequestDTO dto){
-        return requestService.createRequest(dto);
-    }
 
+    // Actualizar la contraseña de un estudiante
 
-    //Consultar todas las solicitudes del estudiante
-    public List<RequestResponseDTO> consultRequestByStudentId(String userId){
-        return requestService.allRequestByStudentId(userId);
-    }
-
-    //Actualizar la contraseña de un estudiante
-
-
-    //Visualizar la información asociada al estudiante
-    public UserResponseDTO consultStudentInformation(String id){
-        User student = userRepository.findByRoleAndId(Role.STUDENT, id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
+    // Visualizar la información asociada al estudiante
+    public UserResponseDTO consultStudentInformation(String id) {
+        User student = userRepository.findByRoleAndId(Role.STUDENT, id)
+                .orElseThrow(() -> ResourceNotFoundException.create("ID", id));
 
         return userMapper.toDto(student);
     }

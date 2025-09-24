@@ -25,13 +25,6 @@ public class AdministratorService implements UserService {
 
     private final UserMapper userMapper;
 
-    public void deleteUser(String id) {
-        if (!userRepository.existsById(id)) {
-            throw ResourceNotFoundException.create("ID", id);
-        }
-        userRepository.deleteById(id);
-    }
-
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
 
@@ -42,6 +35,7 @@ public class AdministratorService implements UserService {
         return userMapper.toDto(savedUser);
     }
 
+    @Transactional
     public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
         User user = userRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
         user.setId(dto.getId());
@@ -49,12 +43,20 @@ public class AdministratorService implements UserService {
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
         user.setRole(Role.ADMINISTRATOR);
-        user.setSemester(dto.getSemester());
-        user.setFaculty(dto.getFaculty());
-        user.setCareer(dto.getCareer());
+        user.setSemester(dto.getSemester()); // NULL NO? tipo el adminsitrador no tiene semestre ni facultad ni carrera
+        user.setFaculty(dto.getFaculty()); // NULL?
+        user.setCareer(dto.getCareer()); // NULL?
 
         User updated = userRepository.save(user);
 
         return userMapper.toDto(updated);
+    }
+
+    @Transactional
+    public void deleteUser(String id) {
+        if (!userRepository.existsById(id)) {
+            throw ResourceNotFoundException.create("ID", id);
+        }
+        userRepository.deleteById(id);
     }
 }
