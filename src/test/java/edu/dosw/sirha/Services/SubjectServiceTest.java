@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import edu.dosw.sirha.dto.request.RequestDTO;
 import edu.dosw.sirha.dto.request.SubjectRequestDTO;
 import edu.dosw.sirha.dto.response.RequestResponseDTO;
-import edu.dosw.sirha.dto.response.SubjectReponseDTO;
+import edu.dosw.sirha.dto.response.SubjectResponseDTO;
 import edu.dosw.sirha.mapper.SubjectMapper;
 import edu.dosw.sirha.model.Request;
 import edu.dosw.sirha.model.Subject;
@@ -52,7 +52,7 @@ public class SubjectServiceTest {
                 .status(Status.APPROVED)
                 .build();
 
-        SubjectReponseDTO fakeResponse = SubjectReponseDTO.builder()
+        SubjectResponseDTO fakeResponse = SubjectResponseDTO.builder()
                 .code("CALI")
                 .name("Calculo Integral")
                 .credits(23)
@@ -63,7 +63,7 @@ public class SubjectServiceTest {
         when(subjectRepository.save(fakeSaved)).thenReturn(fakeSaved);
         when(subjectMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
 
-        SubjectReponseDTO response = subjectService.createSubject(request);
+        SubjectResponseDTO response = subjectService.createSubject(request);
 
         assertEquals("Calculo Integral", response.getName());
         assertEquals("CALI", response.getCode());

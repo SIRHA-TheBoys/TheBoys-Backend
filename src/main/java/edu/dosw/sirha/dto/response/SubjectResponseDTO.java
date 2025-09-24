@@ -1,12 +1,12 @@
 package edu.dosw.sirha.dto.response;
 
-import ch.qos.logback.core.status.Status;
+import edu.dosw.sirha.model.enums.Status;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class SubjectReponseDTO {
+public class SubjectResponseDTO {
 
     private String code;
 

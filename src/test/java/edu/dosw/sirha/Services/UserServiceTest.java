@@ -162,4 +162,152 @@ public class UserServiceTest {
         assertEquals(Role.ADMINISTRATOR, response.getRole());
 
     }
+    
+    @Test
+    void shouldUpdateStudent() {
+        UserRequestDTO request = UserRequestDTO.builder()
+                .id("10000416")
+                .name("Bob Nuevo")
+                .email("bob@escuelaing.edu.co")
+                .password("1234")
+                .semester(3)
+                .role(Role.STUDENT)
+                .career(Career.SYSTEMS_ENGINEERING)
+                .build();
+        
+        User existingUser = User.builder()
+                .id("10000416")
+                .name("Bob")
+                .email("bob@escuelaing.edu.co")
+                .password("holasoyBob")
+                .semester(2)
+                .role(Role.STUDENT)
+                .career(Career.SYSTEMS_ENGINEERING)
+                .build();
+
+        User updatedUser = User.builder()
+                .id("10000416")
+                .name("Bob Nuevo")
+                .email("bob500@escuelaing.edu.co")
+                .password("nuevaClave")
+                .semester(2)
+                .role(Role.STUDENT)
+                .career(Career.ARTIFICIAL_INTELLIGENCE_ENGINEERING)
+                .build();
+
+        UserResponseDTO fakeResponse = UserResponseDTO.builder()
+        
+                .id("10000416")
+                .name("Bob Nuevo")
+                .email("bob500@escuelaing.edu.co")
+                .semester(2)
+                .role(Role.STUDENT)
+                .career(Career.ARTIFICIAL_INTELLIGENCE_ENGINEERING)
+                .build();
+        
+        when(userRepository.findById("10000416")).thenReturn(java.util.Optional.of(existingUser));
+        when(userRepository.save(existingUser)).thenReturn(updatedUser);
+        when(userMapper.toDto(updatedUser)).thenReturn(fakeResponse);
+
+        UserResponseDTO response = studentService.updateUser("10000416", request);
+        assertEquals("Bob Nuevo", response.getName());
+        assertEquals("bob500@escuelaing.edu.co", response.getEmail());
+        assertEquals(Role.STUDENT, response.getRole());
+    }
+
+    @Test
+    void shouldUpdateDeanery(){
+        UserRequestDTO request = UserRequestDTO.builder()
+                .id("100010312")
+                .name("Deanery1")
+                .email("deanery@escuelaing.edu.co")
+                .password("1234")
+                .faculty(Faculty.INFORMATICS)
+                .role(Role.DEANERY)
+                .build();
+        
+        User existingUser = User.builder()
+                .id("100010311")
+                .name("ActualDeanery")
+                .email("actuald@escuelaing.edu.co")
+                .password("Imthebest")
+                .faculty(Faculty.INFORMATICS)
+                .role(Role.DEANERY)
+                .build();
+
+        User updatedUser = User.builder()
+                .id("100010312")
+                .name("Deanery1")
+                .email("deanery@escuelaing.edu.co")
+                .password("1234")
+                .faculty(Faculty.INFORMATICS)
+                .role(Role.DEANERY)
+                .build();
+        
+        UserResponseDTO fakeResponse = UserResponseDTO.builder()
+                .id("100010312")
+                .name("Deanery1")
+                .email("deanery@escuelaing.edu.co")
+                .faculty(Faculty.INFORMATICS)
+                .role(Role.DEANERY)
+                .build();
+
+        when(userRepository.findById("100010312")).thenReturn(java.util.Optional.of(existingUser));
+        when(userRepository.save(existingUser)).thenReturn(updatedUser);
+        when(userMapper.toDto(updatedUser)).thenReturn(fakeResponse);
+
+        UserResponseDTO response = deaneryService.updateUser("100010312", request);
+
+        assertEquals("Deanery1", response.getName());
+        assertEquals("deanery@escuelaing.edu.co", response.getEmail());
+        assertEquals(Role.DEANERY, response.getRole());
+        assertEquals(Faculty.INFORMATICS, response.getFaculty());
+    }
+
+    @Test
+    void shouldUpdateAdministrator(){
+        
+        UserRequestDTO request = UserRequestDTO.builder()
+                .id("1000100312")
+                .name("DaniU")
+                .email("daniu@escuelaing.edu.co")
+                .password("daninuevaContra")
+                .role(Role.ADMINISTRATOR)
+                .build();
+
+        User existingUser = User.builder()
+                .id("1000100312")
+                .name("Daniel")
+                .email("daniel@escuelaing.edu.co")
+                .password("daniactualContra")
+                .role(Role.ADMINISTRATOR)
+                .build();
+
+        User updatedUser = User.builder()
+                .id("1000100312")
+                .name("DaniU")
+                .email("daniu@escuelaing.edu.co")
+                .password("daninuevaContra")
+                .role(Role.ADMINISTRATOR)
+                .build();
+
+        UserResponseDTO fakeResponse = UserResponseDTO.builder()
+                .id("1000100312")
+                .name("DaniU")
+                .email("daniu@escuelaing.edu.co")
+                .role(Role.ADMINISTRATOR)
+                .build();
+
+        when(userRepository.findById("1000100312")).thenReturn(java.util.Optional.of(existingUser));
+        when(userRepository.save(existingUser)).thenReturn(updatedUser);
+        when(userMapper.toDto(updatedUser)).thenReturn(fakeResponse);
+
+        UserResponseDTO response = administratorService.updateUser("1000100312", request);
+
+        assertEquals("DaniU", response.getName());
+        assertEquals("daniu@escuelaing.edu.co", response.getEmail());
+        assertEquals(Role.ADMINISTRATOR, response.getRole());
+
+    }
+        
 }
