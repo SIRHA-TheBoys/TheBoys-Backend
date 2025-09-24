@@ -35,7 +35,7 @@ public class StudentService implements UserService {
         User saved = userRepository.save(user);
         return userMapper.toDto(saved);
     }
-
+    //Actualizar un usuario completo es buena idea?
     public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
         User user = userRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
         user.setId(dto.getId());
@@ -66,4 +66,15 @@ public class StudentService implements UserService {
     public List<RequestResponseDTO> consultRequestByStudentId(String userId){
         return requestService.allRequestByStudentId(userId);
     }
+
+    //Actualizar la contraseña de un estudiante
+
+
+    //Visualizar la información asociada al estudiante
+    public UserResponseDTO consultStudentInformation(String id){
+        User student = userRepository.findByRoleAndId(Role.STUDENT, id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
+
+        return userMapper.toDto(student);
+    }
+
 }

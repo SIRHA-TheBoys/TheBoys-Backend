@@ -43,6 +43,10 @@ public class RequestService {
 
         request.setState(dto.getState());
 
+        Request updated = requestRepository.save(request);
+
+        return requestMapper.toDto(updated);
+
 
     }
 

@@ -31,7 +31,7 @@ public class SubjectService {
     }
 
     @Transactional
-    public SubjectResponseDTO updateSubject(String code, SubjectRequestDTO dto){
+    public SubjectReponseDTO updateSubject(String code, SubjectRequestDTO dto){
         Subject subject = subjectRepository.findById(code).orElseThrow(() -> ResourceNotFoundException.create("Subject Code", code));
         subject.setCode(dto.getCode());
         subject.setName(dto.getName());

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.UserMapper;
@@ -58,6 +59,10 @@ public class DeaneryService implements UserService {
     }
 
     public List<RequestResponseDTO> consultRequestsByUserId(){
+        
+    }
+
+    public List<RequestResponseDTO> consultAllRequests(){
         
     }
 
