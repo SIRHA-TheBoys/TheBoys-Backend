@@ -3,6 +3,8 @@ package edu.dosw.sirha.model;
 import edu.dosw.sirha.model.enums.Faculty;
 import edu.dosw.sirha.model.enums.Role;
 import java.util.ArrayList;
+import java.util.List;
+
 import edu.dosw.sirha.model.enums.Career;
 
 import org.springframework.data.annotation.Id;
@@ -34,5 +36,8 @@ public class User {
     private Role role;
 
     private Career career;
+
+    @DBRef
+    private List<Group> groups;
 
 }

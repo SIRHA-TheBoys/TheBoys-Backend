@@ -1,6 +1,7 @@
 package edu.dosw.sirha.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,7 +24,7 @@ public class Group {
     private String subjectCode;
 
     @DBRef
-    private User user;
+    private List<User> user;
 
     @DBRef
     private ArrayList<Schedule> schedules;
