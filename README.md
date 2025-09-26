@@ -9,8 +9,10 @@ Integrantes:
 - Julian Camilo Lopez
 
 ---
-
-1. **Diseño**:
+## 🌲Ramificacion y Estrategia de Versionamiento de ramas
+- Vamos a realizar de tal forma que se vea de la siguiente manera `feat/modulo: lo que hizo y quienes lo hicieron` manejando el flujo conocido en git flow 
+---
+## 1. 🎨 **Diseño**:
 
 _Diagrama De Contexto_
 
@@ -55,18 +57,17 @@ _Diagrama De Bases De Datos:_
 
 ---
 
-2. 🔥 **Jacoco**
+## 2. 🔥 **Jacoco**
 
 ## ![alt text](docs/imagenes/jacoco.png)
 
-3. 🔥 **Swagger**
+## 3. 🔥 **Swagger**
 
 ![alt text](docs/imagenes/swaggeer.png)
 
-4. 🔥 **MongoDB**
+## 4. 🔥 **MongoDB**
 
 ![alt text](docs/imagenes/Mongo.png)
-
 
 
 
