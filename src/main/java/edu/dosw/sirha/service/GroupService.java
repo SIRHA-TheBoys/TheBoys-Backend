@@ -39,6 +39,7 @@ public class GroupService {
     public GroupResponseDTO createGroup(GroupRequestDTO dto) {
 
         Group group = groupMapper.toEntity(dto);
+        group.setAvailableQuotas(dto.getCapacity());
 
         Group saved = groupRepository.save(group);
 

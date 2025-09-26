@@ -1,9 +1,12 @@
 package edu.dosw.sirha.controller;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +21,7 @@ import edu.dosw.sirha.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.service.GroupService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -44,6 +48,10 @@ public class GroupController {
         return ResponseEntity.ok(groupUpdated);
     }
 
+    @GetMapping("/student/{studentId}/schedule")
+    public ResponseEntity<List<GroupResponseDTO>> consultScheduleStudent(@PathVariable String studentId){
+        return ResponseEntity.ok(groupService.consultScheduleStudent(studentId));
+    }
     @DeleteMapping("/{numberGroup}")
     public ResponseEntity<Void> deleteGroup(
             @Parameter(description = "Request to be deleted", required = true) @PathVariable String numberGroup) {

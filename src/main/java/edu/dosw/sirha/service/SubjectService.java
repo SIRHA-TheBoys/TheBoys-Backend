@@ -1,5 +1,7 @@
 package edu.dosw.sirha.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.exception.ResourceNotFoundException;
@@ -45,10 +47,13 @@ public class SubjectService {
 
     @Transactional
     public void deleteSubject(String code) {
-        if (!subjectRepository.existsById(code)) {
-            throw ResourceNotFoundException.create("Code", code);
-        }
-        subjectRepository.deleteById(code);
+        Subject subject = subjectRepository.findById(code).
+            orElseThrow(()-> ResourceNotFoundException.create("Subject Code",code));
+            subjectRepository.delete(subject);
+    }
 
+    @Transactional List<SubjectResponseDTO> getAllSubjects(){
+        return subjectRepository.findAll().stream().map(subjectMapper::toDto)
+            .toList();
     }
 }
