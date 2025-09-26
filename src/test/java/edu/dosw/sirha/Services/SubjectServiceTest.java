@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import edu.dosw.sirha.dto.request.RequestDTO;
 import edu.dosw.sirha.dto.request.SubjectRequestDTO;
 import edu.dosw.sirha.dto.response.RequestResponseDTO;
-import edu.dosw.sirha.dto.response.SubjectReponseDTO;
+import edu.dosw.sirha.dto.response.SubjectResponseDTO;
 import edu.dosw.sirha.mapper.SubjectMapper;
 import edu.dosw.sirha.model.Request;
 import edu.dosw.sirha.model.Subject;
@@ -26,47 +26,47 @@ import edu.dosw.sirha.service.SubjectService;
 @ExtendWith(MockitoExtension.class)
 public class SubjectServiceTest {
 
-    @Mock
-    private SubjectRepository subjectRepository;
+        @Mock
+        private SubjectRepository subjectRepository;
 
-    @Mock
-    private SubjectMapper subjectMapper;
+        @Mock
+        private SubjectMapper subjectMapper;
 
-    @InjectMocks
-    private SubjectService subjectService;
+        @InjectMocks
+        private SubjectService subjectService;
 
-    @Test
-    void shouldCreateSubject() {
+        @Test
+        void shouldCreateSubject() {
 
-        SubjectRequestDTO request = SubjectRequestDTO.builder()
-                .code("CALI")
-                .name("Calculo Integral")
-                .credits(23)
-                .status(Status.APPROVED)
-                .build();
+                SubjectRequestDTO request = SubjectRequestDTO.builder()
+                                .code("CALI")
+                                .name("Calculo Integral")
+                                .credits(23)
+                                .status(Status.APPROVED)
+                                .build();
 
-        Subject fakeSaved = Subject.builder()
-                .code("CALI")
-                .name("Calculo Integral")
-                .credits(23)
-                .status(Status.APPROVED)
-                .build();
+                Subject fakeSaved = Subject.builder()
+                                .code("CALI")
+                                .name("Calculo Integral")
+                                .credits(23)
+                                .status(Status.APPROVED)
+                                .build();
 
-        SubjectReponseDTO fakeResponse = SubjectReponseDTO.builder()
-                .code("CALI")
-                .name("Calculo Integral")
-                .credits(23)
-                .status(Status.APPROVED)
-                .build();
+                SubjectResponseDTO fakeResponse = SubjectResponseDTO.builder()
+                                .code("CALI")
+                                .name("Calculo Integral")
+                                .credits(23)
+                                .status(Status.APPROVED)
+                                .build();
 
-        when(subjectMapper.toEntity(request)).thenReturn(fakeSaved);
-        when(subjectRepository.save(fakeSaved)).thenReturn(fakeSaved);
-        when(subjectMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
+                when(subjectMapper.toEntity(request)).thenReturn(fakeSaved);
+                when(subjectRepository.save(fakeSaved)).thenReturn(fakeSaved);
+                when(subjectMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
 
-        SubjectReponseDTO response = subjectService.createSubject(request);
+                SubjectResponseDTO response = subjectService.createSubject(request);
 
-        assertEquals("Calculo Integral", response.getName());
-        assertEquals("CALI", response.getCode());
-    }
+                assertEquals("Calculo Integral", response.getName());
+                assertEquals("CALI", response.getCode());
+        }
 
 }

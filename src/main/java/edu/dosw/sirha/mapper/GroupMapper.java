@@ -8,15 +8,15 @@ import edu.dosw.sirha.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.dto.response.GroupResponseDTO;
 import edu.dosw.sirha.model.Group;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface GroupMapper {
 
     Group toEntity(GroupRequestDTO dto);
 
     GroupResponseDTO toDto(Group group);
 
-    List<GroupResponseDTO> toDtoList(Group group);
+    List<GroupResponseDTO> toDtoList(List<Group> group);
 
-    List<Group> toEntityList(GroupRequestDTO dto);
+    List<Group> toEntityList(List<GroupRequestDTO> dto);
 
 }

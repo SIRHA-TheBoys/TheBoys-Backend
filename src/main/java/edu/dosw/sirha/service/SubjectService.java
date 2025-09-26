@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.dto.request.SubjectRequestDTO;
-import edu.dosw.sirha.dto.response.SubjectReponseDTO;
+import edu.dosw.sirha.dto.response.SubjectResponseDTO;
 import edu.dosw.sirha.mapper.SubjectMapper;
 import edu.dosw.sirha.model.Subject;
 import edu.dosw.sirha.repository.SubjectRepository;
@@ -21,7 +21,7 @@ public class SubjectService {
     private final SubjectMapper subjectMapper;
 
     @Transactional
-    public SubjectReponseDTO createSubject(SubjectRequestDTO dto) {
+    public SubjectResponseDTO createSubject(SubjectRequestDTO dto) {
         Subject subject = subjectMapper.toEntity(dto);
 
         Subject saveSubject = subjectRepository.save(subject);
@@ -30,7 +30,7 @@ public class SubjectService {
     }
 
     @Transactional
-    public SubjectReponseDTO updateSubject(String code, SubjectRequestDTO dto) {
+    public SubjectResponseDTO updateSubject(String code, SubjectRequestDTO dto) {
         Subject subject = subjectRepository.findById(code)
                 .orElseThrow(() -> ResourceNotFoundException.create("Subject Code", code));
         subject.setCode(dto.getCode());

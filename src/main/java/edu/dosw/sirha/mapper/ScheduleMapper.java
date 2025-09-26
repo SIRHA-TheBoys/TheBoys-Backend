@@ -6,7 +6,7 @@ import edu.dosw.sirha.dto.request.ScheduleRequestDTO;
 import edu.dosw.sirha.dto.response.ScheduleResponseDTO;
 import edu.dosw.sirha.model.Schedule;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ScheduleMapper {
     Schedule toEntity(ScheduleRequestDTO dto);
 

@@ -19,9 +19,7 @@ import lombok.Data;
 public class User {
     @Id
     private String id;
-
     private String name;
-
     @Indexed(unique = true)
     private String email;
 

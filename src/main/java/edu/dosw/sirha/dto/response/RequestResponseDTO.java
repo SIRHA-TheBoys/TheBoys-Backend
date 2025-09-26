@@ -17,6 +17,8 @@ public class RequestResponseDTO {
 
     private String userId;
 
+    private String groupNumber;
+
     private LocalDateTime creationDate;
 
     private LocalDateTime responseDate;
