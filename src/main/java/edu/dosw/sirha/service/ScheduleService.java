@@ -1,5 +1,8 @@
 package edu.dosw.sirha.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.dto.request.ScheduleRequestDTO;
@@ -21,6 +24,14 @@ public class ScheduleService {
 
     @Transactional
     public ScheduleResponseDTO createSchedule(ScheduleRequestDTO dto) {
+
+        List<Schedule> overlaps = scheduleRepository
+                        .findByStartHourAndEndHour(dto.getStartSession(),dto.getEndSession());
+        
+       
+        if(!overlaps.isEmpty()){
+             throw new IllegalArgumentException("El horario se solapa con otro existente");
+        }
         Schedule schedule = scheduleMapper.toEntity(dto);
         Schedule saved = scheduleRepository.save(schedule);
         return scheduleMapper.toDto(saved);
@@ -45,5 +56,5 @@ public class ScheduleService {
                 .orElseThrow(() -> ResourceNotFoundException.create("Schedule Id", id));
         scheduleRepository.delete(schedule);
     }
-
+ 
 }

@@ -81,6 +81,11 @@ public class GroupService {
         return groupMapper.toDto(saved);
 
     }
+    
+    @Transactional
+    public void updateGroupCapacity(){
+        
+    }
 
     @Transactional
     public void deleteGroup(String id) {
