@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.exception.InvalidSemester;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.GroupMapper;
 import edu.dosw.sirha.mapper.ScheduleMapper;
@@ -108,5 +109,16 @@ public class GroupService {
         groups.removeIf(x -> x.getNumberGroup().equals(group.getNumberGroup()));
 
         return groupMapper.toDtoList(groups);
+    }
+    public List<GroupResponseDTO> consultOldSchedule(String studentId, int semester) {
+    User student = studentRepository.findById(studentId)
+            .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
+    if (student.getSemester() == 1) {
+        throw new InvalidSemester(studentId);
+    }
+    List<Group> groups = student.getGroups().stream()
+            .filter(group -> group.getSemester() == semester)
+            .collect(Collectors.toList());
+    return groupMapper.toDtoList(groups);
     }
 }
