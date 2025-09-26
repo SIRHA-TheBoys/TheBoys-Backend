@@ -14,6 +14,6 @@ public class ScheduleRequestDTO {
 
     private String numberGroup;
     private LocalDateTime startSession;
-    private LocalDateTime endSession; 
+    private LocalDateTime endSession;
 
 }
