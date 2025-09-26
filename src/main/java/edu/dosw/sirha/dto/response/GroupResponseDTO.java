@@ -2,11 +2,15 @@ package edu.dosw.sirha.dto.response;
 
 import java.util.ArrayList;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GroupResponseDTO {
 
     private String numberGroup;
@@ -21,6 +25,6 @@ public class GroupResponseDTO {
 
     private String userId;
 
-    private ArrayList<ScheduleResponseDTO> schedule;
+    private ArrayList<ScheduleResponseDTO> schedules;
 
 }
