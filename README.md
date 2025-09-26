@@ -46,7 +46,7 @@ _Diagrama De Componentes General:_
 
 *Diagrama De Componentes Especifico:*
 
-![alt text](docs/imagenes/DiagramaComponentesEspecifico.png)
+![alt text](docs/imagenes/componentesEspecifico.png)
 
 ---
 
