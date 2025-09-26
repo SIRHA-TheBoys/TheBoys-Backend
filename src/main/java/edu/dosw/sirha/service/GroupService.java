@@ -50,8 +50,8 @@ public class GroupService {
     // Está es la actualización completa
     public GroupResponseDTO updateGroup(String numberGroup, GroupRequestDTO dto) {
 
-        Group group = groupRepository.findByNumberGroup(numberGroup)
-                .orElseThrow(() -> ResourceNotFoundException.create("ID", numberGroup));
+        Group group = groupRepository.findById(numberGroup)
+                .orElseThrow(() -> ResourceNotFoundException.create("numberGroup", numberGroup));
 
         // Creditos a actualizar
         int oldQuotas = group.getAvailableQuotas();
@@ -80,11 +80,13 @@ public class GroupService {
 
     }
 
-    /*
-     * public void deleteGroup(String numberGroup){
-     * if (!groupRepository.)
-     * }
-     */
+    @Transactional
+    public void deleteGroup(String id) {
+        if (!groupRepository.existsById(id)) {
+            throw ResourceNotFoundException.create("ID", id);
+        }
+        groupRepository.deleteById(id);
+    }
 
     // Revisar repositorio
     // Se filtra en el front se recibe todo el objeto filtramos lo que queremos
@@ -98,7 +100,8 @@ public class GroupService {
 
     public List<GroupResponseDTO> consultAlternativeGroups(String actualGroup) {
 
-        Group group = groupRepository.findByNumberGroup(actualGroup);
+        Group group = groupRepository.findById(actualGroup)
+                .orElseThrow(() -> ResourceNotFoundException.create("numberGroup", actualGroup));
 
         List<Group> groups = groupRepository.findBySubjectCode(group.getSubjectCode());
 
