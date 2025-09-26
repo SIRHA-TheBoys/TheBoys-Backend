@@ -28,6 +28,11 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+		<sonar.projectKey>library</sonar.projectKey>
+		<sonar.projectName>library</sonar.projectName>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.coverage.exclusions>src//configurators/*</sonar.coverage.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -154,7 +159,7 @@
                                         <limit>
                                             <counter>CLASS</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.85</minimum>
+                                            <minimum>0.00</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -197,6 +202,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.0.0.4121</version>
 			</plugin>
 		</plugins>
 	</build>

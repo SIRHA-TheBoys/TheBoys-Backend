@@ -75,5 +75,8 @@ public class StudentService implements UserService {
     public List<GroupResponseDTO> consultScheduleStudent(String studentId) {
         return groupService.consultScheduleStudent(studentId);
     }
+    public List<GroupResponseDTO> consultOldScheduleStudent(String studentId, int semester) {
+        return groupService.consultOldSchedule(studentId, semester);
+    }
 
 }

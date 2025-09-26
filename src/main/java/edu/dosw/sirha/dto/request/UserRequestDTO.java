@@ -1,7 +1,10 @@
 package edu.dosw.sirha.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
+
+import lombok.NoArgsConstructor;
 import edu.dosw.sirha.model.enums.Faculty;
 import edu.dosw.sirha.model.enums.Role;
 
@@ -13,7 +16,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Data
-@SuperBuilder
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserRequestDTO {
 
     @Schema(description = "The unique identifier of the user", example = "1000099097")
