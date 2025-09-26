@@ -24,4 +24,6 @@ public class Subject {
     private int credits;
 
     private Status status;
+
+    private Faculty faculty;
 }

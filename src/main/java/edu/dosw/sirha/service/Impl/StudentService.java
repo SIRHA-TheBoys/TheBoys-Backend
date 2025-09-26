@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.dto.request.RequestDTO;
 import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.GroupResponseDTO;
 import edu.dosw.sirha.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
@@ -13,6 +14,7 @@ import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.model.User;
 import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
+import edu.dosw.sirha.service.GroupService;
 import edu.dosw.sirha.service.RequestService;
 import edu.dosw.sirha.service.UserService;
 import jakarta.transaction.Transactional;
@@ -21,16 +23,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class StudentService implements UserService {
 
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
 
-    public StudentService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
+    private final GroupService groupService;
 
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
@@ -64,11 +64,16 @@ public class StudentService implements UserService {
     // Actualizar la contraseña de un estudiante
 
     // Visualizar la información asociada al estudiante
+    // GET
     public UserResponseDTO consultStudentInformation(String id) {
         User student = userRepository.findByRoleAndId(Role.STUDENT, id)
                 .orElseThrow(() -> ResourceNotFoundException.create("ID", id));
 
         return userMapper.toDto(student);
+    }
+
+    public List<GroupResponseDTO> consultScheduleStudent(String studentId) {
+        return groupService.consultScheduleStudent(studentId);
     }
 
 }
