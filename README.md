@@ -93,7 +93,13 @@ _Diagrama De Bases De Datos:_
 
 ## 4. 🔥 **MongoDB**
 
-![alt text](docs/imagenes/Mongo.png)
+Base de datos desplegada en MongoDB Atlas:
+
+![alt text](docs/imagenes/MongoCompass.png)
+
+Ejemplo de documento en la coleccion de materias:
+![alt text](docs/imagenes/Subjects.png)
+
 
 ---
 
