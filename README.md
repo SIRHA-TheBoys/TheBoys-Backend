@@ -10,7 +10,7 @@ Integrantes:
 
 ---
 ## 🌲Ramificacion y Estrategia de Versionamiento de ramas
-- Se realiza la respectiva ramifiacion creando las ramas `develop` y `feature` para desarrollar las nuevas funcionalidades de la aplicacion. Para los commits manejamos el estandar `feat/modulo: Accion Realizada - Nombre Quien Lo Hizo` para que se entienda con claridad lo que se hizo.
+- Se realiza la respectiva ramificacion creando las ramas `develop` y `feature` para desarrollar las nuevas funcionalidades de la aplicacion. Para los commits manejamos el estandar `feat/modulo: Accion Realizada - Nombre Quien Lo Hizo` para que se entienda con claridad lo elaborado.
 
 ---
 
@@ -18,7 +18,7 @@ Integrantes:
 
 _Diagrama De Contexto_
 
-- Se considera el sitema de manejo de solicitudes SIRHA donde administradores, decanos y estudiantes podrán realizar peticiones y responder a las mismas:
+- Se considera el sistema de manejo de solicitudes SIRHA donde administradores, decanos y estudiantes podrán realizar peticiones y responder a las mismas:
 
 ![alt text](docs/imagenes/contexto.png)
 
@@ -97,8 +97,9 @@ _Diagrama De Bases De Datos:_
 
 ---
 
-## 💻 **Como ejectutar el proyecto**
- - Clonar El Repositorio `https://github.com/tulio3101/TheBoys-Backend.git`
- - Desde el cmd ejecutamos `cd TheBoys-Backend`
- - Alli con ayuda de maven ejectutamos `mvn clean compile`
- - Una vez compile ejecutamos `mvn spring-boot:run`
+## 💻 **Como ejecutar el proyecto**
+ - Clonar El Repositorio: `https://github.com/tulio3101/TheBoys-Backend.git`
+ - Desde el cmd, ejecutamos: `cd TheBoys-Backend`
+ - Allí, con ayuda de maven, ejecutamos: `mvn clean compile`
+ - Una vez compile, ejecutamos: `mvn spring-boot:run`
+ - Para las pruebas, ejecutamos el comando: `mvn test`
