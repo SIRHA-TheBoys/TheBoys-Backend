@@ -15,6 +15,8 @@ public class GroupResponseDTO {
 
     private int availableQuotas;
 
+    private int enrolled;
+
     private String subjectCode;
 
     private String userId;
