@@ -26,7 +26,6 @@ import edu.dosw.sirha.repository.UserRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class RequestService {
 
@@ -39,6 +38,15 @@ public class RequestService {
     private final RequestMapper requestMapper;
 
     private final UserRepository userRepository;
+
+    public RequestService(RequestRepository requestRepository, RequestMapper requestMapper,
+            UserRepository userRepository, SubjectRepository subjectRepository, GroupRepository groupRepository) {
+        this.requestRepository = requestRepository;
+        this.requestMapper = requestMapper;
+        this.userRepository = userRepository;
+        this.subjectRepository = subjectRepository;
+        this.groupRepository = groupRepository;
+    }
 
     @Transactional
     public RequestResponseDTO createRequest(RequestDTO dto) {
