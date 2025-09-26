@@ -111,15 +111,19 @@ public class GroupService {
 
         return groupMapper.toDtoList(groups);
     }
+
     public List<GroupResponseDTO> consultOldSchedule(String studentId, int semester) {
-    User student = studentRepository.findById(studentId)
-            .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
-    if (student.getSemester() == 1) {
-        throw new InvalidSemester(studentId);
-    }
-    List<Group> groups = student.getGroups().stream()
-            .filter(group -> group.getSemester() == semester)
-            .collect(Collectors.toList());
-    return groupMapper.toDtoList(groups);
+        User student = studentRepository.findById(studentId)
+                .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
+        if (student.getSemester() == 1) {
+            throw new InvalidSemester(studentId);
+        }
+        if (student.getSemester() != semester) {
+            return List.of();
+        }
+
+        List<Group> groups = student.getGroups();
+
+        return groupMapper.toDtoList(groups);
     }
 }
