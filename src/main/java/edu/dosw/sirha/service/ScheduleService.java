@@ -20,30 +20,30 @@ public class ScheduleService {
     private final ScheduleMapper scheduleMapper;
 
     @Transactional
-    public ScheduleResponseDTO createSchedule(ScheduleRequestDTO dto){
+    public ScheduleResponseDTO createSchedule(ScheduleRequestDTO dto) {
         Schedule schedule = scheduleMapper.toEntity(dto);
         Schedule saved = scheduleRepository.save(schedule);
         return scheduleMapper.toDto(saved);
     }
 
     @Transactional
-    public ScheduleResponseDTO updateSchedule(String id, ScheduleRequestDTO dto){
+    public ScheduleResponseDTO updateSchedule(String id, ScheduleRequestDTO dto) {
         Schedule schedule = scheduleRepository.findById(id)
-                    .orElseThrow(()-> ResourceNotFoundException.create("Schedule Id",id));
-        
+                .orElseThrow(() -> ResourceNotFoundException.create("Schedule Id", id));
+
         schedule.setStartSession(dto.getStartSession());
         schedule.setEndSession(dto.getEndSession());
         schedule.setNumberGroup(dto.getNumberGroup());
-        
+
         Schedule updated = scheduleRepository.save(schedule);
         return scheduleMapper.toDto(updated);
     }
 
     @Transactional
-    public void deleteSchedule(String id){
+    public void deleteSchedule(String id) {
         Schedule schedule = scheduleRepository.findById(id)
-                    .orElseThrow(()-> ResourceNotFoundException.create("Schedule Id",id));
+                .orElseThrow(() -> ResourceNotFoundException.create("Schedule Id", id));
         scheduleRepository.delete(schedule);
     }
-    
+
 }
