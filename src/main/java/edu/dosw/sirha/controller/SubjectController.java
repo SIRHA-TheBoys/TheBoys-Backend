@@ -35,7 +35,7 @@ public class SubjectController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/subjects/{code}")
+    @PutMapping("/{code}")
     public ResponseEntity<SubjectResponseDTO> updateSubject(
             @Parameter(description = "Subjects to be updated", required = true) @PathVariable String code,
             @Valid @RequestBody SubjectRequestDTO dto) {

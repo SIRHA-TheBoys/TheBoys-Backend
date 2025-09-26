@@ -32,7 +32,7 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/students/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> updatedStudent(
             @Parameter(description = "Students to be updated", required = true) @PathVariable String id,
             @Valid @RequestBody UserRequestDTO dto) {

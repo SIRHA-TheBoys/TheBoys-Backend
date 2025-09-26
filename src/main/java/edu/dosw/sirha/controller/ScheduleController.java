@@ -30,7 +30,7 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/schedules/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ScheduleResponseDTO> updateSchedule(
             @Parameter(description = "Schedule To Be Updated",required = true) @PathVariable String id,
             @Valid @RequestBody ScheduleRequestDTO dto){

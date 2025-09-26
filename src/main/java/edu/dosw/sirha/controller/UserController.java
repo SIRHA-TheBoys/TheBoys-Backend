@@ -41,7 +41,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> updateUser(
             @Parameter(description = "Users to be updated", required = true) @PathVariable String id,
             @Valid @RequestBody UserRequestDTO dto) {

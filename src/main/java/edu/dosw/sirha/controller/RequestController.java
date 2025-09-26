@@ -33,7 +33,7 @@ public class RequestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/requests/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<RequestResponseDTO> updateRequest(
             @Parameter(description = "Request to be updated", required = true) @PathVariable ObjectId id,
             @Valid @RequestBody RequestDTO dto) {
