@@ -6,11 +6,15 @@ import java.util.UUID;
 import org.bson.types.ObjectId;
 
 import edu.dosw.sirha.model.enums.State;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RequestResponseDTO {
 
     private ObjectId id;

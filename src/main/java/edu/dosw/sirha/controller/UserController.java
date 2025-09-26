@@ -20,10 +20,11 @@ import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.model.Request;
 import edu.dosw.sirha.service.Impl.AdministratorService;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/users")

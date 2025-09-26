@@ -9,11 +9,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserResponseDTO {
 
     @Schema(description = "The unique identifier of the user", example = "1000099097")
