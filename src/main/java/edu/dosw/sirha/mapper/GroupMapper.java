@@ -15,8 +15,8 @@ public interface GroupMapper {
 
     GroupResponseDTO toDto(Group group);
 
-    List<GroupResponseDTO> toDtoList(Group group);
+    List<GroupResponseDTO> toDtoList(List<Group> group);
 
-    List<Group> toEntityList(GroupRequestDTO dto);
+    List<Group> toEntityList(List<GroupRequestDTO> dto);
 
 }
