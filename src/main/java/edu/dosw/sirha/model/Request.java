@@ -19,7 +19,8 @@ public class Request {
     @Id
     private ObjectId id;
 
-    private String userId;
+    @DBRef 
+    private User user;
 
     private String groupNumber;
 

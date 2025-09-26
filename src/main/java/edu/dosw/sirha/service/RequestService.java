@@ -57,7 +57,7 @@ public class RequestService {
 
         return requestMapper.toDto(saveRequest);
     }
-
+    // Responder Request (Asignamos una fecha de respuesta y cambiamos el estado)
     @Transactional
     public RequestResponseDTO updateRequest(ObjectId id, RequestDTO dto) {
 

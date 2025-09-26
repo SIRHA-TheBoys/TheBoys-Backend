@@ -22,7 +22,8 @@ public class Group {
 
     private String subjectCode;
 
-    private String userId;
+    @DBRef
+    private User user;
 
     @DBRef
     private ArrayList<Schedule> schedules;

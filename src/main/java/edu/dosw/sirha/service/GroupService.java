@@ -10,11 +10,13 @@ import edu.dosw.sirha.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.dto.response.GroupResponseDTO;
 import edu.dosw.sirha.exception.InvalidSemester;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
+import edu.dosw.sirha.exception.RoleException;
 import edu.dosw.sirha.mapper.GroupMapper;
 import edu.dosw.sirha.mapper.ScheduleMapper;
 import edu.dosw.sirha.model.Group;
 import edu.dosw.sirha.model.Subject;
 import edu.dosw.sirha.model.User;
+import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.model.enums.Status;
 import edu.dosw.sirha.model.observers.GroupObserver;
 import edu.dosw.sirha.repository.GroupRepository;
@@ -126,4 +128,21 @@ public class GroupService {
 
         return groupMapper.toDtoList(groups);
     }
+
+    public GroupResponseDTO updateCapacity(String numberGroup, GroupRequestDTO dto){
+        Group group = groupRepository.findByNumberGroup(numberGroup);
+
+        User user = UserRepository.findById(group.getUserId()).orElseThrow(() -> ResourceNotFoundException.create("ID", dto.getUserId()));
+
+        if (user.getRole().equals(Role.STUDENT)){
+            throw new RoleException.create(user.getId());
+        }
+
+        group.setCapacity(dto.getCapacity());
+
+        Group updatedCapacity = groupRepository.save(group);
+
+        return groupMapper.toDto(group);
+    }
+
 }

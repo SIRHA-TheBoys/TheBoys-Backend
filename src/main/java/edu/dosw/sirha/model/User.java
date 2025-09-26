@@ -35,7 +35,4 @@ public class User {
 
     private Career career;
 
-    @DBRef
-    private ArrayList<Group> groups;
-
 }
