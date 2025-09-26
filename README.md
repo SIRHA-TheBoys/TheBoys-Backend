@@ -66,3 +66,15 @@ _Diagrama De Bases De Datos:_
 4. 🔥 **MongoDB**
 
 ![alt text](docs/imagenes/Mongo.png)
+
+
+
+
+
+
+
+## 💻 **Como ejectutar el proyecto**
+ - Clonar El Repositorio `https://github.com/tulio3101/TheBoys-Backend.git`
+ - Desde el cmd ejecutamos `cd TheBoys-Backend`
+ - Alli con ayuda de maven ejectutamos `mvn clean compile`
+ - Una vez compile ejecutamos `mvn spring-boot:run`
