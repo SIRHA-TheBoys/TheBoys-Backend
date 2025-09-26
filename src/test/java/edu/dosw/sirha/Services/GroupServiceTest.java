@@ -23,45 +23,45 @@ import edu.dosw.sirha.service.GroupService;
 
 @ExtendWith(MockitoExtension.class)
 public class GroupServiceTest {
-    @Mock
-    private GroupRepository groupRepository;
+        @Mock
+        private GroupRepository groupRepository;
 
-    @Mock
-    private GroupMapper groupMapper;
+        @Mock
+        private GroupMapper groupMapper;
 
-    @InjectMocks
-    private GroupService groupService;
+        @InjectMocks
+        private GroupService groupService;
 
-    @Test
-    void shouldCreateGroup() {
-        GroupRequestDTO request = GroupRequestDTO.builder()
-                .numberGroup("1")
-                .capacity(25)
-                .availableQuotas(10)
-                .subjectCode("CALI")
-                .build();
+        @Test
+        void shouldCreateGroup() {
+                GroupRequestDTO request = GroupRequestDTO.builder()
+                                .numberGroup("1")
+                                .capacity(25)
+                                .availableQuotas(10)
+                                .subjectCode("CALI")
+                                .build();
 
-        Group fakeSaved = Group.builder()
-                .numberGroup("1")
-                .capacity(25)
-                .availableQuotas(10)
-                .subjectCode("CALI")
-                .build();
+                Group fakeSaved = Group.builder()
+                                .numberGroup("1")
+                                .capacity(25)
+                                .availableQuotas(10)
+                                .subjectCode("CALI")
+                                .build();
 
-        GroupResponseDTO fakeResponse = GroupResponseDTO.builder()
-                .numberGroup("1")
-                .capacity(25)
-                .availableQuotas(10)
-                .subjectCode("CALI")
-                .build();
+                GroupResponseDTO fakeResponse = GroupResponseDTO.builder()
+                                .numberGroup("1")
+                                .capacity(25)
+                                .availableQuotas(10)
+                                .subjectCode("CALI")
+                                .build();
 
-        when(groupMapper.toEntity(request)).thenReturn(fakeSaved);
-        when(groupRepository.save(fakeSaved)).thenReturn(fakeSaved);
-        when(groupMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
+                when(groupMapper.toEntity(request)).thenReturn(fakeSaved);
+                when(groupRepository.save(fakeSaved)).thenReturn(fakeSaved);
+                when(groupMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
 
-        GroupResponseDTO response = groupService.createRequest(request);
+                GroupResponseDTO response = groupService.createGroup(request);
 
-        assertEquals("CALI", response.getSubjectCode());
-        assertEquals(25, response.getCapacity());
-    }
+                assertEquals("CALI", response.getSubjectCode());
+                assertEquals(25, response.getCapacity());
+        }
 }
