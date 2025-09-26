@@ -103,6 +103,12 @@ Ejemplo de documento en la coleccion de materias:
 
 ---
 
+## 5. 🔥 **SonarQube**
+
+Analisis estatico ejecutado con SonarQube:
+
+![alt text](docs/imagenes/AnalisisSonarQube.png)
+
 ## 💻 **Como ejecutar el proyecto**
  - Clonar El Repositorio: `https://github.com/tulio3101/TheBoys-Backend.git`
  - Desde el cmd, ejecutamos: `cd TheBoys-Backend`
