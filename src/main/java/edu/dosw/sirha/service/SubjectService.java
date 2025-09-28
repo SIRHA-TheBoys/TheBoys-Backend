@@ -47,13 +47,14 @@ public class SubjectService {
 
     @Transactional
     public void deleteSubject(String code) {
-        Subject subject = subjectRepository.findById(code).
-            orElseThrow(()-> ResourceNotFoundException.create("Subject Code",code));
-            subjectRepository.delete(subject);
+        Subject subject = subjectRepository.findById(code)
+                .orElseThrow(() -> ResourceNotFoundException.create("Subject Code", code));
+        subjectRepository.delete(subject);
     }
 
-    @Transactional List<SubjectResponseDTO> getAllSubjects(){
+    @Transactional
+    List<SubjectResponseDTO> getAllSubjects() {
         return subjectRepository.findAll().stream().map(subjectMapper::toDto)
-            .toList();
+                .toList();
     }
 }

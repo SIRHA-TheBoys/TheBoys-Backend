@@ -1,7 +1,6 @@
 package edu.dosw.sirha.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.ArrayList;
 
 import org.bson.types.ObjectId;

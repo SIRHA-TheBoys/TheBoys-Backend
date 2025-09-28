@@ -46,7 +46,7 @@ public class UserResponseDTO {
     private StudyPlanResponseDTO studyPlan;
 
     @Schema(description = "Groups that belongs the student", example = "CALI - 1024 - Zarate")
-    private List<String> groupsId;
+    private List<String> numberGroupId;
 
     private List<ObjectId> requestsId;
 

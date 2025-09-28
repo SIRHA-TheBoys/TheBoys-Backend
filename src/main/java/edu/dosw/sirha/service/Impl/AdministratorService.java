@@ -5,7 +5,6 @@ import edu.dosw.sirha.dto.response.UserResponseDTO;
 
 import org.springframework.stereotype.Service;
 
-import edu.dosw.sirha.exception.DuplicateResourceException;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.model.User;
@@ -22,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 public class AdministratorService implements UserService {
 
     private final UserRepository userRepository;
-
     private final UserMapper userMapper;
 
     @Transactional
@@ -43,9 +41,6 @@ public class AdministratorService implements UserService {
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
         user.setRole(Role.ADMINISTRATOR);
-        user.setSemester(dto.getSemester()); // NULL NO? tipo el adminsitrador no tiene semestre ni facultad ni carrera
-        user.setFaculty(dto.getFaculty()); // NULL?
-        user.setCareer(dto.getCareer()); // NULL?
 
         User updated = userRepository.save(user);
 
