@@ -49,10 +49,6 @@ public class DeaneryService implements UserService {
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
         user.setRole(Role.DEANERY); // Se podría quitar
-        user.setSemester(null); // Un decano no tiene semestre debería dar igual
-        user.setFaculty(dto.getFaculty()); // Deberíamos quitar esto un decano solo tiene una facultad a la que
-                                           // pertenece
-
         User updated = userRepository.save(user);
 
         return userMapper.toDto(updated);

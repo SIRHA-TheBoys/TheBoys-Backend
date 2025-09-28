@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.dto.request.RequestDTO;
+import edu.dosw.sirha.dto.request.StudyPlanRequestDTO;
 import edu.dosw.sirha.dto.request.UserRequestDTO;
 import edu.dosw.sirha.dto.response.GroupResponseDTO;
 import edu.dosw.sirha.dto.response.RequestResponseDTO;
@@ -34,6 +35,9 @@ public class StudentService implements UserService {
 
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
+
+        StudyPlanRequestDTO studyPlanRequestDTO = new StudyPlanRequestDTO();
+
         User user = userMapper.toEntity(dto);
         User saved = userRepository.save(user);
         return userMapper.toDto(saved);
@@ -46,10 +50,8 @@ public class StudentService implements UserService {
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
-        user.setSemester(dto.getSemester());
-        user.setCareer(dto.getCareer());
         user.setRole(Role.STUDENT); // Se puede quitar da igual
-        user.setFaculty(null); // Se puede quitar un estudiante solo tiene una carrera
+        user.setFaculty(null);// Se puede quitar un estudiante solo tiene una carrera
         User updated = userRepository.save(user);
         return userMapper.toDto(updated);
     }
@@ -75,6 +77,7 @@ public class StudentService implements UserService {
     public List<GroupResponseDTO> consultScheduleStudent(String studentId) {
         return groupService.consultScheduleStudent(studentId);
     }
+
     public List<GroupResponseDTO> consultOldScheduleStudent(String studentId, int semester) {
         return groupService.consultOldSchedule(studentId, semester);
     }

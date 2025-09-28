@@ -1,6 +1,7 @@
 package edu.dosw.sirha.repository;
 
 import edu.dosw.sirha.model.Request;
+import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.model.enums.State;
 import java.util.List;
 import java.util.Optional;
@@ -17,5 +18,7 @@ public interface RequestRepository extends MongoRepository<Request, ObjectId> {
     List<Request> findByUserId(String userId);
 
     Optional<Request> findById(ObjectId id);
+
+    List<Request> findByRole(Role role);
 
 }

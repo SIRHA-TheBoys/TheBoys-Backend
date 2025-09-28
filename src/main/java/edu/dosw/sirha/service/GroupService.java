@@ -129,12 +129,13 @@ public class GroupService {
         return groupMapper.toDtoList(groups);
     }
 
-    public GroupResponseDTO updateCapacity(String numberGroup, GroupRequestDTO dto){
+    public GroupResponseDTO updateCapacity(String numberGroup, GroupRequestDTO dto) {
         Group group = groupRepository.findByNumberGroup(numberGroup);
 
-        User user = UserRepository.findById(group.getUserId()).orElseThrow(() -> ResourceNotFoundException.create("ID", dto.getUserId()));
+        User user = UserRepository.findById(group.getUserId())
+                .orElseThrow(() -> ResourceNotFoundException.create("ID", dto.getUserId()));
 
-        if (user.getRole().equals(Role.STUDENT)){
+        if (user.getRole().equals(Role.STUDENT)) {
             throw new RoleException.create(user.getId());
         }
 

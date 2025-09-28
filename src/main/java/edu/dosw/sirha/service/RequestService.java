@@ -27,6 +27,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class RequestService {
 
     private final RequestRepository requestRepository;
@@ -39,15 +40,6 @@ public class RequestService {
 
     private final UserRepository userRepository;
 
-    public RequestService(RequestRepository requestRepository, RequestMapper requestMapper,
-            UserRepository userRepository, SubjectRepository subjectRepository, GroupRepository groupRepository) {
-        this.requestRepository = requestRepository;
-        this.requestMapper = requestMapper;
-        this.userRepository = userRepository;
-        this.subjectRepository = subjectRepository;
-        this.groupRepository = groupRepository;
-    }
-
     @Transactional
     public RequestResponseDTO createRequest(RequestDTO dto) {
 
@@ -57,6 +49,7 @@ public class RequestService {
 
         return requestMapper.toDto(saveRequest);
     }
+
     // Responder Request (Asignamos una fecha de respuesta y cambiamos el estado)
     @Transactional
     public RequestResponseDTO updateRequest(ObjectId id, RequestDTO dto) {
@@ -126,7 +119,7 @@ public class RequestService {
     public List<RequestResponseDTO> requestForFaculty(Faculty faculty) {
         List<Request> facultyRequests = requestRepository.findAll().stream()
                 .filter(request -> {
-                    Group group = groupRepository.findByNumberGroup(request.getGroupNumber());
+                    Group group = groupRepository.findByNumberGroup(request.getGroupOriginId());
                     Subject subject = subjectRepository.findByCode(group.getSubjectCode());
                     return faculty.equals(subject.getFaculty());
                 })

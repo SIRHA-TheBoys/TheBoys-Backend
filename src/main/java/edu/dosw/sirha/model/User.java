@@ -1,14 +1,12 @@
 package edu.dosw.sirha.model;
 
+import edu.dosw.sirha.model.enums.Career;
 import edu.dosw.sirha.model.enums.Faculty;
 import edu.dosw.sirha.model.enums.Role;
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.dosw.sirha.model.enums.Career;
-
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;
 
@@ -29,15 +27,18 @@ public class User {
 
     private String password;
 
-    private Integer semester;
-
-    private Faculty faculty;
-
     private Role role;
+
+    private Integer semester;
 
     private Career career;
 
-    @DBRef
-    private List<Group> groups;
+    private Faculty faculty;
+
+    private StudyPlan studyPlan;
+
+    private List<String> numberGroupId;
+
+    private List<ObjectId> requestsId;
 
 }

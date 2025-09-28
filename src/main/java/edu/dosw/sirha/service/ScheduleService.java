@@ -33,7 +33,6 @@ public class ScheduleService {
 
         schedule.setStartSession(dto.getStartSession());
         schedule.setEndSession(dto.getEndSession());
-        schedule.setNumberGroup(dto.getNumberGroup());
 
         Schedule updated = scheduleRepository.save(schedule);
         return scheduleMapper.toDto(updated);

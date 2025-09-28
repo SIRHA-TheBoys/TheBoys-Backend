@@ -1,6 +1,5 @@
 package edu.dosw.sirha.dto.request;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -22,8 +21,8 @@ public class GroupRequestDTO {
 
     private String subjectCode;
 
-    private List<UserRequestDTO> users;
+    private List<String> usersId;
 
-    private ArrayList<ScheduleRequestDTO> schedules;
+    private List<ScheduleRequestDTO> schedules;
 
 }

@@ -1,11 +1,12 @@
 package edu.dosw.sirha.dto.response;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.types.ObjectId;
 
 import edu.dosw.sirha.model.enums.Career;
 import edu.dosw.sirha.model.enums.Faculty;
 import edu.dosw.sirha.model.enums.Role;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @Builder
@@ -33,20 +33,21 @@ public class UserResponseDTO {
     @NotNull(message = "The email cannot be null")
     private String email;
 
-    @Schema(description = "The semester of the user", example = "7")
-    private Integer semester;
-
-    @Schema(description = "The faculty of the user", example = "Mathematics")
-    private Faculty faculty;
-
     @Schema(description = "The role of the user", example = "STUDENT")
     @NotNull(message = "The role cannot be null")
     private Role role;
 
-    @Schema(description = "The career of the user", example = "Environmental Engineering")
+    private Integer semester;
+
+    private Faculty faculty;
+
     private Career career;
 
+    private StudyPlanResponseDTO studyPlan;
+
     @Schema(description = "Groups that belongs the student", example = "CALI - 1024 - Zarate")
-    private ArrayList<GroupResponseDTO> groups;
+    private List<String> groupsId;
+
+    private List<ObjectId> requestsId;
 
 }

@@ -1,9 +1,7 @@
 package edu.dosw.sirha.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Id;
@@ -23,9 +21,7 @@ public class Group {
 
     private String subjectCode;
 
-    @DBRef
-    private List<User> user;
+    private List<String> userId;
 
-    @DBRef
-    private ArrayList<Schedule> schedules;
+    private List<Schedule> schedules; // Embebidos, sin document
 }
