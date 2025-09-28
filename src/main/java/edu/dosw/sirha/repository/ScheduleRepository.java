@@ -12,5 +12,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface ScheduleRepository extends MongoRepository<Schedule, String> {
 
     Optional<Schedule> getScheduleById(String id);
-    List<Schedule> findByStartHourAndEndHour(LocalDateTime start, LocalDateTime end);
+    List<Schedule> findByStartSessionAndEndSession(LocalDateTime startSession, LocalDateTime endSession);
 }

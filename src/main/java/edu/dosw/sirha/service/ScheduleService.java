@@ -26,7 +26,7 @@ public class ScheduleService {
     public ScheduleResponseDTO createSchedule(ScheduleRequestDTO dto) {
 
         List<Schedule> overlaps = scheduleRepository
-                        .findByStartHourAndEndHour(dto.getStartSession(),dto.getEndSession());
+                        .findByStartSessionAndEndSession(dto.getStartSession(),dto.getEndSession());
         
        
         if(!overlaps.isEmpty()){
