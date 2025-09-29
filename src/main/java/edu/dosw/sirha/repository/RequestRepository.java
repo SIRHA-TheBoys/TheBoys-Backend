@@ -19,6 +19,4 @@ public interface RequestRepository extends MongoRepository<Request, ObjectId> {
 
     Optional<Request> findById(ObjectId id);
 
-    List<Request> findByRole(Role role);
-
 }

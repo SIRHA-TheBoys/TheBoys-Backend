@@ -4,9 +4,8 @@ import java.time.LocalDateTime;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import org.springframework.data.annotation.Id;
 import edu.dosw.sirha.model.enums.State;
-import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 

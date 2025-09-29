@@ -34,26 +34,50 @@ public class DeaneryService implements UserService {
 
     private final UserMapper userMapper;
 
+    /**
+     * Create a Deanery with the respective characteristics
+     * 
+     * @param UserRequestDTO
+     * @return Deanery
+     */
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
-        User user = userMapper.toEntity(dto);
-        User saved = userRepository.save(user);
+
+        User deanery = User.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .role(Role.DEANERY)
+                .faculty(dto.getFaculty())
+                .build();
+
+        User saved = userRepository.save(deanery);
         return userMapper.toDto(saved);
     }
 
+    /**
+     * Update deanery information
+     * 
+     * @param id
+     * @param dto
+     *            Returns the new information about the deanery
+     */
     @Transactional
     public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
         User user = userRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
-        user.setRole(Role.DEANERY); // Se podría quitar
         User updated = userRepository.save(user);
-
         return userMapper.toDto(updated);
-
     }
 
+    /**
+     * Delete a deanery
+     * 
+     * @param id
+     */
     @Transactional
     public void deleteUser(String id) {
         if (!userRepository.existsById(id)) {
@@ -62,10 +86,22 @@ public class DeaneryService implements UserService {
         userRepository.deleteById(id);
     }
 
+    /**
+     * Retrieves all requests for faculty
+     * 
+     * @param faculty
+     * @return List of requests by faculty
+     */
     public List<RequestResponseDTO> requestForFaculty(Faculty faculty) {
         return requestService.requestForFaculty(faculty);
     }
 
+    /**
+     * Consult schedule student by id
+     * 
+     * @param studentId
+     * @return Schedule that have the student
+     */
     public List<GroupResponseDTO> consultScheduleStudent(String studentId) {
         return groupService.consultScheduleStudent(studentId);
     }

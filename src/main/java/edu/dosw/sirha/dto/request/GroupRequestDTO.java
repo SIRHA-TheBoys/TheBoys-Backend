@@ -21,7 +21,7 @@ public class GroupRequestDTO {
 
     private String subjectCode;
 
-    private List<String> usersId;
+    private List<String> userId;
 
     private List<ScheduleRequestDTO> schedules;
 

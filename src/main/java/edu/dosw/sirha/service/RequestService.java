@@ -39,6 +39,12 @@ public class RequestService {
 
     private final UserRepository userRepository;
 
+    /**
+     * Create a new Request
+     * 
+     * @param dto
+     * @return the request information that have been created
+     */
     @Transactional
     public RequestResponseDTO createRequest(RequestDTO dto) {
 
@@ -49,7 +55,13 @@ public class RequestService {
         return requestMapper.toDto(saveRequest);
     }
 
-    // Responder Request (Asignamos una fecha de respuesta y cambiamos el estado)
+    /**
+     * Updates a request with a response date and a state
+     * 
+     * @param id
+     * @param dto
+     * @return the request response after update the response date and state
+     */
     @Transactional
     public RequestResponseDTO updateRequest(ObjectId id, RequestDTO dto) {
 
@@ -65,6 +77,11 @@ public class RequestService {
 
     }
 
+    /**
+     * delete a request
+     * 
+     * @param id
+     */
     @Transactional
     public void deleteRequest(ObjectId id) {
         if (!requestRepository.existsById(id)) {
@@ -73,6 +90,12 @@ public class RequestService {
         requestRepository.deleteById(id);
     }
 
+    /**
+     * Retrieves all requests made by a student
+     * 
+     * @param userId
+     * @return requests by student id
+     */
     // Mostrar en el estado de la solicitud y el id correspondiente
     // Consultas
     public List<RequestResponseDTO> allRequestByStudentId(String userId) {
@@ -87,6 +110,11 @@ public class RequestService {
     }
 
     // Consultas
+    /**
+     * Retrieves all requests
+     * 
+     * @return
+     */
     public List<RequestResponseDTO> allRequests() {
 
         List<Request> requests = requestRepository.findAll();
@@ -99,6 +127,11 @@ public class RequestService {
 
     }
 
+    /**
+     * Retrieves all request from a students
+     * 
+     * @return List of requests from students
+     */
     public List<RequestResponseDTO> allRequestFromStudents() {
 
         List<Request> requestsByStudents = new ArrayList<>();
@@ -114,7 +147,12 @@ public class RequestService {
         return requestMapper.toDtoList(requestsByStudents);
     }
 
-    // N + 1 aaaaaaaaaaaaa
+    /**
+     * Retrieves all request for faculty
+     * 
+     * @param faculty
+     * @return
+     */
     public List<RequestResponseDTO> requestForFaculty(Faculty faculty) {
         List<Request> facultyRequests = requestRepository.findAll().stream()
                 .filter(request -> {
