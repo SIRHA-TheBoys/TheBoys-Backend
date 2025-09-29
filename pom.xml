@@ -77,12 +77,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.6.0</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
@@ -90,21 +84,20 @@
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
-			<version>1.5.5.Final</version>
+			<version>1.6.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
-			<version>1.5.5.Final</version>
+			<version>1.6.3</version>
 			<scope>provided</scope>
 		</dependency>
 
-
 		<dependency>
-		<groupId>org.springdoc</groupId>
-		<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-		<version>2.6.0</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.6.0</version>
 		</dependency>
 
 	</dependencies>
@@ -194,7 +187,7 @@
 							<path>
 								<groupId>org.mapstruct</groupId>
 								<artifactId>mapstruct-processor</artifactId>
-								<version>1.5.5.Final</version>
+								<version>1.6.3</version>
 							</path>
 						</annotationProcessorPaths>
 					</configuration>
