@@ -1,14 +1,11 @@
 package edu.dosw.sirha.model;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
+import org.springframework.data.annotation.Id;
 import edu.dosw.sirha.model.enums.State;
-import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,7 +18,9 @@ public class Request {
 
     private String userId;
 
-    private String groupNumber;
+    private String groupOriginId;
+
+    private String groupDestinyId;
 
     private LocalDateTime creationDate;
 

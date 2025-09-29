@@ -10,12 +10,12 @@ import edu.dosw.sirha.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.dto.response.GroupResponseDTO;
 import edu.dosw.sirha.exception.InvalidSemester;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
+import edu.dosw.sirha.exception.RoleException;
 import edu.dosw.sirha.mapper.GroupMapper;
 import edu.dosw.sirha.mapper.ScheduleMapper;
 import edu.dosw.sirha.model.Group;
-import edu.dosw.sirha.model.Subject;
 import edu.dosw.sirha.model.User;
-import edu.dosw.sirha.model.enums.Status;
+import edu.dosw.sirha.model.enums.Role;
 import edu.dosw.sirha.model.observers.GroupObserver;
 import edu.dosw.sirha.repository.GroupRepository;
 import edu.dosw.sirha.repository.SubjectRepository;
@@ -35,17 +35,19 @@ public class GroupService {
     private final ScheduleMapper scheduleMapper;
     private final UserRepository studentRepository;
     private final SubjectRepository subjectRepository;
+    private final UserRepository userRepository;
 
+    /**
+     * Create a new Group
+     * 
+     * @param dto
+     * @return returns a new group with their respective information
+     */
     @Transactional
     public GroupResponseDTO createGroup(GroupRequestDTO dto) {
-
         Group group = groupMapper.toEntity(dto);
-        group.setAvailableQuotas(dto.getCapacity());
-
         Group saved = groupRepository.save(group);
-
         return groupMapper.toDto(saved);
-
     }
 
     @Transactional
@@ -57,8 +59,6 @@ public class GroupService {
 
         // Creditos a actualizar
         int oldQuotas = group.getAvailableQuotas();
-
-        group.setNumberGroup(dto.getNumberGroup());
         group.setCapacity(dto.getCapacity());
         group.setAvailableQuotas(dto.getAvailableQuotas());
         group.setSubjectCode(dto.getSubjectCode());
@@ -82,6 +82,11 @@ public class GroupService {
 
     }
 
+    /**
+     * Delete a group
+     * 
+     * @param id
+     */
     @Transactional
     public void deleteGroup(String id) {
         if (!groupRepository.existsById(id)) {
@@ -90,16 +95,28 @@ public class GroupService {
         groupRepository.deleteById(id);
     }
 
-    // Revisar repositorio
-    // Se filtra en el front se recibe todo el objeto filtramos lo que queremos
+    /**
+     * Consult al groups that belongs the student, kind of schedule
+     * 
+     * @param studentId
+     * @return list of groups that belong the student
+     */
     public List<GroupResponseDTO> consultScheduleStudent(String studentId) {
         User student = studentRepository.findById(studentId)
                 .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
-        List<Group> groups = student.getGroups();
+
+        List<Group> groups = groupRepository.findAllByNumberGroupIn(student.getNumberGroupId());
 
         return groupMapper.toDtoList(groups);
     }
 
+    /**
+     * Consult alternative groups that can help the student, adminsitrator or
+     * deanery to make the change
+     * 
+     * @param actualGroup
+     * @return Lists of alternative groups
+     */
     public List<GroupResponseDTO> consultAlternativeGroups(String actualGroup) {
 
         Group group = groupRepository.findById(actualGroup)
@@ -112,6 +129,14 @@ public class GroupService {
         return groupMapper.toDtoList(groups);
     }
 
+    /**
+     * Consult old schedule depends on what semester select the student
+     * 
+     * @param studentId
+     * @param semester
+     * @return List of groups that student have in the semester selected
+     */
+
     public List<GroupResponseDTO> consultOldSchedule(String studentId, int semester) {
         User student = studentRepository.findById(studentId)
                 .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
@@ -121,9 +146,36 @@ public class GroupService {
         if (student.getSemester() != semester) {
             return List.of();
         }
-
-        List<Group> groups = student.getGroups();
+        List<Group> groups = groupRepository.findAllByNumberGroupIn(student.getNumberGroupId()); // Estoy devolviendo
+                                                                                                 // todos los grupos no
+                                                                                                 // lo estoy filtrnado
+                                                                                                 // por semestre
 
         return groupMapper.toDtoList(groups);
     }
+
+    /**
+     * Update capacity for a group only administrators or deanery can make this
+     * change
+     * 
+     * @param numberGroup
+     * @param dto
+     * @param id
+     * @return the group information updated
+     */
+    public GroupResponseDTO updateCapacity(String numberGroup, GroupRequestDTO dto, String id) {
+        Group group = groupRepository.findByNumberGroup(numberGroup);
+        if (group == null) {
+            throw ResourceNotFoundException.create("number group", numberGroup);
+        }
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> ResourceNotFoundException.create("ID", id));
+        if (user.getRole().equals(Role.STUDENT)) {
+            throw RoleException.create(user.getId());
+        }
+        group.setCapacity(dto.getCapacity());
+        Group updatedCapacity = groupRepository.save(group);
+        return groupMapper.toDto(updatedCapacity);
+    }
+
 }

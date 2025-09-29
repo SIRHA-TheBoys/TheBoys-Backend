@@ -22,6 +22,12 @@ public class SubjectService {
     private final SubjectRepository subjectRepository;
     private final SubjectMapper subjectMapper;
 
+    /**
+     * Create a subject for the Sirha System
+     * 
+     * @param dto
+     * @return the subject basic information
+     */
     @Transactional
     public SubjectResponseDTO createSubject(SubjectRequestDTO dto) {
         Subject subject = subjectMapper.toEntity(dto);
@@ -31,13 +37,18 @@ public class SubjectService {
         return subjectMapper.toDto(saveSubject);
     }
 
+    /**
+     * Update the basic information about a subject
+     * 
+     * @param code
+     * @param dto
+     * @return the subject basic information
+     */
     @Transactional
     public SubjectResponseDTO updateSubject(String code, SubjectRequestDTO dto) {
         Subject subject = subjectRepository.findById(code)
                 .orElseThrow(() -> ResourceNotFoundException.create("Subject Code", code));
-        subject.setCode(dto.getCode());
         subject.setName(dto.getName());
-        subject.setCredits(dto.getCredits());
         subject.setStatus(dto.getStatus());
 
         Subject updated = subjectRepository.save(subject);
@@ -45,15 +56,26 @@ public class SubjectService {
         return subjectMapper.toDto(updated);
     }
 
+    /**
+     * Delete a subject
+     * 
+     * @param code
+     */
     @Transactional
     public void deleteSubject(String code) {
-        Subject subject = subjectRepository.findById(code).
-            orElseThrow(()-> ResourceNotFoundException.create("Subject Code",code));
-            subjectRepository.delete(subject);
+        Subject subject = subjectRepository.findById(code)
+                .orElseThrow(() -> ResourceNotFoundException.create("Subject Code", code));
+        subjectRepository.delete(subject);
     }
 
-    @Transactional List<SubjectResponseDTO> getAllSubjects(){
+    /**
+     * Retrieves all subjects that have been created in the sirha system
+     * 
+     * @return
+     */
+    @Transactional
+    List<SubjectResponseDTO> getAllSubjects() {
         return subjectRepository.findAll().stream().map(subjectMapper::toDto)
-            .toList();
+                .toList();
     }
 }

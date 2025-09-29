@@ -1,8 +1,6 @@
 package edu.dosw.sirha.dto.response;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
-
 import org.bson.types.ObjectId;
 
 import edu.dosw.sirha.model.enums.State;

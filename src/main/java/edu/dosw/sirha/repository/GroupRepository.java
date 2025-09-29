@@ -17,4 +17,6 @@ public interface GroupRepository extends MongoRepository<Group, String> {
     Group findByNumberGroup(String numberGroup);
 
     Optional<Group> findByNumberGroupAndSubjectCode(String numberGroup, String subjeectCode);
+
+    List<Group> findAllByNumberGroupIn(List<String> numberGroup);
 }
