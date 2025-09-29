@@ -3,6 +3,7 @@ package edu.dosw.sirha.model;
 import edu.dosw.sirha.model.enums.Career;
 import edu.dosw.sirha.model.enums.Faculty;
 import edu.dosw.sirha.model.enums.Role;
+import edu.dosw.sirha.model.StudyPlan;
 import java.util.List;
 
 import org.bson.types.ObjectId;
