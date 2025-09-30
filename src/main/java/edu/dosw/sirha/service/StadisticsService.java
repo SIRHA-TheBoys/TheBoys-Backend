@@ -19,9 +19,6 @@ public interface StadisticsService {
     Double groupAvailability(Group group);
 
 //    Double averageGradePerSemester(String studentId);
-//
+
 //    Double averageSemesterStudentGrade(String studentId);
-
-
-
 }
