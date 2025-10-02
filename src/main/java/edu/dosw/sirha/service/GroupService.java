@@ -178,4 +178,119 @@ public class GroupService {
         return groupMapper.toDto(updatedCapacity);
     }
 
+    /**
+     * Assign a professor to a group
+     * Only administrators or deanery can make this assignment
+     * @param numberGroup the group number
+     * @param professorId the professor's ID to assign
+     * @param requesterId the ID of the user making the request
+     * @return the updated group information
+     */
+    @Transactional
+    public GroupResponseDTO assignProfessorToGroup(String numberGroup, String professorId, String requesterId) {
+        Group group = groupRepository.findByNumberGroup(numberGroup);
+        if (group == null) {
+            throw ResourceNotFoundException.create("number group", numberGroup);
+        }
+
+        User requester = userRepository.findById(requesterId)
+                .orElseThrow(() -> ResourceNotFoundException.create("requester ID", requesterId));
+        if (!requester.getRole().equals(Role.DEANERY)) {
+            throw RoleException.create(requester.getId());
+        }
+        //Esta asignado a un grupo ya ?
+        if (group.getUserId() != null && group.getUserId().contains(professorId)) {
+            return groupMapper.toDto(group);
+        }
+        group.getUserId().add(professorId);
+        Group savedGroup = groupRepository.save(group);
+        return groupMapper.toDto(savedGroup);
+    }
+
+    /**
+     * Remove a professor from a group
+     * Only administrators or deanery can remove assignments
+     * @param numberGroup the group number
+     * @param professorId the professor's ID to remove
+     * @param requesterId the ID of the user making the request
+     * @return the updated group information
+     */
+    @Transactional
+    public GroupResponseDTO removeProfessorFromGroup(String numberGroup, String professorId, String requesterId) {
+        Group group = groupRepository.findByNumberGroup(numberGroup);
+        if (group == null) {
+            throw ResourceNotFoundException.create("number group", numberGroup);
+        }
+        User requester = userRepository.findById(requesterId)
+                .orElseThrow(() -> ResourceNotFoundException.create("requester ID", requesterId));
+        if (!requester.getRole().equals(Role.DEANERY)) {
+            throw RoleException.create(requester.getId());
+        }
+
+        group.getUserId().remove(professorId);
+        Group savedGroup = groupRepository.save(group);
+
+        return groupMapper.toDto(savedGroup);
+    }
+
+    /**
+     * Get all professors assigned to a specific group
+     * @param numberGroup the group number
+     * @return list of professors assigned to the group
+     */
+    public List<User> getAssignedProfessors(String numberGroup) {
+        Group group = groupRepository.findByNumberGroup(numberGroup);
+        if (group == null) {
+            throw ResourceNotFoundException.create("number group", numberGroup);
+        }
+
+        if (group.getUserId() == null || group.getUserId().isEmpty()) {
+            return null;
+        }
+
+        return group.getUserId().stream()
+                .map(userId -> userRepository.findById(userId))
+                .filter(optional -> optional.isPresent())
+                .map(optional -> optional.get())
+                //Decanos Profesores?
+                .filter(user -> user.getRole().equals(Role.DEANERY))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all groups assigned to a specific professor
+     * @param professorId the professor's ID
+     * @return list of groups assigned to the professor
+     */
+    public List<GroupResponseDTO> getGroupsAssignedToProfessor(String professorId) {
+        User professor = userRepository.findById(professorId)
+                .orElseThrow(() -> ResourceNotFoundException.create("professor ID", professorId));
+
+        if (!professor.getRole().equals(Role.DEANERY)) {
+            throw new RoleException("User with ID " + professorId + " cannot be a professor");
+        }
+        List<Group> groups = groupRepository.findByUserIdContaining(professorId);
+
+        return groupMapper.toDtoList(groups);
+    }
+
+    /**
+     * Get all professors with their assigned groups
+     * Only for administrators or deanery
+     * @param requesterId the ID of the user making the request
+     * @return list of professor-group assignments
+     */
+    public List<User> getAllProfessorsWithAssignments(String requesterId) {
+        User requester = userRepository.findById(requesterId)
+                .orElseThrow(() -> ResourceNotFoundException.create("requester ID", requesterId));
+        if (!requester.getRole().equals(Role.DEANERY)) {
+            throw RoleException.create(requester.getId());
+        }
+        List<User> professors = userRepository.findAll().stream()
+                .filter(user -> user.getRole().equals(Role.DEANERY)) 
+                .collect(Collectors.toList());
+
+        return professors;
+    }
+
 }

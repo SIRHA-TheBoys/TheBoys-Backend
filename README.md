@@ -70,6 +70,10 @@ _Diagrama De Bases De Datos:_
 
 ![alt text](docs/imagenes/AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
 
+_Diagrama De Bases De Datos Corregido:_
+
+![alt text](docs/imagenes/BaseDeDatosCorregido.png)
+
 ---
 
 ## 2. 🔥 **Jacoco**
