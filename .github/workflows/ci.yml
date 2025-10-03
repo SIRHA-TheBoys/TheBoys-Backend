@@ -1,0 +1,38 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+  branches: ["main"]
+
+jobs:
+  deploy-sandbox:
+    runs-on: ubuntu-latest
+    environment: sandbox
+    steps:
+      - name: Checkout codigo
+        uses: actions/checkout@v3
+
+      - name: Deploy a sandbox
+        run: echo "Desplegando en Sandbox con URI: ${{ secrets.MONGO_URI}}"
+
+  deploy-preprod:
+    runs-on: ubuntu-latest
+    environment: preproduction
+    needs: deploy-sandbox
+    steps:
+    - name: Checkout codigo
+      uses: actions/checkout@v3
+    
+
+    - name: Deploy a preproduction
+      run: echo "Desplegando en Preproduccion con credenciales ${{ secrets.AZURE_CREDENTIALS }}"
+    
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: production 
+    needs: deploy-preprod 
+    steps:
+    - name: Checkout codigo 
+      uses: actions/checkout@v3 
+    - name: Deploy a produccion 
+      run: echo "Desplegando en Produccion con credenciales ${{ secrets.AZURE_CREDENTIALS}}"

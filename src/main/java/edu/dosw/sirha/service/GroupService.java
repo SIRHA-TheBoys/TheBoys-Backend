@@ -181,6 +181,7 @@ public class GroupService {
     /**
      * Assign a professor to a group
      * Only administrators or deanery can make this assignment
+     * 
      * @param numberGroup the group number
      * @param professorId the professor's ID to assign
      * @param requesterId the ID of the user making the request
@@ -198,7 +199,7 @@ public class GroupService {
         if (!requester.getRole().equals(Role.DEANERY)) {
             throw RoleException.create(requester.getId());
         }
-        //Esta asignado a un grupo ya ?
+        // Esta asignado a un grupo ya ?
         if (group.getUserId() != null && group.getUserId().contains(professorId)) {
             return groupMapper.toDto(group);
         }
@@ -210,6 +211,7 @@ public class GroupService {
     /**
      * Remove a professor from a group
      * Only administrators or deanery can remove assignments
+     * 
      * @param numberGroup the group number
      * @param professorId the professor's ID to remove
      * @param requesterId the ID of the user making the request
@@ -235,6 +237,7 @@ public class GroupService {
 
     /**
      * Get all professors assigned to a specific group
+     * 
      * @param numberGroup the group number
      * @return list of professors assigned to the group
      */
@@ -252,13 +255,14 @@ public class GroupService {
                 .map(userId -> userRepository.findById(userId))
                 .filter(optional -> optional.isPresent())
                 .map(optional -> optional.get())
-                //Decanos Profesores?
+                // Decanos Profesores?
                 .filter(user -> user.getRole().equals(Role.DEANERY))
                 .collect(Collectors.toList());
     }
 
     /**
      * Get all groups assigned to a specific professor
+     * 
      * @param professorId the professor's ID
      * @return list of groups assigned to the professor
      */
@@ -277,6 +281,7 @@ public class GroupService {
     /**
      * Get all professors with their assigned groups
      * Only for administrators or deanery
+     * 
      * @param requesterId the ID of the user making the request
      * @return list of professor-group assignments
      */
@@ -287,7 +292,7 @@ public class GroupService {
             throw RoleException.create(requester.getId());
         }
         List<User> professors = userRepository.findAll().stream()
-                .filter(user -> user.getRole().equals(Role.DEANERY)) 
+                .filter(user -> user.getRole().equals(Role.DEANERY))
                 .collect(Collectors.toList());
 
         return professors;
