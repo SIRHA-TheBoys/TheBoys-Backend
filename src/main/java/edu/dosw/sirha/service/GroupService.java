@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.InvalidSemester;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.exception.RoleException;
 import edu.dosw.sirha.mapper.GroupMapper;
+import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.mapper.ScheduleMapper;
 import edu.dosw.sirha.model.Group;
 import edu.dosw.sirha.model.User;
@@ -32,6 +34,7 @@ public class GroupService {
     private final GroupRepository groupRepository;
     private final List<GroupObserver> obsevers;
     private final GroupMapper groupMapper;
+    private final UserMapper userMapper;
     private final ScheduleMapper scheduleMapper;
     private final UserRepository studentRepository;
     private final SubjectRepository subjectRepository;
@@ -285,7 +288,7 @@ public class GroupService {
      * @param requesterId the ID of the user making the request
      * @return list of professor-group assignments
      */
-    public List<User> getAllProfessorsWithAssignments(String requesterId) {
+    public List<UserResponseDTO> getAllProfessorsWithAssignments(String requesterId) {
         User requester = userRepository.findById(requesterId)
                 .orElseThrow(() -> ResourceNotFoundException.create("requester ID", requesterId));
         if (!requester.getRole().equals(Role.DEANERY)) {
@@ -294,8 +297,7 @@ public class GroupService {
         List<User> professors = userRepository.findAll().stream()
                 .filter(user -> user.getRole().equals(Role.DEANERY))
                 .collect(Collectors.toList());
-
-        return professors;
+        return userMapper.toDtoList(professors);
     }
 
 }
