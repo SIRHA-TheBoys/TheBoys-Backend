@@ -84,7 +84,7 @@ _Diagrama De Bases De Datos:_
 
 _Diagrama De Bases De Datos Corregido:_
 
-![alt text](docs/imagenes/BaseDeDatosCorregido.png)
+![alt text](docs/imagenes/baseDeDatos.png)
 
 ---
 _Diagrama de Despliegue:_
