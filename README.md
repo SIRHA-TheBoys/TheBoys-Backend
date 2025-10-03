@@ -9,8 +9,20 @@ Integrantes:
 - Julian Camilo Lopez
 
 ---
+
 ## 🌲Ramificacion y Estrategia de Versionamiento de ramas
+
 - Se realiza la respectiva ramificacion creando las ramas `develop` y `feature` para desarrollar las nuevas funcionalidades de la aplicacion. Para los commits manejamos el estandar `feat/modulo: Accion Realizada - Nombre Quien Lo Hizo` para que se entienda con claridad lo elaborado.
+
+---
+
+## 💻 **Como ejecutar el proyecto**
+
+- Clonar El Repositorio: `https://github.com/tulio3101/TheBoys-Backend.git`
+- Desde el cmd, ejecutamos: `cd TheBoys-Backend`
+- Allí, con ayuda de maven, ejecutamos: `mvn clean compile`
+- Una vez compile, ejecutamos: `mvn spring-boot:run`
+- Para las pruebas, ejecutamos el comando: `mvn test`
 
 ---
 
@@ -44,7 +56,7 @@ _Diagrama De Componentes General:_
 
 ---
 
-*Diagrama De Componentes Especifico:*
+_Diagrama De Componentes Especifico:_
 
 ![alt text](docs/imagenes/DiagramaComponentesEspecifico.png)
 
@@ -70,6 +82,10 @@ _Diagrama De Bases De Datos:_
 
 ![alt text](docs/imagenes/AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
 
+_Diagrama De Bases De Datos Corregido:_
+
+![alt text](docs/imagenes/BaseDeDatosCorregido.png)
+
 ---
 
 ## 2. 🔥 **Jacoco**
@@ -79,7 +95,6 @@ _Diagrama De Bases De Datos:_
 ---
 
 ## 3. 🔥 **Swagger**
-
 
 ![alt text](docs/imagenes/swaggeer.png)
 
@@ -100,7 +115,6 @@ Base de datos desplegada en MongoDB Atlas:
 Ejemplo de documento en la coleccion de materias:
 ![alt text](docs/imagenes/Subjects.png)
 
-
 ---
 
 ## 5. 🔥 **SonarQube**
@@ -109,9 +123,8 @@ Analisis estatico ejecutado con SonarQube:
 
 ![alt text](docs/imagenes/AnalisisSonarQube.png)
 
-## 💻 **Como ejecutar el proyecto**
- - Clonar El Repositorio: `https://github.com/tulio3101/TheBoys-Backend.git`
- - Desde el cmd, ejecutamos: `cd TheBoys-Backend`
- - Allí, con ayuda de maven, ejecutamos: `mvn clean compile`
- - Una vez compile, ejecutamos: `mvn spring-boot:run`
- - Para las pruebas, ejecutamos el comando: `mvn test`
+---
+
+## 6. 🔥 **Docker**
+
+![alt text](docs/imagenes/docker.png)

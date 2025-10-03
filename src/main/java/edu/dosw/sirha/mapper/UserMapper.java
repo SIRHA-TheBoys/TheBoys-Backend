@@ -8,6 +8,7 @@ import edu.dosw.sirha.model.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
     User toEntity(UserRequestDTO dto);
 
     UserResponseDTO toDto(User user);

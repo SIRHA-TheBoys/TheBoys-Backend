@@ -5,12 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 
 import lombok.NoArgsConstructor;
+import edu.dosw.sirha.model.enums.Career;
 import edu.dosw.sirha.model.enums.Faculty;
 import edu.dosw.sirha.model.enums.Role;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import edu.dosw.sirha.model.enums.Career;
+import org.bson.types.ObjectId;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -37,20 +39,20 @@ public class UserRequestDTO {
     @NotBlank(message = "The password cannot be null")
     private String password;
 
-    @Schema(description = "The semester of the user", example = "7")
-    private Integer semester;
-
-    @Schema(description = "The faculty of the user", example = "Mathematics")
-    private Faculty faculty;
-
     @Schema(description = "The role of the user", example = "Administrator, Student, Deanery")
     @NotNull(message = "The role cannot be null")
     private Role role;
 
-    @Schema(description = "The career of the user", example = "Environmental Engineering")
+    private Integer semester;
+
+    private Faculty faculty;
+
     private Career career;
 
-    @Schema(description = "Groups that belongs the student", example = "CALI - 1024 - Zarate")
-    private ArrayList<GroupRequestDTO> groups;
+    private StudyPlanRequestDTO studyPlan;
+
+    private List<String> numberGroupId;
+
+    private List<ObjectId> requestsId;
 
 }
