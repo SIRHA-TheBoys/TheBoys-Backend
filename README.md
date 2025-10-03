@@ -87,6 +87,8 @@ _Diagrama De Bases De Datos Corregido:_
 ![alt text](docs/imagenes/BaseDeDatosCorregido.png)
 
 ---
+_Diagrama de Despliegue:_
+![alt text](docs/imagenes/DiagramaDeDespliegue.png)
 
 ## 2. 🔥 **Jacoco**
 
