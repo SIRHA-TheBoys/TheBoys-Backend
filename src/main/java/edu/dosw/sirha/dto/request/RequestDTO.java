@@ -16,7 +16,9 @@ public class RequestDTO {
 
     private String userId;
 
-    private String groupNumber;
+    private String groupOriginId;
+
+    private String groupDestinyId;
 
     private LocalDateTime creationDate;
 

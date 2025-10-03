@@ -58,7 +58,8 @@ public class RequestControllerTest {
 
         requestDTO = new RequestDTO();
         requestDTO.setUserId("1000100444");
-        requestDTO.setGroupNumber("GRP-001");
+        requestDTO.setGroupOriginId("GRP-001");
+        requestDTO.setGroupDestinyId("GRP-002");
         requestDTO.setCreationDate(date);
         requestDTO.setResponseDate(null);
         requestDTO.setState(State.PENDIENT);
@@ -75,7 +76,8 @@ public class RequestControllerTest {
                 .content("""
                         {
                             "userId": "1000100444",
-                            "groupNumber": "GRP-001",
+                            "groupOriginId": "GRP-001",
+                            "groupDestinyId": "GRP-002",
                             "creationDate": "2024-10-10T10:00:00",
                             "description": "Test Request",
                             "state": "PENDIENT"

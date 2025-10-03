@@ -1,5 +1,6 @@
 package edu.dosw.sirha.dto.request;
 
+import edu.dosw.sirha.model.enums.Faculty;
 import edu.dosw.sirha.model.enums.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -23,5 +24,7 @@ public class SubjectRequestDTO {
     private int credits;
 
     private Status status;
+
+    private Faculty faculty;
 
 }

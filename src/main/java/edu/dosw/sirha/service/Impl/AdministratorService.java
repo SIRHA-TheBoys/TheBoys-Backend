@@ -5,7 +5,6 @@ import edu.dosw.sirha.dto.response.UserResponseDTO;
 
 import org.springframework.stereotype.Service;
 
-import edu.dosw.sirha.exception.DuplicateResourceException;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.model.User;
@@ -22,36 +21,54 @@ import lombok.extern.slf4j.Slf4j;
 public class AdministratorService implements UserService {
 
     private final UserRepository userRepository;
-
     private final UserMapper userMapper;
 
+    /**
+     * Create a Administrator of Sirha System
+     * 
+     * @param dto
+     * @return new Administrator for Sirha System
+     */
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO dto) {
 
-        User user = userMapper.toEntity(dto);
+        User admin = User.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .role(Role.ADMINISTRATOR)
+                .build();
 
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(admin);
 
         return userMapper.toDto(savedUser);
     }
 
+    /**
+     * Update the administrator basic information
+     * 
+     * @param id
+     * @param dto
+     * @return Administator information updated
+     */
     @Transactional
     public UserResponseDTO updateUser(String id, UserRequestDTO dto) {
         User user = userRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
-        user.setId(dto.getId());
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
-        user.setRole(Role.ADMINISTRATOR);
-        user.setSemester(dto.getSemester()); // NULL NO? tipo el adminsitrador no tiene semestre ni facultad ni carrera
-        user.setFaculty(dto.getFaculty()); // NULL?
-        user.setCareer(dto.getCareer()); // NULL?
 
         User updated = userRepository.save(user);
 
         return userMapper.toDto(updated);
     }
 
+    /**
+     * Delete a administrator
+     * 
+     * @param id
+     */
     @Transactional
     public void deleteUser(String id) {
         if (!userRepository.existsById(id)) {

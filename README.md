@@ -9,8 +9,20 @@ Integrantes:
 - Julian Camilo Lopez
 
 ---
+
 ## 🌲Ramificacion y Estrategia de Versionamiento de ramas
+
 - Se realiza la respectiva ramificacion creando las ramas `develop` y `feature` para desarrollar las nuevas funcionalidades de la aplicacion. Para los commits manejamos el estandar `feat/modulo: Accion Realizada - Nombre Quien Lo Hizo` para que se entienda con claridad lo elaborado.
+
+---
+
+## 💻 **Como ejecutar el proyecto**
+
+- Clonar El Repositorio: `https://github.com/tulio3101/TheBoys-Backend.git`
+- Desde el cmd, ejecutamos: `cd TheBoys-Backend`
+- Allí, con ayuda de maven, ejecutamos: `mvn clean compile`
+- Una vez compile, ejecutamos: `mvn spring-boot:run`
+- Para las pruebas, ejecutamos el comando: `mvn test`
 
 ---
 
@@ -28,8 +40,7 @@ _Diagrama de Clases:_
 
 - Se realizó la diagramacion del problema a resolver aplicando patrones de diseño y siguiendo los principios SOLID:
 
-![alt text](docs/imagenes/clasesCORREGIDO.png)
-
+![alt text](docs/imagenes/clasesCorregidoo.png)
 ---
 
 _Diagrama De Casos De Uso:_
@@ -44,7 +55,7 @@ _Diagrama De Componentes General:_
 
 ---
 
-*Diagrama De Componentes Especifico:*
+_Diagrama De Componentes Especifico:_
 
 ![alt text](docs/imagenes/componentesEspecifico.png)
 
@@ -68,9 +79,11 @@ _Diagramas De Secuencia:_
 
 _Diagrama De Bases De Datos:_
 
-![alt text](docs/imagenes/AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
+![alt text](docs/imagenes/baseDeDatos.png)
 
 ---
+_Diagrama de Despliegue:_
+![alt text](docs/imagenes/DiagramaDeDespliegue.png)
 
 ## 2. 🔥 **Jacoco**
 
@@ -79,7 +92,6 @@ _Diagrama De Bases De Datos:_
 ---
 
 ## 3. 🔥 **Swagger**
-
 
 ![alt text](docs/imagenes/swaggeer.png)
 
@@ -100,7 +112,6 @@ Base de datos desplegada en MongoDB Atlas:
 Ejemplo de documento en la coleccion de materias:
 ![alt text](docs/imagenes/Subjects.png)
 
-
 ---
 
 ## 5. 🔥 **SonarQube**
@@ -109,9 +120,8 @@ Analisis estatico ejecutado con SonarQube:
 
 ![alt text](docs/imagenes/AnalisisSonarQube.png)
 
-## 💻 **Como ejecutar el proyecto**
- - Clonar El Repositorio: `https://github.com/tulio3101/TheBoys-Backend.git`
- - Desde el cmd, ejecutamos: `cd TheBoys-Backend`
- - Allí, con ayuda de maven, ejecutamos: `mvn clean compile`
- - Una vez compile, ejecutamos: `mvn spring-boot:run`
- - Para las pruebas, ejecutamos el comando: `mvn test`
+---
+
+## 6. 🔥 **Docker**
+
+![alt text](docs/imagenes/docker.png)
