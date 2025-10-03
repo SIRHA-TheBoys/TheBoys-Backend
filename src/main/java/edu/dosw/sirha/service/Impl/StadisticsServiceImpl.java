@@ -1,7 +1,7 @@
 package edu.dosw.sirha.service.Impl;
 
 import edu.dosw.sirha.dto.request.RequestDTO;
-import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.model.Subject;
 import edu.dosw.sirha.model.Group;
 import edu.dosw.sirha.repository.GroupRepository;
@@ -10,6 +10,8 @@ import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.StadisticsService;
 import edu.dosw.sirha.model.User;
 
+import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class StadisticsServiceImpl implements StadisticsService {
     private final SubjectRepository subjectRepository;
     private final GroupRepository groupRepository;
 
-
+    @Transactional
     public Double studyPlanProgressPerStudent(String studentId) {
         User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new RuntimeException("Student not found"));
@@ -46,9 +48,10 @@ public class StadisticsServiceImpl implements StadisticsService {
         return (double) approvedSubjects / subjects.size();
     }
 
-    public HashMap<Subject, Integer> mostRequestedSubject(List<RequestDTO> requests) {
+    @Transactional
+    public HashMap<Subject, Integer> mostRequestedSubject(List<RequestResponseDTO> requests) {
         List<String> groups = requests.stream()
-                .map(RequestDTO::getGroupNumber)
+                .map(RequestResponseDTO::getGroupNumber)
                 .toList();
 
         List<Group> groupList = groupRepository.findAllById(groups);
@@ -74,9 +77,10 @@ public class StadisticsServiceImpl implements StadisticsService {
                 ));
     }
 
-    public HashMap<Group, Integer> mostRequestedGroups(List<RequestDTO> requests) {
+    @Transactional
+    public HashMap<Group, Integer> mostRequestedGroups(List<RequestResponseDTO> requests) {
         List<String> groups = requests.stream()
-                .map(RequestDTO::getGroupNumber)
+                .map(RequestResponseDTO::getGroupNumber)
                 .toList();
 
         List<Group> groupList = groupRepository.findAllById(groups);
@@ -96,6 +100,7 @@ public class StadisticsServiceImpl implements StadisticsService {
                 ));
     }
 
+    @Transactional
     public Double groupAvailability(Group group) {
         if (group.getCapacity() == 0) {
             return 0.0;

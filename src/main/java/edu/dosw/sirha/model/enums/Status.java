@@ -8,5 +8,6 @@ import lombok.RequiredArgsConstructor;
 public enum Status {
     APPROVED,
     REPROVED,
-    INPROGRESS
+    INPROGRESS,
+    PENDING
 }

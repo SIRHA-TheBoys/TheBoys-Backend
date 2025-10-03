@@ -26,4 +26,6 @@ public class Subject {
     private Status status;
 
     private Faculty faculty;
+
+    private Double finalGrade;
 }

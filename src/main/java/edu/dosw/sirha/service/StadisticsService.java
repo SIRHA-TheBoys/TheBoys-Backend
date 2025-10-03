@@ -2,6 +2,7 @@ package edu.dosw.sirha.service;
 
 import edu.dosw.sirha.dto.request.RequestDTO;
 import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.model.Group;
 import edu.dosw.sirha.model.Subject;
 
@@ -12,9 +13,9 @@ public interface StadisticsService {
 
     Double studyPlanProgressPerStudent(String studentId);
 
-    HashMap<Subject, Integer> mostRequestedSubject(List<RequestDTO> requests);
+    HashMap<Subject, Integer> mostRequestedSubject(List<RequestResponseDTO> requests);
 
-    HashMap<Group, Integer> mostRequestedGroups(List<RequestDTO> requests);
+    HashMap<Group, Integer> mostRequestedGroups(List<RequestResponseDTO> requests);
 
     Double groupAvailability(Group group);
 
