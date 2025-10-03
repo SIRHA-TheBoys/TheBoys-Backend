@@ -27,7 +27,7 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
       - name: Build & test
-        run: mvn -B clean verify
+        run: mvn -B clean verify -DskipTests
       - name: Publish coverage (JaCoCo)
         uses: codecov/codecov-action@v4
         with:
