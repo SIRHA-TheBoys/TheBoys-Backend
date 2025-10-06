@@ -10,6 +10,7 @@ import edu.dosw.sirha.model.Request;
 
 @Mapper(componentModel = "spring")
 public interface RequestMapper {
+
     Request toEntity(RequestDTO dto);
 
     RequestResponseDTO toDto(Request request);

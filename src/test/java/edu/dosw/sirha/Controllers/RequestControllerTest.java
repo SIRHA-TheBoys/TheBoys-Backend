@@ -50,7 +50,8 @@ public class RequestControllerTest {
         requestResponse = new RequestResponseDTO();
         requestResponse.setId(id);
         requestResponse.setUserId("1000100444");
-        requestResponse.setGroupNumber("GRP-001");
+        requestResponse.setGroupOriginId("GRP-001");
+        requestResponse.setGroupDestinyId("GRP-002");
         requestResponse.setCreationDate(date);
         requestResponse.setResponseDate(null);
         requestResponse.setDescription("Test Request");
@@ -87,7 +88,7 @@ public class RequestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.userId").value("1000100444"))
-                .andExpect(jsonPath("$.groupNumber").value("GRP-001"))
+                .andExpect(jsonPath("$.groupOriginId").value("GRP-001"))
                 .andExpect(jsonPath("$.description").value("Test Request"))
                 .andExpect(jsonPath("$.state").value("PENDIENT"))
                 .andExpect(jsonPath("$.creationDate").value("2024-10-10T10:00:00"))

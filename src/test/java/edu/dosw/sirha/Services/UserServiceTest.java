@@ -1,6 +1,7 @@
 package edu.dosw.sirha.Services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -13,9 +14,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import edu.dosw.sirha.dto.request.StudyPlanRequestDTO;
 import edu.dosw.sirha.dto.request.UserRequestDTO;
+import edu.dosw.sirha.dto.response.StudyPlanResponseDTO;
 import edu.dosw.sirha.dto.response.UserResponseDTO;
+import edu.dosw.sirha.mapper.StudyPlanMapper;
 import edu.dosw.sirha.mapper.UserMapper;
+import edu.dosw.sirha.model.StudyPlan;
 import edu.dosw.sirha.model.User;
 import edu.dosw.sirha.model.enums.Career;
 import edu.dosw.sirha.model.enums.Faculty;
@@ -34,6 +39,9 @@ public class UserServiceTest {
         @Mock
         private UserMapper userMapper;
 
+        @Mock
+        private StudyPlanMapper studyPlanMapper;
+
         @InjectMocks
         private StudentService studentService;
 
@@ -49,11 +57,22 @@ public class UserServiceTest {
 
         @BeforeEach
         public void setUpTest() {
-
         }
 
         @Test
         void shouldCreateStudent() {
+                StudyPlan studyPlan = StudyPlan.builder()
+                                .subjectsCode(null)
+                                .average(4.5)
+                                .build();
+                StudyPlanRequestDTO studyPlanRequestDTO = StudyPlanRequestDTO.builder()
+                                .subjectsCode(null)
+                                .average(4.5)
+                                .build();
+                StudyPlanResponseDTO studyPlanResponseDTO = StudyPlanResponseDTO.builder()
+                                .subjectsCode(null)
+                                .average(4.5)
+                                .build();
                 UserRequestDTO request = UserRequestDTO.builder()
                                 .id("1000099099")
                                 .name("Bob")
@@ -61,6 +80,7 @@ public class UserServiceTest {
                                 .password("pedroPascal")
                                 .semester(1)
                                 .role(Role.STUDENT)
+                                .studyPlan(studyPlanRequestDTO)
                                 .career(Career.ARTIFICIAL_INTELLIGENCE_ENGINEERING)
                                 .build();
 
@@ -71,6 +91,7 @@ public class UserServiceTest {
                                 .password("hola123")
                                 .semester(1)
                                 .role(Role.STUDENT)
+                                .studyPlan(studyPlan)
                                 .career(Career.ARTIFICIAL_INTELLIGENCE_ENGINEERING)
                                 .build();
 
@@ -80,12 +101,13 @@ public class UserServiceTest {
                                 .email("bob@escuelaing.edu.co")
                                 .semester(1)
                                 .role(Role.STUDENT)
+                                .studyPlan(studyPlanResponseDTO)
                                 .career(Career.ARTIFICIAL_INTELLIGENCE_ENGINEERING)
                                 .build();
 
-                when(userMapper.toEntity(request)).thenReturn(fakeSaved);
-                when(userRepository.save(fakeSaved)).thenReturn(fakeSaved);
-                when(userMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
+                when(studyPlanMapper.toEntity(any())).thenReturn(studyPlan);
+                when(userRepository.save(any(User.class))).thenReturn(fakeSaved);
+                when(userMapper.toDto(any(User.class))).thenReturn(fakeResponse);
 
                 UserResponseDTO response = studentService.createUser(request);
 
@@ -123,7 +145,7 @@ public class UserServiceTest {
                                 .role(Role.DEANERY)
                                 .build();
 
-                when(userMapper.toEntity(request)).thenReturn(fakeSaved);
+                // when(userMapper.toEntity(request)).thenReturn(fakeSaved);
                 when(userRepository.save(fakeSaved)).thenReturn(fakeSaved);
                 when(userMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
 
@@ -159,7 +181,7 @@ public class UserServiceTest {
                                 .role(Role.ADMINISTRATOR)
                                 .build();
 
-                when(userMapper.toEntity(request)).thenReturn(fakeSaved);
+                // when(userMapper.toEntity(request)).thenReturn(fakeSaved);
                 when(userRepository.save(fakeSaved)).thenReturn(fakeSaved);
                 when(userMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
 
@@ -173,6 +195,18 @@ public class UserServiceTest {
 
         @Test
         void shouldUpdateStudent() {
+                StudyPlan studyPlan = StudyPlan.builder()
+                                .subjectsCode(null)
+                                .average(4.5)
+                                .build();
+                StudyPlanRequestDTO studyPlanRequestDTO = StudyPlanRequestDTO.builder()
+                                .subjectsCode(null)
+                                .average(4.5)
+                                .build();
+                StudyPlanResponseDTO studyPlanResponseDTO = StudyPlanResponseDTO.builder()
+                                .subjectsCode(null)
+                                .average(4.5)
+                                .build();
                 UserRequestDTO request = UserRequestDTO.builder()
                                 .id("10000416")
                                 .name("Bob Nuevo")
@@ -180,6 +214,7 @@ public class UserServiceTest {
                                 .password("1234")
                                 .semester(3)
                                 .role(Role.STUDENT)
+                                .studyPlan(studyPlanRequestDTO)
                                 .career(Career.SYSTEMS_ENGINEERING)
                                 .build();
 
@@ -190,6 +225,7 @@ public class UserServiceTest {
                                 .password("holasoyBob")
                                 .semester(2)
                                 .role(Role.STUDENT)
+                                .studyPlan(studyPlan)
                                 .career(Career.SYSTEMS_ENGINEERING)
                                 .build();
 
@@ -200,6 +236,7 @@ public class UserServiceTest {
                                 .password("nuevaClave")
                                 .semester(2)
                                 .role(Role.STUDENT)
+                                .studyPlan(studyPlan)
                                 .career(Career.ARTIFICIAL_INTELLIGENCE_ENGINEERING)
                                 .build();
 
@@ -210,6 +247,7 @@ public class UserServiceTest {
                                 .email("bob500@escuelaing.edu.co")
                                 .semester(2)
                                 .role(Role.STUDENT)
+                                .studyPlan(studyPlanResponseDTO)
                                 .career(Career.ARTIFICIAL_INTELLIGENCE_ENGINEERING)
                                 .build();
 
