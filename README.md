@@ -40,8 +40,7 @@ _Diagrama de Clases:_
 
 - Se realizó la diagramacion del problema a resolver aplicando patrones de diseño y siguiendo los principios SOLID:
 
-![alt text](docs/imagenes/clasesCORREGIDO.png)
-
+![alt text](docs/imagenes/clasesCorregidoo.png)
 ---
 
 _Diagrama De Casos De Uso:_
@@ -80,13 +79,11 @@ _Diagramas De Secuencia:_
 
 _Diagrama De Bases De Datos:_
 
-![alt text](docs/imagenes/AZgfNLy8nCBpAAAAAElFTkSuQmCC.png)
-
-_Diagrama De Bases De Datos Corregido:_
-
-![alt text](docs/imagenes/BaseDeDatosCorregido.png)
+![alt text](docs/imagenes/baseDeDatos.png)
 
 ---
+_Diagrama de Despliegue:_
+![alt text](docs/imagenes/DiagramaDeDespliegue.png)
 
 ## 2. 🔥 **Jacoco**
 

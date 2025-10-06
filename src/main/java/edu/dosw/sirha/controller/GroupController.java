@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
 import edu.dosw.sirha.model.entity.User;
@@ -84,10 +83,10 @@ public class GroupController {
     }
 
     @GetMapping("/professors")
-    public ResponseEntity<List<User>> getAllProfessorsWithAssignments(
+    public ResponseEntity<List<UserResponseDTO>> getAllProfessorsWithAssignments(
             @RequestHeader("User id") String requesterId) {
-
-        List<User> professors = groupService.getAllProfessorsWithAssignments(requesterId);
+        
+        List<UserResponseDTO> professors = groupService.getAllProfessorsWithAssignments(requesterId);
         return ResponseEntity.ok(professors);
     }
 }
