@@ -6,9 +6,8 @@ import edu.dosw.sirha.model.entity.Group;
 
 @Component
 public class AdvancedRestriction {
-    /*
-     * public boolean groupCapacity(Group futureGroup) {
-     * return futureGroup.getAvailableQuotas() == 0 ? true : false;
-     * }
-     */
+
+    public boolean groupCapacity(Group futureGroup) {
+        return futureGroup.getAvailableQuotas() == 0 ? true : false;
+    }
 }

@@ -1,8 +1,11 @@
 package edu.dosw.sirha.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.dto.response.StudyPlanResponseDTO;
 import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 import edu.dosw.sirha.service.Impl.StudentService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -48,4 +54,18 @@ public class StudentController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/studyPlan/{studentId}")
+    public ResponseEntity<StudyPlanResponseDTO> consultAcademicTrafficLight(@PathVariable String studentId) {
+
+        return ResponseEntity.ok(studentService.consultStudyPlan(studentId));
+    }
+
+    @GetMapping("/{studentId}")
+    public ResponseEntity<UserResponseDTO> consultStudentBasicInformation(@PathVariable String studentId) {
+
+        return ResponseEntity.ok(studentService.consultStudentInformation(studentId));
+
+    }
+
 }

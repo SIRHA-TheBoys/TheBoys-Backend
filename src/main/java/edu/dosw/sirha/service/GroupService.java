@@ -14,9 +14,12 @@ import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.mapper.ScheduleMapper;
 import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 import edu.dosw.sirha.model.entity.Group;
+import edu.dosw.sirha.model.entity.Subject;
 import edu.dosw.sirha.model.entity.User;
 import edu.dosw.sirha.model.entity.enums.Role;
+import edu.dosw.sirha.model.entity.enums.Status;
 import edu.dosw.sirha.model.observers.GroupObserver;
 import edu.dosw.sirha.repository.GroupRepository;
 import edu.dosw.sirha.repository.SubjectRepository;
@@ -53,7 +56,6 @@ public class GroupService {
     }
 
     @Transactional
-    // Está es la actualización completa
     public GroupResponseDTO updateGroup(String numberGroup, GroupRequestDTO dto) {
 
         Group group = groupRepository.findById(numberGroup)
@@ -75,8 +77,7 @@ public class GroupService {
 
         Group saved = groupRepository.save(group);
 
-        // Implementacion Observer ?
-        if (oldQuotas != saved.getAvailableQuotas()) {
+        if ((group.getCapacity() - group.getAvailableQuotas()) >= group.getCapacity() * 0.9) {
             obsevers.forEach(observer -> observer.updateAvailableCredits(saved.getNumberGroup(), oldQuotas,
                     saved.getAvailableQuotas()));
         }
@@ -108,8 +109,14 @@ public class GroupService {
                 .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
 
         List<Group> groups = groupRepository.findAllByNumberGroupIn(student.getNumberGroupId());
+        List<Group> scheduleGroups = groups.stream()
+                .filter(group -> {
+                    Subject subject = subjectRepository.findByCode(group.getSubjectCode());
+                    return subject != null && Status.INPROGRESS.equals(subject.getStatus());
+                })
+                .collect(Collectors.toList());
 
-        return groupMapper.toDtoList(groups);
+        return groupMapper.toDtoList(scheduleGroups);
     }
 
     /**
@@ -142,11 +149,11 @@ public class GroupService {
     public List<GroupResponseDTO> consultOldSchedule(String studentId, int semester) {
         User student = studentRepository.findById(studentId)
                 .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
-        if (student.getSemester() == 1) {
+        if (student.getSemester() < 1) {
             throw new InvalidSemester(studentId);
         }
-        if (student.getSemester() != semester) {
-            return List.of();
+        if (student.getSemester() <= semester) {
+            throw new InvalidSemester(studentId);
         }
         List<Group> groups = groupRepository.findAllByNumberGroupIn(student.getNumberGroupId()); // Estoy devolviendo
                                                                                                  // todos los grupos no

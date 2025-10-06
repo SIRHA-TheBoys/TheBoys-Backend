@@ -48,4 +48,5 @@ public class DeaneryController {
 
         return ResponseEntity.noContent().build();
     }
+
 }
