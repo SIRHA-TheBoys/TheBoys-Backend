@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.dosw.sirha.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.model.User;
 import edu.dosw.sirha.service.GroupService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -84,10 +85,10 @@ public class GroupController {
     }
 
     @GetMapping("/professors")
-    public ResponseEntity<List<User>> getAllProfessorsWithAssignments(
+    public ResponseEntity<List<UserResponseDTO>> getAllProfessorsWithAssignments(
             @RequestHeader("User id") String requesterId) {
         
-        List<User> professors = groupService.getAllProfessorsWithAssignments(requesterId);
+        List<UserResponseDTO> professors = groupService.getAllProfessorsWithAssignments(requesterId);
         return ResponseEntity.ok(professors);
     }
 }

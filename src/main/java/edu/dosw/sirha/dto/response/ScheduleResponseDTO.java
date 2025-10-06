@@ -9,12 +9,8 @@ import lombok.Data;
 @Builder
 public class ScheduleResponseDTO {
 
-    private String id;
-
     private LocalDateTime startSession;
 
     private LocalDateTime endSession;
-
-    private String numberGroup;
 
 }

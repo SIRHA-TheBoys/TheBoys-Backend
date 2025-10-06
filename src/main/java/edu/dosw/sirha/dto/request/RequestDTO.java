@@ -2,6 +2,8 @@ package edu.dosw.sirha.dto.request;
 
 import java.time.LocalDateTime;
 
+import org.bson.types.ObjectId;
+
 import edu.dosw.sirha.model.enums.State;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestDTO {
+
+    private ObjectId id;
 
     private String userId;
 
