@@ -1,4 +1,4 @@
-package edu.dosw.sirha.model;
+package edu.dosw.sirha.model.dto.response;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class StudyPlan {
+public class StudyPlanResponseDTO {
 
     private List<String> subjectsCode;
 

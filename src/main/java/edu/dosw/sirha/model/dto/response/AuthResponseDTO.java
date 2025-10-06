@@ -1,4 +1,4 @@
-package edu.dosw.sirha.dto.response;
+package edu.dosw.sirha.model.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

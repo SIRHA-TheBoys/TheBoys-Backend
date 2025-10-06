@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import edu.dosw.sirha.dto.request.GroupRequestDTO;
-import edu.dosw.sirha.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
-import edu.dosw.sirha.model.User;
+import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
+import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.entity.User;
 import edu.dosw.sirha.service.GroupService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
@@ -48,10 +46,10 @@ public class GroupController {
     }
 
     @GetMapping("/student/{studentId}/schedule")
-    public ResponseEntity<List<GroupResponseDTO>> consultScheduleStudent(@PathVariable String studentId){
+    public ResponseEntity<List<GroupResponseDTO>> consultScheduleStudent(@PathVariable String studentId) {
         return ResponseEntity.ok(groupService.consultScheduleStudent(studentId));
     }
-    
+
     @DeleteMapping("/{numberGroup}")
     public ResponseEntity<Void> deleteGroup(
             @Parameter(description = "Request to be deleted", required = true) @PathVariable String numberGroup) {
@@ -79,7 +77,7 @@ public class GroupController {
     @GetMapping("/professors/{professorId}")
     public ResponseEntity<List<GroupResponseDTO>> getGroupsAssignedToProfessor(
             @Parameter(description = "Professor ID", required = true) @PathVariable String professorId) {
-        
+
         List<GroupResponseDTO> groups = groupService.getGroupsAssignedToProfessor(professorId);
         return ResponseEntity.ok(groups);
     }

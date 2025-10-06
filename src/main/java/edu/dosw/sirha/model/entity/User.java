@@ -1,9 +1,9 @@
-package edu.dosw.sirha.model;
+package edu.dosw.sirha.model.entity;
 
-import edu.dosw.sirha.model.enums.Career;
-import edu.dosw.sirha.model.enums.Faculty;
-import edu.dosw.sirha.model.enums.Role;
-import edu.dosw.sirha.model.StudyPlan;
+import edu.dosw.sirha.model.entity.enums.Career;
+import edu.dosw.sirha.model.entity.enums.Faculty;
+import edu.dosw.sirha.model.entity.enums.Role;
+
 import java.util.List;
 
 import org.bson.types.ObjectId;

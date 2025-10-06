@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 import edu.dosw.sirha.service.Impl.DeaneryService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;

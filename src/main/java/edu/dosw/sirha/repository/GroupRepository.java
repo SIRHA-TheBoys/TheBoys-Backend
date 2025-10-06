@@ -1,10 +1,11 @@
 package edu.dosw.sirha.repository;
 
-import edu.dosw.sirha.model.Group;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import edu.dosw.sirha.model.entity.Group;
 
 public interface GroupRepository extends MongoRepository<Group, String> {
 
@@ -20,9 +21,9 @@ public interface GroupRepository extends MongoRepository<Group, String> {
 
     List<Group> findAllByNumberGroupIn(List<String> numberGroup);
 
-    List<Group> findByUserIdContaining(String userId);
+    List<Group> findByUsersIdContaining(String userId);
 
-    List<Group> findByUserIdIn(List<String> userIds);
+    List<Group> findByUsersIdIn(List<String> userIds);
 
-    List<Group> findBySubjectCodeAndUserIdContaining(String subjectCode, String userId);
+    List<Group> findBySubjectCodeAndUsersIdContaining(String subjectCode, String userId);
 }

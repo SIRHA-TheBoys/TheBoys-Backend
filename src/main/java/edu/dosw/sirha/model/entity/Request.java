@@ -1,11 +1,14 @@
-package edu.dosw.sirha.model;
+package edu.dosw.sirha.model.entity;
 
 import java.time.LocalDateTime;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import edu.dosw.sirha.model.entity.enums.State;
+
 import org.springframework.data.annotation.Id;
-import edu.dosw.sirha.model.enums.State;
+
 import lombok.Builder;
 import lombok.Data;
 

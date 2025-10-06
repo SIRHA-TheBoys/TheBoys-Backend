@@ -1,4 +1,4 @@
-package edu.dosw.sirha.dto.response;
+package edu.dosw.sirha.model.dto.response;
 
 import java.time.LocalDateTime;
 

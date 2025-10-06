@@ -12,60 +12,60 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import edu.dosw.sirha.dto.request.GroupRequestDTO;
-import edu.dosw.sirha.dto.request.RequestDTO;
-import edu.dosw.sirha.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.mapper.RequestMapper;
-import edu.dosw.sirha.model.Group;
-import edu.dosw.sirha.model.Request;
-import edu.dosw.sirha.model.enums.State;
+import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
+import edu.dosw.sirha.model.dto.request.RequestDTO;
+import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.entity.Group;
+import edu.dosw.sirha.model.entity.Request;
+import edu.dosw.sirha.model.entity.enums.State;
 import edu.dosw.sirha.repository.RequestRepository;
 import edu.dosw.sirha.service.RequestService;
 
 @ExtendWith(MockitoExtension.class)
 public class RequestServiceTest {
-    @Mock
-    private RequestRepository requestRepository;
+        @Mock
+        private RequestRepository requestRepository;
 
-    @Mock
-    private RequestMapper requestMapper;
+        @Mock
+        private RequestMapper requestMapper;
 
-    @InjectMocks
-    private RequestService requestService;
+        @InjectMocks
+        private RequestService requestService;
 
-    @Test
-    void shouldCreateRequest() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime tomorrow = now.plusDays(1);
-        RequestDTO request = RequestDTO.builder()
-                .userId("123")
-                .creationDate(now)
-                .responseDate(tomorrow)
-                .state(State.PENDIENT)
-                .build();
+        @Test
+        void shouldCreateRequest() {
+                LocalDateTime now = LocalDateTime.now();
+                LocalDateTime tomorrow = now.plusDays(1);
+                RequestDTO request = RequestDTO.builder()
+                                .userId("123")
+                                .creationDate(now)
+                                .responseDate(tomorrow)
+                                .state(State.PENDIENT)
+                                .build();
 
-        Request fakeSaved = Request.builder()
-                .userId("123")
-                .creationDate(now)
-                .responseDate(tomorrow)
-                .state(State.PENDIENT)
-                .build();
+                Request fakeSaved = Request.builder()
+                                .userId("123")
+                                .creationDate(now)
+                                .responseDate(tomorrow)
+                                .state(State.PENDIENT)
+                                .build();
 
-        RequestResponseDTO fakeResponse = RequestResponseDTO.builder()
-                .userId("123")
-                .creationDate(now)
-                .responseDate(tomorrow)
-                .state(State.PENDIENT)
-                .build();
+                RequestResponseDTO fakeResponse = RequestResponseDTO.builder()
+                                .userId("123")
+                                .creationDate(now)
+                                .responseDate(tomorrow)
+                                .state(State.PENDIENT)
+                                .build();
 
-        when(requestMapper.toEntity(request)).thenReturn(fakeSaved);
-        when(requestRepository.save(fakeSaved)).thenReturn(fakeSaved);
-        when(requestMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
+                when(requestMapper.toEntity(request)).thenReturn(fakeSaved);
+                when(requestRepository.save(fakeSaved)).thenReturn(fakeSaved);
+                when(requestMapper.toDto(fakeSaved)).thenReturn(fakeResponse);
 
-        RequestResponseDTO response = requestService.createRequest(request);
+                RequestResponseDTO response = requestService.createRequest(request);
 
-        assertEquals("123", response.getUserId());
-    }
+                assertEquals("123", response.getUserId());
+        }
 
 }

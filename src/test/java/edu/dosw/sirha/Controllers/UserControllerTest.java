@@ -18,10 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import edu.dosw.sirha.service.Impl.AdministratorService;
 
 import edu.dosw.sirha.controller.UserController;
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
-import edu.dosw.sirha.model.enums.Faculty;
-import edu.dosw.sirha.model.enums.Role;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.entity.enums.Faculty;
+import edu.dosw.sirha.model.entity.enums.Role;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

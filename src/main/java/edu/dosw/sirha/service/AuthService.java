@@ -2,10 +2,10 @@ package edu.dosw.sirha.service;
 
 import org.springframework.stereotype.Service;
 
-import edu.dosw.sirha.dto.request.LoginRequestDTO;
-import edu.dosw.sirha.dto.response.AuthResponseDTO;
 import edu.dosw.sirha.exception.UserNotFoundException;
-import edu.dosw.sirha.model.User;
+import edu.dosw.sirha.model.dto.request.LoginRequestDTO;
+import edu.dosw.sirha.model.dto.response.AuthResponseDTO;
+import edu.dosw.sirha.model.entity.User;
 import edu.dosw.sirha.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.dosw.sirha.dto.request.SubjectRequestDTO;
-import edu.dosw.sirha.dto.response.SubjectResponseDTO;
+import edu.dosw.sirha.model.dto.request.SubjectRequestDTO;
+import edu.dosw.sirha.model.dto.response.SubjectResponseDTO;
 import edu.dosw.sirha.service.SubjectService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;

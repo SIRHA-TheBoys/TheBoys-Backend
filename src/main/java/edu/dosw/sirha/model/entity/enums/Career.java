@@ -1,6 +1,6 @@
-package edu.dosw.sirha.model.enums;
+package edu.dosw.sirha.model.entity.enums;
 
-import edu.dosw.sirha.model.enums.Faculty;
+import edu.dosw.sirha.model.entity.enums.Faculty;
 
 public enum Career {
     CYBERSECURITY_ENGINEERING(Faculty.INFORMATICS),

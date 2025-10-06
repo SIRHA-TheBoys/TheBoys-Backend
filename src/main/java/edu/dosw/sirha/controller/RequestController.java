@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 
-import edu.dosw.sirha.dto.request.RequestDTO;
-import edu.dosw.sirha.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.dto.request.RequestDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.service.RequestService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
