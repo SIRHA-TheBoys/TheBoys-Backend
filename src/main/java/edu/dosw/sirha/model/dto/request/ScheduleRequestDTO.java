@@ -1,4 +1,4 @@
-package edu.dosw.sirha.dto.request;
+package edu.dosw.sirha.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;

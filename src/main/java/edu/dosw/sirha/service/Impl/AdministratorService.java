@@ -1,14 +1,13 @@
 package edu.dosw.sirha.service.Impl;
 
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
-
 import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.UserMapper;
-import edu.dosw.sirha.model.User;
-import edu.dosw.sirha.model.enums.Role;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.entity.User;
+import edu.dosw.sirha.model.entity.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.UserService;
 import jakarta.transaction.Transactional;

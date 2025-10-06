@@ -1,6 +1,6 @@
-package edu.dosw.sirha.dto.response;
+package edu.dosw.sirha.model.dto.response;
 
-import edu.dosw.sirha.model.enums.Status;
+import edu.dosw.sirha.model.entity.enums.Status;
 import lombok.Builder;
 import lombok.Data;
 

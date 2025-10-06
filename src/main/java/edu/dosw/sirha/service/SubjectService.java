@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.dosw.sirha.exception.ResourceNotFoundException;
-import edu.dosw.sirha.dto.request.SubjectRequestDTO;
-import edu.dosw.sirha.dto.response.SubjectResponseDTO;
 import edu.dosw.sirha.mapper.SubjectMapper;
-import edu.dosw.sirha.model.Subject;
+import edu.dosw.sirha.model.dto.request.SubjectRequestDTO;
+import edu.dosw.sirha.model.dto.response.SubjectResponseDTO;
+import edu.dosw.sirha.model.entity.Subject;
 import edu.dosw.sirha.repository.SubjectRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

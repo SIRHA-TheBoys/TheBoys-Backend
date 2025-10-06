@@ -1,10 +1,10 @@
-package edu.dosw.sirha.model;
+package edu.dosw.sirha.model.entity;
 
-import edu.dosw.sirha.model.enums.*;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import edu.dosw.sirha.model.entity.enums.*;
 import lombok.Builder;
 import lombok.Data;
 

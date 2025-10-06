@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.dosw.sirha.dto.request.LoginRequestDTO;
-import edu.dosw.sirha.dto.response.AuthResponseDTO;
+import edu.dosw.sirha.model.dto.request.LoginRequestDTO;
+import edu.dosw.sirha.model.dto.response.AuthResponseDTO;
 import edu.dosw.sirha.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

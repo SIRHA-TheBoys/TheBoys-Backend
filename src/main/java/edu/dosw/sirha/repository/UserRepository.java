@@ -1,7 +1,8 @@
 package edu.dosw.sirha.repository;
 
-import edu.dosw.sirha.model.*;
-import edu.dosw.sirha.model.enums.*;
+import edu.dosw.sirha.model.entity.User;
+import edu.dosw.sirha.model.entity.enums.*;
+
 import java.util.List;
 import java.util.Optional;
 

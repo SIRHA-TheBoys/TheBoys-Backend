@@ -9,15 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import edu.dosw.sirha.dto.request.GroupRequestDTO;
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.mapper.GroupMapper;
-import edu.dosw.sirha.model.Group;
-import edu.dosw.sirha.model.User;
-import edu.dosw.sirha.model.enums.Career;
-import edu.dosw.sirha.model.enums.Role;
+import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.entity.Group;
+import edu.dosw.sirha.model.entity.User;
+import edu.dosw.sirha.model.entity.enums.Career;
+import edu.dosw.sirha.model.entity.enums.Role;
 import edu.dosw.sirha.repository.GroupRepository;
 import edu.dosw.sirha.service.GroupService;
 

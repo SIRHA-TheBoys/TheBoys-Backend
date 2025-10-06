@@ -1,4 +1,4 @@
-package edu.dosw.sirha.dto.request;
+package edu.dosw.sirha.model.dto.request;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class GroupRequestDTO {
 
     private String subjectCode;
 
-    private List<String> userId;
+    private List<String> usersId;
 
     private List<ScheduleRequestDTO> schedules;
 

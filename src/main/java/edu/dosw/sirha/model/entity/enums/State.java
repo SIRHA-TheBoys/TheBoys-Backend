@@ -1,4 +1,4 @@
-package edu.dosw.sirha.model.enums;
+package edu.dosw.sirha.model.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

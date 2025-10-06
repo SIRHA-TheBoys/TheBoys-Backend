@@ -4,15 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.dto.response.RequestResponseDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.UserMapper;
-import edu.dosw.sirha.model.User;
-import edu.dosw.sirha.model.enums.Faculty;
-import edu.dosw.sirha.model.enums.Role;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.entity.User;
+import edu.dosw.sirha.model.entity.enums.Faculty;
+import edu.dosw.sirha.model.entity.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.GroupService;
 import edu.dosw.sirha.service.RequestService;

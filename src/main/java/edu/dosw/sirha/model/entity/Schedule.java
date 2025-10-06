@@ -1,4 +1,4 @@
-package edu.dosw.sirha.model;
+package edu.dosw.sirha.model.entity;
 
 import java.time.LocalDateTime;
 

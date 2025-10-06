@@ -1,4 +1,4 @@
-package edu.dosw.sirha.dto.response;
+package edu.dosw.sirha.model.dto.response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ public class GroupResponseDTO {
 
     private String subjectCode;
 
-    private List<UserResponseDTO> users;
+    private List<String> usersId;
 
-    private ArrayList<ScheduleResponseDTO> schedule;
+    private ArrayList<ScheduleResponseDTO> schedules;
 
 }

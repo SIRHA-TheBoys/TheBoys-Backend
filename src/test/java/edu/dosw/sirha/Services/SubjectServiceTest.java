@@ -11,15 +11,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import edu.dosw.sirha.dto.request.RequestDTO;
-import edu.dosw.sirha.dto.request.SubjectRequestDTO;
-import edu.dosw.sirha.dto.response.RequestResponseDTO;
-import edu.dosw.sirha.dto.response.SubjectResponseDTO;
 import edu.dosw.sirha.mapper.SubjectMapper;
-import edu.dosw.sirha.model.Request;
-import edu.dosw.sirha.model.Subject;
-import edu.dosw.sirha.model.enums.State;
-import edu.dosw.sirha.model.enums.Status;
+import edu.dosw.sirha.model.dto.request.RequestDTO;
+import edu.dosw.sirha.model.dto.request.SubjectRequestDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.dto.response.SubjectResponseDTO;
+import edu.dosw.sirha.model.entity.Request;
+import edu.dosw.sirha.model.entity.Subject;
+import edu.dosw.sirha.model.entity.enums.State;
+import edu.dosw.sirha.model.entity.enums.Status;
 import edu.dosw.sirha.repository.SubjectRepository;
 import edu.dosw.sirha.service.SubjectService;
 
