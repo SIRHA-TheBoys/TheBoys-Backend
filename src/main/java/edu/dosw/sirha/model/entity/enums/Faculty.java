@@ -10,5 +10,6 @@ public enum Faculty {
     INFORMATICS,
     HUMANITIES,
     NATURALSCIENCES,
-    ECONOMY
+    ECONOMY,
+    ENGINEERING
 }
