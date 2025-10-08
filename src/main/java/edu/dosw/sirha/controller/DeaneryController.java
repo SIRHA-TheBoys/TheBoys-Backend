@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
 import edu.dosw.sirha.model.dto.request.UserRequestDTO;
 import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 import edu.dosw.sirha.service.Impl.DeaneryService;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +33,7 @@ public class DeaneryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/students/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> updatedDeanery(
             @Parameter(description = "Deanery to be updated", required = true) @PathVariable String id,
             @Valid @RequestBody UserRequestDTO dto) {

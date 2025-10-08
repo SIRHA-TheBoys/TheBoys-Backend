@@ -1,6 +1,7 @@
 package edu.dosw.sirha.Controllers;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -26,7 +27,7 @@ import edu.dosw.sirha.model.entity.enums.Role;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -97,4 +98,34 @@ public class UserControllerTest {
 
         verify(administratorService, times(1)).deleteUser(id);
     }
+
+    @Test
+    void shouldUpdateAdministrator() throws Exception {
+        UserResponseDTO updatedResponse = UserResponseDTO.builder()
+                .id(id)
+                .name("Updated Dean")
+                .email("updated@mail.com")
+                .role(Role.DEANERY)
+                .build();
+
+        when(administratorService.updateUser(eq(id), any(UserRequestDTO.class)))
+                .thenReturn(updatedResponse);
+
+        mockMvc.perform(put("/users/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                          "id": "%s",
+                          "name": "Updated Dean",
+                          "email": "updated@mail.com",
+                          "password": "newpass",
+                          "role": "DEANERY"
+                        }
+                        """.formatted(id)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.email").value("updated@mail.com"))
+                .andExpect(jsonPath("$.name").value("Updated Dean"));
+    }
+
 }

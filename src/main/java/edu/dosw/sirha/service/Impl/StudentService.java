@@ -117,17 +117,4 @@ public class StudentService implements UserService {
         return userMapper.toDto(student);
     }
 
-    /**
-     * Consult schedule depends of the semester of the student
-     * 
-     * @param studentId
-     * @param semester
-     * @return List of groups that belongs to the student, depends on the semester
-     *         selected
-     */
-    // public List<GroupResponseDTO> consultOldScheduleStudent(String studentId, int
-    // semester) {
-    // return groupService.consultOldSchedule(studentId, semester);
-    // }
-
 }

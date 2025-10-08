@@ -1,7 +1,5 @@
 package edu.dosw.sirha.controller;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,16 +10,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
 import edu.dosw.sirha.model.dto.request.UserRequestDTO;
-import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
 import edu.dosw.sirha.model.dto.response.StudyPlanResponseDTO;
 import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 import edu.dosw.sirha.service.Impl.StudentService;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
 @RestController
