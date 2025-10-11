@@ -43,13 +43,10 @@ public class GroupServiceTest {
         private ScheduleMapper scheduleMapper;
 
         @Mock
-        private UserRepository studentRepository;
+        private UserRepository userRepository;
 
         @Mock
         private SubjectRepository subjectRepository;
-
-        @Mock
-        private UserRepository userRepository;
 
         @Mock
         private List<GroupObserver> observers;
@@ -129,17 +126,153 @@ public class GroupServiceTest {
             assertEquals(30, result.getCapacity());
             assertEquals(5, result.getAvailableQuotas());
         }
-    @Test
-    void shouldDeleteGroup() {
-        when(groupRepository.existsById("999")).thenReturn(true);
 
-        groupService.deleteGroup("999");
+        @Test
+        void shouldDeleteGroup() {
+                when(groupRepository.existsById("999")).thenReturn(true);
 
-        verify(groupRepository).deleteById("999");
-    }
+                groupService.deleteGroup("999");
+
+                verify(groupRepository).deleteById("999");
+        }
+
+        @Test
+        void shouldAssignProfessorToGroup() {
+
+                Group existingGroup = Group.builder()
+                        .numberGroup("1")
+                        .capacity(30)
+                        .availableQuotas(15)
+                        .subjectCode("CALV")
+                        .usersId(new ArrayList<>())
+                        .build();
+
+                User requester = User.builder()
+                        .id("1000143214")
+                        .name("Sonia Gonzalez")
+                        .role(Role.DEANERY)
+                        .build();
+
+                Group savedGroup = Group.builder()
+                        .numberGroup("1")
+                        .capacity(30)
+                        .availableQuotas(15)
+                        .subjectCode("CALV")
+                        .usersId(List.of("100020412"))
+                        .build();
+
+                GroupResponseDTO responseDTO = GroupResponseDTO.builder()
+                        .numberGroup("1")
+                        .capacity(30)
+                        .availableQuotas(15)
+                        .subjectCode("CALV")
+                        .build();
+
+                when(groupRepository.findByNumberGroup("1")).thenReturn(existingGroup);
+                when(userRepository.findById("1000143214")).thenReturn(Optional.of(requester));
+                when(groupRepository.save(existingGroup)).thenReturn(savedGroup);
+                when(groupMapper.toDto(savedGroup)).thenReturn(responseDTO);
+
+                GroupResponseDTO result = groupService.assignProfessorToGroup("1", "100020412", "1000143214");
+
+                assertEquals("1", result.getNumberGroup());
+                assertEquals("CALV", result.getSubjectCode());
+                verify(groupRepository).save(existingGroup);
+        }
 
 
+        @Test
+        void shouldRemoveProfessorFromGroup() {
 
+                List<String> usersId = new ArrayList<>(List.of("100000101", "1000100419"));
+                Group existingGroup = Group.builder()
+                        .numberGroup("2")
+                        .capacity(30)
+                        .availableQuotas(15)
+                        .subjectCode("PREM")
+                        .usersId(usersId)
+                        .build();
+
+                User requester = User.builder()
+                        .id("100001023")
+                        .name("Armando")
+                        .role(Role.DEANERY)  
+                        .build();
+
+                Group savedGroup = Group.builder()
+                        .numberGroup("2")
+                        .capacity(30)
+                        .availableQuotas(15)
+                        .subjectCode("PREM")
+                        .usersId(List.of("1000100419"))
+                        .build();
+
+                GroupResponseDTO responseDTO = GroupResponseDTO.builder()
+                        .numberGroup("2")
+                        .capacity(30)
+                        .availableQuotas(15)
+                        .subjectCode("PREM")
+                        .build();
+
+                when(groupRepository.findByNumberGroup("2")).thenReturn(existingGroup);
+                when(userRepository.findById("100001023")).thenReturn(Optional.of(requester));
+                when(groupRepository.save(existingGroup)).thenReturn(savedGroup);
+                when(groupMapper.toDto(savedGroup)).thenReturn(responseDTO);
+
+                GroupResponseDTO result = groupService.removeProfessorFromGroup("2", "100000101", "100001023");
+
+                assertEquals("2", result.getNumberGroup());
+                assertEquals("PREM", result.getSubjectCode());
+                verify(groupRepository).save(existingGroup);
+        }
+
+        @Test
+        void shouldUpdateCapacity() {
+                
+                GroupRequestDTO dto = GroupRequestDTO.builder()
+                        .capacity(40)
+                        .build();
+
+                Group existingGroup = Group.builder()
+                        .numberGroup("1")
+                        .capacity(30)
+                        .availableQuotas(15)
+                        .subjectCode("CALD")
+                        .usersId(new ArrayList<>())
+                        .build();
+
+                User requester = User.builder()
+                        .id("1000100420")
+                        .name("Admin User")
+                        .role(Role.ADMINISTRATOR)
+                        .build();
+
+                Group updatedGroup = Group.builder()
+                        .numberGroup("1")
+                        .capacity(40)
+                        .availableQuotas(15)
+                        .subjectCode("CALD")
+                        .usersId(new ArrayList<>())
+                        .build();
+
+                GroupResponseDTO responseDTO = GroupResponseDTO.builder()
+                        .numberGroup("1")
+                        .capacity(40)
+                        .availableQuotas(15)
+                        .subjectCode("CALD")
+                        .build();
+
+                when(groupRepository.findByNumberGroup("1")).thenReturn(existingGroup);
+                when(userRepository.findById("1000100420")).thenReturn(Optional.of(requester));
+                when(groupRepository.save(existingGroup)).thenReturn(updatedGroup);
+                when(groupMapper.toDto(updatedGroup)).thenReturn(responseDTO);
+
+                GroupResponseDTO result = groupService.updateCapacity("1", dto, "1000100420");
+
+                assertEquals(40, result.getCapacity());
+                assertEquals("1", result.getNumberGroup());
+                verify(groupRepository).save(existingGroup);
+        }
 
 
 }
