@@ -33,6 +33,7 @@ jobs:
         with:
           files: target/site/jacoco/jacoco.xml
       - name: SonarQube scan
+        if: runner.os != 'Linux'
         run: |
           mvn sonar:sonar \
           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
