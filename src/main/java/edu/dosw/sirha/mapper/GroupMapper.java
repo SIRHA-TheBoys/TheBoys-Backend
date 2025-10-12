@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import edu.dosw.sirha.dto.request.GroupRequestDTO;
-import edu.dosw.sirha.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.model.Group;
+import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
+import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.entity.Group;
 
 @Mapper(componentModel = "spring")
 public interface GroupMapper {

@@ -1,7 +1,7 @@
-package edu.dosw.sirha.dto.request;
+package edu.dosw.sirha.model.dto.request;
 
-import edu.dosw.sirha.model.enums.Faculty;
-import edu.dosw.sirha.model.enums.Status;
+import edu.dosw.sirha.model.entity.enums.Faculty;
+import edu.dosw.sirha.model.entity.enums.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

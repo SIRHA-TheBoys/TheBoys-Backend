@@ -4,18 +4,20 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.dto.response.StudyPlanResponseDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.StudyPlanMapper;
 import edu.dosw.sirha.mapper.UserMapper;
-import edu.dosw.sirha.model.StudyPlan;
-import edu.dosw.sirha.model.User;
-import edu.dosw.sirha.model.enums.Role;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.dto.response.StudyPlanResponseDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.entity.StudyPlan;
+import edu.dosw.sirha.model.entity.User;
+import edu.dosw.sirha.model.entity.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.GroupService;
+import edu.dosw.sirha.service.RequestService;
 import edu.dosw.sirha.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +33,6 @@ public class StudentService implements UserService {
     private final UserMapper userMapper;
 
     private final StudyPlanMapper studyPlanMapper;
-
-    private final GroupService groupService;
 
     /**
      * Create a complete student
@@ -115,28 +115,6 @@ public class StudentService implements UserService {
                 .orElseThrow(() -> ResourceNotFoundException.create("ID", id));
 
         return userMapper.toDto(student);
-    }
-
-    /**
-     * Consult schedule student
-     * 
-     * @param studentId
-     * @return List of groups that belongs to student
-     */
-    public List<GroupResponseDTO> consultScheduleStudent(String studentId) {
-        return groupService.consultScheduleStudent(studentId);
-    }
-
-    /**
-     * Consult schedule depends of the semester of the student
-     * 
-     * @param studentId
-     * @param semester
-     * @return List of groups that belongs to the student, depends on the semester
-     *         selected
-     */
-    public List<GroupResponseDTO> consultOldScheduleStudent(String studentId, int semester) {
-        return groupService.consultOldSchedule(studentId, semester);
     }
 
 }

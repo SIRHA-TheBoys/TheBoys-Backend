@@ -2,22 +2,26 @@ package edu.dosw.sirha.service;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import edu.dosw.sirha.dto.request.RequestDTO;
-import edu.dosw.sirha.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.common.AdvancedRestriction;
+import edu.dosw.sirha.exception.GroupResourceException;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.RequestMapper;
-import edu.dosw.sirha.model.Group;
-import edu.dosw.sirha.model.Request;
-import edu.dosw.sirha.model.Subject;
-import edu.dosw.sirha.model.User;
-import edu.dosw.sirha.model.enums.Faculty;
-import edu.dosw.sirha.model.enums.Role;
+import edu.dosw.sirha.model.dto.request.RequestDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.entity.Group;
+import edu.dosw.sirha.model.entity.Request;
+import edu.dosw.sirha.model.entity.Subject;
+import edu.dosw.sirha.model.entity.User;
+import edu.dosw.sirha.model.entity.enums.Faculty;
+import edu.dosw.sirha.model.entity.enums.Role;
+import edu.dosw.sirha.model.entity.enums.State;
 import edu.dosw.sirha.repository.GroupRepository;
 import edu.dosw.sirha.repository.RequestRepository;
 import edu.dosw.sirha.repository.SubjectRepository;
@@ -38,6 +42,8 @@ public class RequestService {
     private final RequestMapper requestMapper;
 
     private final UserRepository userRepository;
+
+    private final AdvancedRestriction advancedRestriction;
 
     /**
      * Create a new Request
@@ -66,6 +72,12 @@ public class RequestService {
     public RequestResponseDTO updateRequest(ObjectId id, RequestDTO dto) {
 
         Request request = requestRepository.findById(id).orElseThrow(() -> ResourceNotFoundException.create("ID", id));
+
+        Group futureGroup = groupRepository.findByNumberGroup(request.getGroupDestinyId());
+
+        if (advancedRestriction.groupCapacity(futureGroup)) {
+            throw new GroupResourceException();
+        }
 
         request.setResponseDate(dto.getResponseDate());
 

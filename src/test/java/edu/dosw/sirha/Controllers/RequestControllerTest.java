@@ -25,9 +25,9 @@ import org.springframework.http.MediaType;
 
 import edu.dosw.sirha.service.RequestService;
 import edu.dosw.sirha.controller.RequestController;
-import edu.dosw.sirha.dto.request.RequestDTO;
-import edu.dosw.sirha.dto.response.RequestResponseDTO;
-import edu.dosw.sirha.model.enums.State;
+import edu.dosw.sirha.model.dto.request.RequestDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.entity.enums.State;
 
 @WebMvcTest(RequestController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -112,3 +112,5 @@ public class RequestControllerTest {
         verify(requestService, times(1)).deleteRequest(id);
     }
 }
+
+

@@ -1,4 +1,4 @@
-package edu.dosw.sirha.model.enums;
+package edu.dosw.sirha.model.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,5 +10,6 @@ public enum Faculty {
     INFORMATICS,
     HUMANITIES,
     NATURALSCIENCES,
-    ECONOMY
+    ECONOMY,
+    ENGINEERING
 }

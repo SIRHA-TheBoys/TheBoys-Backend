@@ -1,9 +1,10 @@
-package edu.dosw.sirha.dto.response;
+package edu.dosw.sirha.model.dto.request;
 
 import java.time.LocalDateTime;
+
 import org.bson.types.ObjectId;
 
-import edu.dosw.sirha.model.enums.State;
+import edu.dosw.sirha.model.entity.enums.State;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestResponseDTO {
+public class RequestDTO {
 
     private ObjectId id;
 
@@ -30,4 +31,5 @@ public class RequestResponseDTO {
     private String description;
 
     private State state;
+
 }

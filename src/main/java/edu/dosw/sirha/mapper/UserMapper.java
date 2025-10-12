@@ -4,11 +4,9 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
-import edu.dosw.sirha.model.Group;
-import edu.dosw.sirha.model.User;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

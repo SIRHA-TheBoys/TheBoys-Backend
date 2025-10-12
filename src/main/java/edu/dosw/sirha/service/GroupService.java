@@ -6,18 +6,20 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import edu.dosw.sirha.dto.request.GroupRequestDTO;
-import edu.dosw.sirha.dto.response.GroupResponseDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
 import edu.dosw.sirha.exception.InvalidSemester;
 import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.exception.RoleException;
 import edu.dosw.sirha.mapper.GroupMapper;
 import edu.dosw.sirha.mapper.UserMapper;
 import edu.dosw.sirha.mapper.ScheduleMapper;
-import edu.dosw.sirha.model.Group;
-import edu.dosw.sirha.model.User;
-import edu.dosw.sirha.model.enums.Role;
+import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
+import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.entity.Group;
+import edu.dosw.sirha.model.entity.Subject;
+import edu.dosw.sirha.model.entity.User;
+import edu.dosw.sirha.model.entity.enums.Role;
+import edu.dosw.sirha.model.entity.enums.Status;
 import edu.dosw.sirha.model.observers.GroupObserver;
 import edu.dosw.sirha.repository.GroupRepository;
 import edu.dosw.sirha.repository.SubjectRepository;
@@ -54,7 +56,6 @@ public class GroupService {
     }
 
     @Transactional
-    // Está es la actualización completa
     public GroupResponseDTO updateGroup(String numberGroup, GroupRequestDTO dto) {
 
         Group group = groupRepository.findById(numberGroup)
@@ -65,7 +66,7 @@ public class GroupService {
         group.setCapacity(dto.getCapacity());
         group.setAvailableQuotas(dto.getAvailableQuotas());
         group.setSubjectCode(dto.getSubjectCode());
-        group.setUserId(dto.getUserId());
+        group.setUsersId(dto.getUsersId());
 
         if (dto.getSchedules() != null) {
             group.setSchedules(
@@ -76,8 +77,7 @@ public class GroupService {
 
         Group saved = groupRepository.save(group);
 
-        // Implementacion Observer ?
-        if (oldQuotas != saved.getAvailableQuotas()) {
+        if ((group.getCapacity() - group.getAvailableQuotas()) >= group.getCapacity() * 0.9) {
             obsevers.forEach(observer -> observer.updateAvailableCredits(saved.getNumberGroup(), oldQuotas,
                     saved.getAvailableQuotas()));
         }
@@ -109,8 +109,14 @@ public class GroupService {
                 .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
 
         List<Group> groups = groupRepository.findAllByNumberGroupIn(student.getNumberGroupId());
+        List<Group> scheduleGroups = groups.stream()
+                .filter(group -> {
+                    Subject subject = subjectRepository.findByCode(group.getSubjectCode());
+                    return subject != null && Status.INPROGRESS.equals(subject.getStatus());
+                })
+                .collect(Collectors.toList());
 
-        return groupMapper.toDtoList(groups);
+        return groupMapper.toDtoList(scheduleGroups);
     }
 
     /**
@@ -143,11 +149,11 @@ public class GroupService {
     public List<GroupResponseDTO> consultOldSchedule(String studentId, int semester) {
         User student = studentRepository.findById(studentId)
                 .orElseThrow(() -> ResourceNotFoundException.create("ID", studentId));
-        if (student.getSemester() == 1) {
+        if (student.getSemester() < 1) {
             throw new InvalidSemester(studentId);
         }
-        if (student.getSemester() != semester) {
-            return List.of();
+        if (student.getSemester() <= semester) {
+            throw new InvalidSemester(studentId);
         }
         List<Group> groups = groupRepository.findAllByNumberGroupIn(student.getNumberGroupId()); // Estoy devolviendo
                                                                                                  // todos los grupos no
@@ -203,10 +209,10 @@ public class GroupService {
             throw RoleException.create(requester.getId());
         }
         // Esta asignado a un grupo ya ?
-        if (group.getUserId() != null && group.getUserId().contains(professorId)) {
+        if (group.getUsersId() != null && group.getUsersId().contains(professorId)) {
             return groupMapper.toDto(group);
         }
-        group.getUserId().add(professorId);
+        group.getUsersId().add(professorId);
         Group savedGroup = groupRepository.save(group);
         return groupMapper.toDto(savedGroup);
     }
@@ -232,7 +238,7 @@ public class GroupService {
             throw RoleException.create(requester.getId());
         }
 
-        group.getUserId().remove(professorId);
+        group.getUsersId().remove(professorId);
         Group savedGroup = groupRepository.save(group);
 
         return groupMapper.toDto(savedGroup);
@@ -250,11 +256,11 @@ public class GroupService {
             throw ResourceNotFoundException.create("number group", numberGroup);
         }
 
-        if (group.getUserId() == null || group.getUserId().isEmpty()) {
+        if (group.getUsersId() == null || group.getUsersId().isEmpty()) {
             return null;
         }
 
-        return group.getUserId().stream()
+        return group.getUsersId().stream()
                 .map(userId -> userRepository.findById(userId))
                 .filter(optional -> optional.isPresent())
                 .map(optional -> optional.get())
@@ -276,7 +282,7 @@ public class GroupService {
         if (!professor.getRole().equals(Role.DEANERY)) {
             throw new RoleException("User with ID " + professorId + " cannot be a professor");
         }
-        List<Group> groups = groupRepository.findByUserIdContaining(professorId);
+        List<Group> groups = groupRepository.findByUsersIdContaining(professorId);
 
         return groupMapper.toDtoList(groups);
     }

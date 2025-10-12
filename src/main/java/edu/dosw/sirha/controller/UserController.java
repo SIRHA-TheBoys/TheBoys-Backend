@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.dosw.sirha.dto.request.SubjectRequestDTO;
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.SubjectResponseDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
-import edu.dosw.sirha.model.Request;
+import edu.dosw.sirha.model.dto.request.SubjectRequestDTO;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.SubjectResponseDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.entity.Request;
 import edu.dosw.sirha.service.Impl.AdministratorService;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
@@ -41,7 +41,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<UserResponseDTO> updateUser(
             @Parameter(description = "Users to be updated", required = true) @PathVariable String id,
             @Valid @RequestBody UserRequestDTO dto) {

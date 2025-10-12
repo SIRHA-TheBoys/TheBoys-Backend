@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import edu.dosw.sirha.dto.request.RequestDTO;
-import edu.dosw.sirha.dto.response.RequestResponseDTO;
-import edu.dosw.sirha.model.Request;
+import edu.dosw.sirha.model.dto.request.RequestDTO;
+import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.entity.Request;
 
 @Mapper(componentModel = "spring")
 public interface RequestMapper {

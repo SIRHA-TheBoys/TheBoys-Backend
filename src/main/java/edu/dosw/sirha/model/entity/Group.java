@@ -1,4 +1,4 @@
-package edu.dosw.sirha.model;
+package edu.dosw.sirha.model.entity;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class Group {
 
     private String subjectCode;
 
-    private List<String> userId;
+    private List<String> usersId;
 
     private List<Schedule> schedules; // Embebidos, sin document
 }

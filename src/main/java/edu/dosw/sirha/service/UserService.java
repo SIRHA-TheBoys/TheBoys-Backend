@@ -1,7 +1,7 @@
 package edu.dosw.sirha.service;
 
-import edu.dosw.sirha.dto.request.UserRequestDTO;
-import edu.dosw.sirha.dto.response.UserResponseDTO;
+import edu.dosw.sirha.model.dto.request.UserRequestDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 
 public interface UserService {
 
