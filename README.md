@@ -26,23 +26,23 @@ Para compilar, ejecutar y probar el proyecto, seguiremos los siguientes pasos:
 
 1. *Clonar El Repositorio*:
     ```bash
-    `git clone https://github.com/tulio3101/TheBoys-Backend.git`
+    git clone https://github.com/tulio3101/TheBoys-Backend.git
 
 2. *Entrar al proyecto*:
     ```bash
-    `cd TheBoys-Backend.git`
+    cd TheBoys-Backend.git
 
 3. *Compilar*:
     ```bash
-    `mvn clean compile`
+    mvn clean compile
 
 4. *Ejecutar el Proyecto*:
     ```bash
-    `mvn spring-boot:run`
+    mvn spring-boot:run
 
 5. *Ejecutar Pruebas*:
     ```bash
-    `mvn test`
+    mvn test
 
 ---
 
