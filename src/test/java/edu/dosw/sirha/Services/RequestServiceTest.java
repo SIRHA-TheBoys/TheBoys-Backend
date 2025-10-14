@@ -1,7 +1,9 @@
 package edu.dosw.sirha.Services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -9,10 +11,13 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import edu.dosw.sirha.common.AdvancedRestriction;
+import edu.dosw.sirha.exception.GroupResourceException;
+import edu.dosw.sirha.exception.ResourceNotFoundException;
 import edu.dosw.sirha.mapper.GroupMapper;
 import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
 import edu.dosw.sirha.model.entity.Group;
+import edu.dosw.sirha.model.entity.User;
 import edu.dosw.sirha.repository.GroupRepository;
 import edu.dosw.sirha.service.GroupService;
 import org.bson.types.ObjectId;
@@ -27,9 +32,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import edu.dosw.sirha.mapper.RequestMapper;
 import edu.dosw.sirha.model.dto.request.RequestDTO;
 import edu.dosw.sirha.model.dto.response.RequestResponseDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 import edu.dosw.sirha.model.entity.Request;
+import edu.dosw.sirha.model.entity.enums.Role;
 import edu.dosw.sirha.model.entity.enums.State;
 import edu.dosw.sirha.repository.RequestRepository;
+import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.RequestService;
 
 
@@ -37,6 +45,9 @@ import edu.dosw.sirha.service.RequestService;
 public class RequestServiceTest {
         @Mock
         private RequestRepository requestRepository;
+
+        @Mock 
+        private UserRepository userRepository;
 
         @Mock
         private RequestMapper requestMapper;
@@ -200,6 +211,62 @@ public class RequestServiceTest {
                 assertEquals("1234", response.getUserId());
                 assertEquals(State.APPROVED, response.getState());
         }
+
+        @Test
+        void updateRequestShouldThrownWhenIdNotFound(){
+
+                RequestDTO updatedRequestDTO = RequestDTO.builder()
+                        .id(newRequest.getId())
+                        .userId(newRequest.getUserId())
+                        .groupDestinyId(newRequest.getGroupDestinyId())
+                        .creationDate(newRequest.getCreationDate())
+                        .responseDate(newRequest.getResponseDate())
+                        .state(State.APPROVED)
+                        .build();
+                when(requestRepository.findById(newRequest.getId())).thenReturn(Optional.empty());
+
+                assertThrows(ResourceNotFoundException.class, () -> {requestService.updateRequest(requestDTOSaved.getId(), updatedRequestDTO);});
+                verify(requestRepository).findById(newRequest.getId());
+        }
+
+       // @Test
+       // void updateRequestShouldThrownWhenGroupCapacityIsFull(){
+
+         //       GroupRequestDTO fullGroupRequestDTO = GroupRequestDTO.builder()
+             //           .numberGroup("1G")
+           //             .capacity(21)
+                 //       .availableQuotas(0)
+               //         .subjectCode("DOSW")
+                   //     .build();
+
+
+         //       User adminUser = User.builder()
+           //             .name("test")
+             //           .id("1000099099")
+               //         .role(Role.DEANERY)
+                 //       .build();
+
+
+               // when(groupRepository.findByNumberGroup(newGroup.getNumberGroup())).thenReturn(groupSaved);
+             //   when(requestRepository.findById(newRequest.getId())).thenReturn(Optional.of(requestDTOSaved));
+           //     when(userRepository.findById(adminUser.getId())).thenReturn(Optional.of(adminUser));
+                
+          //      GroupResponseDTO updatedGroup = groupService.updateCapacity(newGroup.getNumberGroup(), fullGroupRequestDTO, adminUser.getId());
+
+
+        //        RequestDTO updatedRequestDTO = RequestDTO.builder()
+                //        .id(newRequest.getId())
+              //          .userId(newRequest.getUserId())
+            //            .groupDestinyId(updatedGroup.getNumberGroup())
+          //              .creationDate(newRequest.getCreationDate())
+        //                .responseDate(newRequest.getResponseDate())
+      //                  .state(State.APPROVED)
+    //                    .build();
+
+
+  //              assertThrows(ResourceNotFoundException.class, () -> {requestService.updateRequest(requestDTOSaved.getId(), updatedRequestDTO);});
+
+//        }
 
         @Test
         void shouldDeleteRequest(){
