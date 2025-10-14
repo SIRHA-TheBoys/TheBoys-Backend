@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Deploy a sandbox
-        run: echo "Desplegando en Sandbox con URI: ${{ secrets.MONGO_URI}}"
+        run: echo 'Desplegando en Sandbox con URI: ${{ secrets.MONGO_URI }}'
 
   deploy-preprod:
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
     
 
     - name: Deploy a preproduction
-      run: echo "Desplegando en Preproduccion con credenciales ${{ secrets.AZURE_CREDENTIALS }}"
+      run: echo 'Desplegando en Preproduccion con credenciales ${{ secrets.AZURE_CREDENTIALS }}'
     
   deploy-prod:
     runs-on: ubuntu-latest
@@ -35,4 +35,4 @@ jobs:
     - name: Checkout codigo 
       uses: actions/checkout@v3 
     - name: Deploy a produccion 
-      run: echo "Desplegando en Produccion con credenciales ${{ secrets.AZURE_CREDENTIALS}}"
+      run: echo 'Desplegando en Produccion con credenciales ${{ secrets.AZURE_CREDENTIALS}}'
