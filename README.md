@@ -14,9 +14,9 @@ Integrantes:
 
 - Para mantener un control claro del desarrollo, seguimos una estructura de ramas basada en Git Flow:
 
-    - `main`: Contiene el código estable y listo para producción.
-    - `develop`: Rama principal de desarrollo.
-    - `feature/<funcionalidadRealizada>`: Se crea a partir de develop para implementar una nueva característica o mejora.
+  - `main`: Contiene el código estable y listo para producción.
+  - `develop`: Rama principal de desarrollo.
+  - `feature/<funcionalidadRealizada>`: Se crea a partir de develop para implementar una nueva característica o mejora.
 
 ---
 
@@ -24,25 +24,38 @@ Integrantes:
 
 Para compilar, ejecutar y probar el proyecto, seguiremos los siguientes pasos:
 
-1. *Clonar El Repositorio*:
-    ```bash
-    git clone https://github.com/tulio3101/TheBoys-Backend.git
+1. _Clonar El Repositorio_:
 
-2. *Entrar al proyecto*:
-    ```bash
-    cd TheBoys-Backend.git
+   ```bash
+   git clone https://github.com/tulio3101/TheBoys-Backend.git
 
-3. *Compilar*:
-    ```bash
-    mvn clean compile
+   ```
 
-4. *Ejecutar el Proyecto*:
-    ```bash
-    mvn spring-boot:run
+2. _Entrar al proyecto_:
 
-5. *Ejecutar Pruebas*:
-    ```bash
-    mvn test
+   ```bash
+   cd TheBoys-Backend.git
+
+   ```
+
+3. _Compilar_:
+
+   ```bash
+   mvn clean compile
+
+   ```
+
+4. _Ejecutar el Proyecto_:
+
+   ```bash
+   mvn spring-boot:run
+
+   ```
+
+5. _Ejecutar Pruebas_:
+   ```bash
+   mvn test
+   ```
 
 ---
 
@@ -65,8 +78,7 @@ Entre los patrones implementados destacan:
 
 - Strategy : Empleado para definir diferentes comportamientos en el manejo de responsabilidades de los usuarios y la gestión de solicitudes.
 
-![alt text](docs/imagenes/clasesCorregidoo.png)
----
+## ![alt text](docs/imagenes/clasesCorregidoo.png)
 
 _Diagrama De Casos De Uso:_
 
@@ -79,6 +91,7 @@ Se definieron las funcionalidades específicas de cada uno de los actores que in
 _Diagrama De Componentes General:_
 
 Tres componentes básicos:
+
 - SIRHA FRONT: Experiencia de usuario.
 - SIRHA BACK: Lógica de la aplicación.
 - DB: Persistencia.
@@ -122,6 +135,7 @@ Se presenta la estructura del modelo de datos, en la cual se almacena la informa
 Esta estructura define las entidades principales, sus atributos y las relaciones existentes entre ellas.
 
 ---
+
 _Diagrama de Despliegue:_
 
 Para el despliegue de la aplicación, se plantean tres nodos:
