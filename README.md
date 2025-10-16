@@ -27,35 +27,31 @@ Para compilar, ejecutar y probar el proyecto, seguiremos los siguientes pasos:
 1. _Clonar El Repositorio_:
 
    ```bash
-   git clone https://github.com/tulio3101/TheBoys-Backend.git
+   git clone https://github.com/SIRHA-TheBoys/TheBoys-Backend
 
    ```
 
 2. _Entrar al proyecto_:
 
    ```bash
-   cd TheBoys-Backend.git
+   cd TheBoys-Backend
 
    ```
 
-3. _Compilar_:
-
+3. _Construir y correr los contenedores_
    ```bash
-   mvn clean compile
-
+   docker-compose up -d
    ```
-
-4. _Ejecutar el Proyecto_:
-
+4. _Utilice el siguiente comando para obtener un shell bash dentro del contedor de la aplicación._
    ```bash
+   docker-compose exec app bash
+   ```
+5. _Dentro de esta terminal se pueeden ejecutar comandos de manera manual, no es obligatorio para hacer pruebas ya que con el contenedor corriendo es suficiente_
+   ```bash
+   mvn clean verify
    mvn spring-boot:run
-
    ```
 
-5. _Ejecutar Pruebas_:
-   ```bash
-   mvn test
-   ```
 
 ---
 
