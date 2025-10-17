@@ -59,4 +59,11 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDTO> consultStudentBasicInformation(@PathVariable String id) {
+
+        return ResponseEntity.ok(administratorService.consultBasicInformation(id));
+
+    }
+
 }

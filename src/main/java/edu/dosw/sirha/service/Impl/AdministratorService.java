@@ -75,4 +75,17 @@ public class AdministratorService implements UserService {
         }
         userRepository.deleteById(id);
     }
+
+    /**
+     * Consult Administrator basic information
+     * 
+     * @param id
+     * @return Administrator basic information
+     */
+    public UserResponseDTO consultBasicInformation(String id) {
+        User student = userRepository.findByRoleAndId(Role.ADMINISTRATOR, id)
+                .orElseThrow(() -> ResourceNotFoundException.create("ID", id));
+
+        return userMapper.toDto(student);
+    }
 }

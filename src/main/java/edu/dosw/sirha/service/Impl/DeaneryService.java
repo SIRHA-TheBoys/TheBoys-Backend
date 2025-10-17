@@ -74,6 +74,19 @@ public class DeaneryService implements UserService {
     }
 
     /**
+     * Consult Deanery basic information
+     * 
+     * @param id
+     * @return Deanery basic information
+     */
+    public UserResponseDTO consultBasicInformation(String id) {
+        User student = userRepository.findByRoleAndId(Role.DEANERY, id)
+                .orElseThrow(() -> ResourceNotFoundException.create("ID", id));
+
+        return userMapper.toDto(student);
+    }
+
+    /**
      * Delete a deanery
      * 
      * @param id
