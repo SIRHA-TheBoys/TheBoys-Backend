@@ -1,13 +1,14 @@
 package edu.dosw.sirha.Services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
 import edu.dosw.sirha.mapper.ScheduleMapper;
 import edu.dosw.sirha.mapper.UserMapper;
-import edu.dosw.sirha.model.entity.User;
 import edu.dosw.sirha.model.entity.enums.Role;
+import edu.dosw.sirha.model.entity.User;
 import edu.dosw.sirha.model.observers.GroupObserver;
 import edu.dosw.sirha.repository.SubjectRepository;
 import edu.dosw.sirha.repository.UserRepository;
@@ -18,6 +19,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import edu.dosw.sirha.mapper.GroupMapper;
+import edu.dosw.sirha.exception.RoleException;
+import edu.dosw.sirha.exception.ResourceNotFoundException;
+import edu.dosw.sirha.model.dto.request.ScheduleRequestDTO;
+import edu.dosw.sirha.model.entity.Schedule;
 import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
 import edu.dosw.sirha.model.entity.Group;
@@ -134,6 +139,16 @@ public class GroupServiceTest {
                 groupService.deleteGroup("999");
 
                 verify(groupRepository).deleteById("999");
+        }
+
+        @Test
+        void deleteGroup_whenNotExists_shouldThrowResourceNotFound() {
+                when(groupRepository.existsById("not-found")).thenReturn(false);
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> groupService.deleteGroup("not-found"));
+
+                assertEquals("ID with ID 'not-found' not found", ex.getMessage());
         }
 
         @Test
@@ -273,6 +288,170 @@ public class GroupServiceTest {
                 assertEquals("1", result.getNumberGroup());
                 verify(groupRepository).save(existingGroup);
         }
+
+
+        @Test
+        void shouldThrowRoleException() {
+                Group group = Group.builder()
+                        .numberGroup("10")
+                        .capacity(20)
+                        .availableQuotas(5)
+                        .subjectCode("AYPR")
+                        .usersId(new ArrayList<>())
+                        .build();
+
+                GroupRequestDTO dto = GroupRequestDTO.builder()
+                        .capacity(25)
+                        .build();
+
+                User student = User.builder()
+                        .id("Jools")
+                        .role(Role.STUDENT)
+                        .build();
+
+                when(groupRepository.findByNumberGroup("10")).thenReturn(group);
+                when(userRepository.findById("Jools")).thenReturn(Optional.of(student));
+
+                RoleException ex = assertThrows(RoleException.class,
+                                () -> groupService.updateCapacity("10", dto, "Jools"));
+
+                assertEquals("User with ID 'Jools', has insufficient permissions", ex.getMessage());
+        }
+
+        @Test
+        void shouldNotifyObservers() {
+
+                ScheduleRequestDTO scheduleDto = ScheduleRequestDTO.builder()
+                        .startSession(java.time.LocalDateTime.now())
+                        .endSession(java.time.LocalDateTime.now().plusHours(1))
+                        .build();
+
+                GroupRequestDTO dto = GroupRequestDTO.builder()
+                        .numberGroup("99")
+                        .capacity(10)
+                        .availableQuotas(1) //90%
+                        .schedules(List.of(scheduleDto))
+                        .build();
+
+                Group existingGroup = Group.builder()
+                        .numberGroup("99")
+                        .capacity(10)
+                        .availableQuotas(10) 
+                        .subjectCode("PTIA")
+                        .usersId(new ArrayList<>())
+                        .build();
+
+                Schedule scheduleEntity = Schedule.builder()
+                        .startSession(scheduleDto.getStartSession())
+                        .endSession(scheduleDto.getEndSession())
+                        .build();
+
+                Group savedGroup = Group.builder()
+                        .numberGroup("99")
+                        .capacity(10)
+                        .availableQuotas(1)
+                        .subjectCode("PTIA")
+                        .usersId(new ArrayList<>())
+                        .schedules(List.of(scheduleEntity))
+                        .build();
+
+                GroupResponseDTO responseDTO = GroupResponseDTO.builder()
+                        .numberGroup("99")
+                        .capacity(10)
+                        .availableQuotas(1)
+                        .subjectCode("PTIA")
+                        .build();
+
+                when(groupRepository.findById("99")).thenReturn(Optional.of(existingGroup));
+                when(scheduleMapper.toEntity(scheduleDto)).thenReturn(scheduleEntity);
+                when(groupRepository.save(existingGroup)).thenReturn(savedGroup);
+                when(groupMapper.toDto(savedGroup)).thenReturn(responseDTO);
+
+                GroupObserver observer = mock(GroupObserver.class);
+                when(observers.iterator()).thenReturn(List.of(observer).iterator());
+
+                doCallRealMethod().when(observers).forEach(any());
+
+                GroupResponseDTO result = groupService.updateGroup("99", dto);
+
+                assertEquals(1, result.getAvailableQuotas());
+                verify(observer).updateAvailableCredits("99", 10, 1);
+        }
+
+        @Test
+        void assignProfessorToGroupShouldThrowResourceNotFound() {
+                when(groupRepository.findByNumberGroup("not-exist")).thenReturn(null);
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> groupService.assignProfessorToGroup("not-exist", "Armando", "request-1"));
+
+                assertEquals("number group with ID 'not-exist' not found", ex.getMessage());
+        }
+
+        @Test
+        void assignProfessorToGroup_whenRequesterNotFound_shouldThrowResourceNotFound() {
+                Group existingGroup = Group.builder()
+                        .numberGroup("5")
+                        .usersId(new ArrayList<>())
+                        .build();
+
+                when(groupRepository.findByNumberGroup("5")).thenReturn(existingGroup);
+                when(userRepository.findById("missing")).thenReturn(Optional.empty());
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> groupService.assignProfessorToGroup("5", "Armando", "missing"));
+
+                assertEquals("requester ID with ID 'missing' not found", ex.getMessage());
+        }
+
+        @Test
+        void assignProfessorToGroup_whenRequesterNotDeanery_shouldThrowRoleException() {
+                Group existingGroup = Group.builder()
+                        .numberGroup("7")
+                        .usersId(new ArrayList<>())
+                        .build();
+
+                User requester = User.builder()
+                        .id("Paco")
+                        .role(Role.STUDENT)
+                        .build();
+
+                when(groupRepository.findByNumberGroup("7")).thenReturn(existingGroup);
+                when(userRepository.findById("Paco")).thenReturn(Optional.of(requester));
+
+                RoleException ex = assertThrows(RoleException.class,
+                                () -> groupService.assignProfessorToGroup("7", "professor-1", "Paco"));
+
+                assertEquals("User with ID 'Paco', has insufficient permissions", ex.getMessage());
+        }
+
+        @Test
+        void getGroupsAssignedToProfessor_whenProfessorNotFound_shouldThrowResourceNotFound() {
+                when(userRepository.findById("1000101010")).thenReturn(Optional.empty());
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> groupService.getGroupsAssignedToProfessor("1000101010"));
+
+                assertEquals("professor ID with ID '1000101010' not found", ex.getMessage());
+        }
+
+        @Test
+        void getGroupsAssignedToProfessor_whenUserNotDeanery_shouldThrowRoleException() {
+                User notProf = User.builder()
+                        .id("1000909091")
+                        .role(Role.STUDENT)
+                        .build();
+
+                when(userRepository.findById("1000909091")).thenReturn(Optional.of(notProf));
+
+                RoleException ex = assertThrows(RoleException.class,
+                                () -> groupService.getGroupsAssignedToProfessor("1000909091"));
+
+                assertEquals("User with ID 1000909091 cannot be a professor", ex.getMessage());
+        }
+
+
+
 
 
 }
