@@ -14,5 +14,7 @@ public class AuthResponseDTO {
     private String email;
     @Schema(description = "User's full name", example = "John Doe")
     private String name;
+    
+    
 
 }
