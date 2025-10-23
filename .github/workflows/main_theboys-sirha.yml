@@ -34,7 +34,9 @@ jobs:
           run: mvn -B test --show-version
 
   build:
+    name: Build JAR (main)
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     permissions:
       contents: read #This is required for actions/checkout
 
