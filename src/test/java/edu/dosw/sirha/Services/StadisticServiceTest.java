@@ -12,6 +12,7 @@ import edu.dosw.sirha.repository.GroupRepository;
 import edu.dosw.sirha.repository.SubjectRepository;
 import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.Impl.StadisticServiceImpl;
+import edu.dosw.sirha.service.RequestService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +40,9 @@ public class StadisticServiceTest {
     @Mock
     private UserMapper userMapper;
 
+    @Mock
+    private RequestService requestService;
+
     @InjectMocks
     private StadisticServiceImpl stadisticsService;
 
@@ -50,50 +54,18 @@ public class StadisticServiceTest {
     void setup() {
         MockitoAnnotations.openMocks(this);
 
-        Subject cali = Subject.builder().
-            code("CALI").
-            status(Status.REPROVED).
-            build();
-        Subject dosw = Subject.builder().
-            code("DOSW").
-            status(Status.APPROVED).
-            build();
-        Subject tpcy = Subject.builder().
-            code("TPYC").
-            status(Status.REPROVED).
-            build();
-        Subject aysr = Subject.builder().
-            code("AYSR").
-            status(Status.APPROVED).
-            build();
+        Subject cali = Subject.builder().code("CALI").status(Status.REPROVED).build();
+        Subject dosw = Subject.builder().code("DOSW").status(Status.APPROVED).build();
+        Subject tpcy = Subject.builder().code("TPYC").status(Status.REPROVED).build();
+        Subject aysr = Subject.builder().code("AYSR").status(Status.APPROVED).build();
 
         subjects = List.of(cali, dosw, tpcy, aysr);
         when(subjectRepository.findAllById(anyList())).thenReturn(subjects);
 
-        Group fakeCali = Group.builder().
-            numberGroup("1").
-            capacity(25).
-            availableQuotas(10).
-            subjectCode("CALI").
-            build();
-        Group fakeDosw = Group.builder().
-            numberGroup("2").
-            capacity(25).
-            availableQuotas(10).
-            subjectCode("DOSW").
-            build();
-        Group fakeTpcy = Group.builder().
-            numberGroup("3").
-            capacity(25).
-            availableQuotas(10).
-            subjectCode("TPYC").
-            build();
-        Group fakeAysr = Group.builder().
-            numberGroup("4").
-            capacity(25).
-            availableQuotas(10).
-            subjectCode("AYSR").
-            build();
+        Group fakeCali = Group.builder().numberGroup("1").capacity(25).availableQuotas(10).subjectCode("CALI").build();
+        Group fakeDosw = Group.builder().numberGroup("2").capacity(25).availableQuotas(10).subjectCode("DOSW").build();
+        Group fakeTpcy = Group.builder().numberGroup("3").capacity(25).availableQuotas(10).subjectCode("TPYC").build();
+        Group fakeAysr = Group.builder().numberGroup("4").capacity(25).availableQuotas(10).subjectCode("AYSR").build();
 
         groupsList = List.of(fakeCali, fakeDosw, fakeTpcy, fakeAysr);
         when(groupRepository.findAllById(anyList())).thenReturn(groupsList);
@@ -118,12 +90,12 @@ public class StadisticServiceTest {
     void shouldGetStudyPlanProgressPerStudent() {
         Double result = stadisticsService.studyPlanProgressPerStudent(testStudent.getId());
         assertNotNull(result);
-        assertEquals(0.5, result); 
+        assertEquals(0.5, result);
     }
 
     @Test
     void shouldGetMostRequestedSubject() {
-        
+
         RequestResponseDTO req1 = RequestResponseDTO.builder()
                 .groupDestinyId("1")
                 .build();
@@ -137,6 +109,9 @@ public class StadisticServiceTest {
                 .build();
 
         List<RequestResponseDTO> requests = List.of(req1, req2, req3);
+
+        // Mock del RequestService para que devuelva las solicitudes
+        when(requestService.allRequests()).thenReturn(requests);
 
         Group group1 = Group.builder()
                 .numberGroup("1")
@@ -163,34 +138,36 @@ public class StadisticServiceTest {
         when(subjectRepository.findAllById(anyList()))
                 .thenReturn(List.of(subject1, subject1, subject2));
 
-        HashMap<Subject, Integer> result = stadisticsService.mostRequestedSubject(requests);
+        // Ahora no recibe parámetros
+        HashMap<Subject, Integer> result = stadisticsService.mostRequestedSubject();
 
         assertNotNull(result);
-        assertEquals(1, result.size()); 
+        assertEquals(1, result.size());
         Subject mostRequested = result.keySet().iterator().next();
         assertEquals("DOSW", mostRequested.getCode());
-        assertEquals(2, result.get(mostRequested)); 
-    }   
-
-
+        assertEquals(2, result.get(mostRequested));
+    }
 
     @Test
     void shouldGetMostRequestedGroup() {
         List<RequestResponseDTO> requests = List.of(
                 RequestResponseDTO.builder()
-                .groupDestinyId("1")
-                .build(),
+                        .groupDestinyId("1")
+                        .build(),
                 RequestResponseDTO.builder()
-                .groupDestinyId("1")
-                .build(),
+                        .groupDestinyId("1")
+                        .build(),
                 RequestResponseDTO.builder()
-                .groupDestinyId("3")
-                .build()
-        );
+                        .groupDestinyId("3")
+                        .build());
+
+        // Mock del RequestService para que devuelva las solicitudes
+        when(requestService.allRequests()).thenReturn(requests);
 
         when(groupRepository.findAllById(anyList())).thenReturn(groupsList);
 
-        HashMap<Group, Integer> result = stadisticsService.mostRequestedGroups(requests);
+        // Ahora no recibe parámetros
+        HashMap<Group, Integer> result = stadisticsService.mostRequestedGroups();
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -200,14 +177,20 @@ public class StadisticServiceTest {
 
     @Test
     void shouldGetGroupAvailability() {
+        String groupId = "4";
+
         Group arswGroup = Group.builder()
-                .numberGroup("4")
+                .numberGroup(groupId)
                 .capacity(25)
                 .availableQuotas(2)
                 .subjectCode("ARSW")
                 .build();
 
-        Double result = stadisticsService.groupAvailability(arswGroup);
+        // Mock para que cuando se busque el grupo por ID, devuelva el grupo
+        when(groupRepository.findById(groupId)).thenReturn(Optional.of(arswGroup));
+
+        // Ahora recibe el String groupId en lugar del objeto Group
+        Double result = stadisticsService.groupAvailability(groupId);
 
         assertNotNull(result);
         assertEquals(0.08, result);
