@@ -1,5 +1,6 @@
 package edu.dosw.sirha.model.dto.response;
 
+import edu.dosw.sirha.model.entity.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ public class AuthResponseDTO {
     private String email;
     @Schema(description = "User's full name", example = "John Doe")
     private String name;
-    
-    
+    @Schema(description = "User's Role", example = "ADMINISTRATOR")
+    private Role role;
 
 }
