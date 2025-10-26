@@ -35,123 +35,123 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 public class StudentControllerTest {
 
-    @MockBean
-    private StudentService studentService;
+        @MockBean
+        private StudentService studentService;
 
-    @Autowired
-    private MockMvc mockMvc;
+        @Autowired
+        private MockMvc mockMvc;
 
-    private UserResponseDTO userResponseDTO;
+        private UserResponseDTO userResponseDTO;
 
-    private UserRequestDTO userRequestDTO;
+        private UserRequestDTO userRequestDTO;
 
-    String id = "123";
+        String id = "123";
 
-    @BeforeEach
-    void setUp() {
+        @BeforeEach
+        void setUp() {
 
-        userResponseDTO = new UserResponseDTO();
-        userResponseDTO.setId(id);
-        userResponseDTO.setName("Fabian");
-        userResponseDTO.setEmail("fabian@mail.escuelaing.edu.co");
-        userResponseDTO.setRole(Role.STUDENT);
+                userResponseDTO = new UserResponseDTO();
+                userResponseDTO.setId(id);
+                userResponseDTO.setName("Fabian");
+                userResponseDTO.setEmail("fabian@mail.escuelaing.edu.co");
+                userResponseDTO.setRole(Role.STUDENT);
 
-        userRequestDTO = new UserRequestDTO();
-        userRequestDTO.setId(id);
-        userRequestDTO.setName("Fabian");
-        userRequestDTO.setEmail("fabian@mail.escuelaing.edu.co");
-        userRequestDTO.setPassword("fabian123");
-        userRequestDTO.setRole(Role.STUDENT);
+                userRequestDTO = new UserRequestDTO();
+                userRequestDTO.setId(id);
+                userRequestDTO.setName("Fabian");
+                userRequestDTO.setEmail("fabian@mail.escuelaing.edu.co");
+                userRequestDTO.setPassword("fabian123");
+                userRequestDTO.setRole(Role.STUDENT);
 
-    }
+        }
 
-    @DisplayName("Test for a post request for Student")
-    @Test
-    void shouldPostCreationOfStudent() throws Exception {
-        when(studentService.createUser(any(UserRequestDTO.class))).thenReturn(userResponseDTO);
+        @DisplayName("Test for a post request for Student")
+        @Test
+        void shouldPostCreationOfStudent() throws Exception {
+                when(studentService.createUser(any(UserRequestDTO.class))).thenReturn(userResponseDTO);
 
-        mockMvc.perform(post("/students")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                        "id": "%s",
-                        "name": "Fabian",
-                        "email": "fabian@mail.escuelaing.edu.co",
-                        "password": "fabian123",
-                        "role": "STUDENT"
-                        }
-                        """.formatted(id)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.email").value("fabian@mail.escuelaing.edu.co"));
+                mockMvc.perform(post("/student")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
+                                                {
+                                                "id": "%s",
+                                                "name": "Fabian",
+                                                "email": "fabian@mail.escuelaing.edu.co",
+                                                "password": "fabian123",
+                                                "role": "STUDENT"
+                                                }
+                                                """.formatted(id)))
+                                .andExpect(status().isCreated())
+                                .andExpect(jsonPath("$.id").value(id))
+                                .andExpect(jsonPath("$.email").value("fabian@mail.escuelaing.edu.co"));
 
-    }
+        }
 
-    @Test
-    void shouldUpdateStudent() throws Exception {
+        @Test
+        void shouldUpdateStudent() throws Exception {
 
-        UserResponseDTO response = UserResponseDTO.builder()
-                .id(id)
-                .name("Updated Name")
-                .email("updated@mail.com")
-                .build();
+                UserResponseDTO response = UserResponseDTO.builder()
+                                .id(id)
+                                .name("Updated Name")
+                                .email("updated@mail.com")
+                                .build();
 
-        when(studentService.updateUser(eq(id), any(UserRequestDTO.class)))
-                .thenReturn(response);
+                when(studentService.updateUser(eq(id), any(UserRequestDTO.class)))
+                                .thenReturn(response);
 
-        mockMvc.perform(put("/students/students/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                          "id": "%s",
-                          "name": "Updated Name",
-                          "email": "updated@mail.com",
-                          "password": "newpassword",
-                          "role": "STUDENT"
-                        }
-                        """.formatted(id)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.email").value("updated@mail.com"))
-                .andExpect(jsonPath("$.name").value("Updated Name"));
-    }
+                mockMvc.perform(put("/student/students/{id}", id)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
+                                                {
+                                                  "id": "%s",
+                                                  "name": "Updated Name",
+                                                  "email": "updated@mail.com",
+                                                  "password": "newpassword",
+                                                  "role": "STUDENT"
+                                                }
+                                                """.formatted(id)))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.id").value(id))
+                                .andExpect(jsonPath("$.email").value("updated@mail.com"))
+                                .andExpect(jsonPath("$.name").value("Updated Name"));
+        }
 
-    @Test
-    void shouldDeleteStudentById() throws Exception {
+        @Test
+        void shouldDeleteStudentById() throws Exception {
 
-        doNothing().when(studentService).deleteUser(id);
+                doNothing().when(studentService).deleteUser(id);
 
-        mockMvc.perform(delete("/students/{id}", id))
-                .andExpect(status().isNoContent());
+                mockMvc.perform(delete("/student/{id}", id))
+                                .andExpect(status().isNoContent());
 
-        verify(studentService, times(1)).deleteUser(id);
-    }
+                verify(studentService, times(1)).deleteUser(id);
+        }
 
-    @DisplayName("Should return basic student information")
-    @Test
-    void shouldReturnStudentInformation() throws Exception {
+        @DisplayName("Should return basic student information")
+        @Test
+        void shouldReturnStudentInformation() throws Exception {
 
-        when(studentService.consultStudentInformation(id)).thenReturn(userResponseDTO);
+                when(studentService.consultStudentInformation(id)).thenReturn(userResponseDTO);
 
-        mockMvc.perform(get("/students/{studentId}", id))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.email").value("fabian@mail.escuelaing.edu.co"))
-                .andExpect(jsonPath("$.name").value("Fabian"));
-    }
+                mockMvc.perform(get("/student/{studentId}", id))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.id").value(id))
+                                .andExpect(jsonPath("$.email").value("fabian@mail.escuelaing.edu.co"))
+                                .andExpect(jsonPath("$.name").value("Fabian"));
+        }
 
-    @DisplayName("Should return student's study plan")
-    @Test
-    void shouldReturnStudyPlan() throws Exception {
-        StudyPlanResponseDTO studyPlan = StudyPlanResponseDTO.builder()
-                .average(4.5)
-                .build();
+        @DisplayName("Should return student's study plan")
+        @Test
+        void shouldReturnStudyPlan() throws Exception {
+                StudyPlanResponseDTO studyPlan = StudyPlanResponseDTO.builder()
+                                .average(4.5)
+                                .build();
 
-        when(studentService.consultStudyPlan(id)).thenReturn(studyPlan);
+                when(studentService.consultStudyPlan(id)).thenReturn(studyPlan);
 
-        mockMvc.perform(get("/students/studyPlan/{studentId}", id))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.average").value(4.5));
-    }
+                mockMvc.perform(get("/student/studyPlan/{studentId}", id))
+                                .andExpect(status().isOk())
+                                .andExpect(jsonPath("$.average").value(4.5));
+        }
 
 }
