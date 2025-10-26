@@ -2,6 +2,7 @@ package edu.dosw.sirha.Services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 
@@ -25,6 +26,7 @@ import edu.dosw.sirha.model.dto.request.ScheduleRequestDTO;
 import edu.dosw.sirha.model.entity.Schedule;
 import edu.dosw.sirha.model.dto.request.GroupRequestDTO;
 import edu.dosw.sirha.model.dto.response.GroupResponseDTO;
+import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 import edu.dosw.sirha.model.entity.Group;
 import edu.dosw.sirha.repository.GroupRepository;
 import edu.dosw.sirha.service.GroupService;
@@ -426,7 +428,166 @@ public class GroupServiceTest {
         }
 
         @Test
-        void getGroupsAssignedToProfessor_whenProfessorNotFound_shouldThrowResourceNotFound() {
+        void getAssignedProfessors_whenGroupNotFound_shouldThrowResourceNotFound() {
+                when(groupRepository.findByNumberGroup("0")).thenReturn(null);
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> groupService.getAssignedProfessors("0"));
+
+                assertEquals("number group with ID '0' not found", ex.getMessage());
+        }
+
+        @Test
+        void getAssignedProfessorsShouldReturnNull() {
+                Group group = Group.builder()
+                        .numberGroup("13131")
+                        .usersId(new ArrayList<>())
+                        .build();
+                when(groupRepository.findByNumberGroup("13131")).thenReturn(group);
+
+                List<User> result = groupService.getAssignedProfessors("13131");
+
+                assertNull(result);
+        }
+
+        @Test
+        void shouldReturnProfessors() {
+                List<String> users = List.of("1000", "10001", "1002");
+                Group group = Group.builder()
+                        .numberGroup("13132")
+                        .usersId(new ArrayList<>(users))
+                        .build();
+                when(groupRepository.findByNumberGroup("13132")).thenReturn(group);
+
+                User professor1 = User.builder()
+                        .id("1000")
+                        .role(Role.DEANERY)
+                        .build();
+                User professor2 = User.builder()
+                        .id("10001")
+                        .role(Role.DEANERY)
+                        .build();
+                User student = User.builder()
+                        .id("1002")
+                        .role(Role.STUDENT)
+                        .build();
+
+                when(userRepository.findById("1000")).thenReturn(Optional.of(professor1));
+                when(userRepository.findById("10001")).thenReturn(Optional.of(professor2));
+                when(userRepository.findById("1002")).thenReturn(Optional.of(student));
+
+                List<User> res = groupService.getAssignedProfessors("13132");
+
+                assertEquals(2, res.size());
+        }
+
+        @Test
+        void shouldThrowExceptionWhenNotProffesorWithAssignment() {
+                when(userRepository.findById("69")).thenReturn(Optional.empty());
+
+                ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
+                                () -> groupService.getAllProfessorsWithAssignments("69"));
+
+                assertEquals("requester ID with ID '69' not found", exception.getMessage());
+        }
+
+        @Test
+        void shouldThrowRoleExceptionWhenNotDeanery() {
+                User requester = User.builder()
+                        .id("1000909091")
+                        .role(Role.STUDENT)
+                        .build();
+                when(userRepository.findById("1000909091")).thenReturn(Optional.of(requester));
+
+                RoleException exception = assertThrows(RoleException.class,
+                                () -> groupService.getAllProfessorsWithAssignments("1000909091"));
+
+                assertEquals("User with ID '1000909091', has insufficient permissions", exception.getMessage());
+        }
+
+        @Test
+        void shouldReturnProfessorsWithAssignments() {
+                User requester = User.builder()
+                        .id("1000100442")
+                        .role(Role.DEANERY)
+                        .build();
+                when(userRepository.findById("1000100442")).thenReturn(Optional.of(requester));
+
+                User prof1 = User.builder()
+                        .id("1000999999")
+                        .role(Role.DEANERY)
+                        .build();
+                User prof2 = User.builder()
+                        .id("1000999998")
+                        .role(Role.DEANERY)
+                        .build();
+                User other = User.builder()
+                        .id("1010010101")
+                        .role(Role.STUDENT)
+                        .build();
+
+                when(userRepository.findAll()).thenReturn(List.of(prof1, prof2, other));
+
+                UserResponseDTO dto1 = UserResponseDTO.builder()
+                        .id("1000999999")
+                        .build();
+                UserResponseDTO dto2 = UserResponseDTO.builder()
+                        .id("1000999998")
+                        .build();
+
+                doReturn(List.of(dto1, dto2)).when(userMapper).toDtoList(org.mockito.ArgumentMatchers.anyList());
+
+                List<UserResponseDTO> result = groupService.getAllProfessorsWithAssignments("1000100442");
+
+                assertEquals(2, result.size());
+        }
+
+        @Test
+        void shouldThrowResourceNotFoundWhenTryToRemoveProfessor() {
+                when(groupRepository.findByNumberGroup("96")).thenReturn(null);
+
+                ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
+                                () -> groupService.removeProfessorFromGroup("96", "11111111", "req"));
+
+                assertEquals("number group with ID '96' not found", exception.getMessage());
+        }
+
+        @Test
+        void shouldThrowResourceNotFoundProfessorToRemove() {
+                Group group = Group.builder()
+                        .numberGroup("9696")
+                        .usersId(new ArrayList<>(List.of("1")))
+                        .build();
+                when(groupRepository.findByNumberGroup("9696")).thenReturn(group);
+                when(userRepository.findById("missing")).thenReturn(Optional.empty());
+
+                ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
+                                () -> groupService.removeProfessorFromGroup("9696", "2", "missing"));
+
+                assertEquals("requester ID with ID 'missing' not found", exception.getMessage());
+        }
+
+        @Test
+        void shouldThrowRoleExceptionWhenRequesterNotDeanery() {
+                Group group = Group.builder()
+                        .numberGroup("9697")
+                        .usersId(new ArrayList<>(List.of("9")))
+                        .build();
+                when(groupRepository.findByNumberGroup("9697")).thenReturn(group);
+                User requester = User.builder()
+                        .id("11")
+                        .role(Role.STUDENT)
+                        .build();
+                when(userRepository.findById("11")).thenReturn(Optional.of(requester));
+
+                RoleException exception = assertThrows(RoleException.class,
+                                () -> groupService.removeProfessorFromGroup("9697", "9", "11"));
+
+                assertEquals("User with ID '11', has insufficient permissions", exception.getMessage());
+        }
+
+        @Test
+        void shouldThrowResourceNotFoundWhenProfessorNotFound() {
                 when(userRepository.findById("1000101010")).thenReturn(Optional.empty());
 
                 ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,

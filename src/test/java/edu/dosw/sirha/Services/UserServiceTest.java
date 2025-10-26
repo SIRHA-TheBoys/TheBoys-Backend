@@ -30,6 +30,8 @@ import edu.dosw.sirha.service.UserService;
 import edu.dosw.sirha.service.Impl.AdministratorService;
 import edu.dosw.sirha.service.Impl.DeaneryService;
 import edu.dosw.sirha.service.Impl.StudentService;
+import edu.dosw.sirha.exception.ResourceNotFoundException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -354,6 +356,81 @@ public class UserServiceTest {
                 assertEquals("daniu@escuelaing.edu.co", response.getEmail());
                 assertEquals(Role.ADMINISTRATOR, response.getRole());
 
+        }
+        
+        @Test
+        void deleteUser_whenExists_shouldCallDelete() {
+                String id = "1";
+                when(userRepository.existsById(id)).thenReturn(true);
+
+                studentService.deleteUser(id);
+
+                verify(userRepository, times(1)).deleteById(id);
+        }
+
+        @Test
+        void shouldThrowResourceNotFoundWhenNotExistsUserToDelete() {
+                String id = "2._.";
+                when(userRepository.existsById(id)).thenReturn(false);
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> studentService.deleteUser(id));
+
+                assertEquals("ID with ID '" + id + "' not found", ex.getMessage());
+        }
+
+        @Test
+        void shouldThrowResourceNotFoundWhenTryToUpdateUser() {
+                String id = "22222:)";
+                UserRequestDTO dto = UserRequestDTO.builder().id(id).build();
+                when(userRepository.findById(id)).thenReturn(java.util.Optional.empty());
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> studentService.updateUser(id, dto));
+
+                assertEquals("ID with ID '" + id + "' not found", ex.getMessage());
+        }
+
+        @Test
+        void deleteDeanery_whenExists_shouldCallDelete() {
+                String id = "10008989";
+                when(userRepository.existsById(id)).thenReturn(true);
+
+                deaneryService.deleteUser(id);
+
+                verify(userRepository, times(1)).deleteById(id);
+        }
+
+        @Test
+        void deleteDeanery_whenNotExists_shouldThrowResourceNotFound() {
+                String id = "10876654";
+                when(userRepository.existsById(id)).thenReturn(false);
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> deaneryService.deleteUser(id));
+
+                assertEquals("ID with ID '" + id + "' not found", ex.getMessage());
+        }
+
+        @Test
+        void deleteAdministrator_whenExists_shouldCallDelete() {
+                String id = "10008765";
+                when(userRepository.existsById(id)).thenReturn(true);
+
+                administratorService.deleteUser(id);
+
+                verify(userRepository, times(1)).deleteById(id);
+        }
+
+        @Test
+        void deleteAdministrator_whenNotExists_shouldThrowResourceNotFound() {
+                String id = "100006554";
+                when(userRepository.existsById(id)).thenReturn(false);
+
+                ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
+                                () -> administratorService.deleteUser(id));
+
+                assertEquals("ID with ID '" + id + "' not found", ex.getMessage());
         }
         /*
          * @Test
