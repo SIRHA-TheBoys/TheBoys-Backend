@@ -14,6 +14,8 @@ public class SubjectResponseDTO {
 
     private int credits;
 
+    private int semester;
+
     private Status status;
 
 }

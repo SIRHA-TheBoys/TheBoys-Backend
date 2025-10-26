@@ -73,7 +73,6 @@ public class SubjectService {
      * 
      * @return
      */
-    @Transactional
     public List<SubjectResponseDTO> getAllSubjects() {
         return subjectRepository.findAll().stream().map(subjectMapper::toDto)
                 .toList();

@@ -21,6 +21,10 @@ public class SubjectRequestDTO {
 
     private Status status;
 
+    private int semester;
+
     private Faculty faculty;
+    
+
 
 }

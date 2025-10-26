@@ -17,8 +17,13 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/subjects")
@@ -52,5 +57,13 @@ public class SubjectController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<SubjectResponseDTO>> getAllSubjects() {
+        return ResponseEntity.ok(subjectService.getAllSubjects());
+    }
+
+    
+    
 
 }
