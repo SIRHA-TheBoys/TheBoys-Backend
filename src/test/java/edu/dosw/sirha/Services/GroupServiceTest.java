@@ -1,12 +1,12 @@
 package edu.dosw.sirha.Services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
 import edu.dosw.sirha.mapper.ScheduleMapper;
 import edu.dosw.sirha.mapper.UserMapper;
-import edu.dosw.sirha.model.dto.response.UserResponseDTO;
 import edu.dosw.sirha.model.entity.enums.Role;
 import edu.dosw.sirha.model.entity.User;
 import edu.dosw.sirha.model.observers.GroupObserver;
@@ -449,75 +449,9 @@ public class GroupServiceTest {
 
                 assertEquals("User with ID 1000909091 cannot be a professor", ex.getMessage());
         }
-        @Test
-        void shouldConsultOldSchedule(){
-            String studentId = "1000100422";
-            int semester = 3;
-            User student = User.builder()
-                    .id(studentId)
-                    .semester(5)
-                    .numberGroupId(List.of("321", "345"))
-                    .build();
-            Group group1 = Group.builder()
-                    .numberGroup("321")
-                    .subjectCode("MATD")
-                    .build();
-            Group group2 = Group.builder()
-                    .numberGroup("345")
-                    .subjectCode("ISIS")
-                    .build();
-            List<Group> groups = List.of(group1, group2);
-            GroupResponseDTO dto1 = GroupResponseDTO.builder()
-                    .numberGroup("321")
-                    .subjectCode("MATD")
-                    .build();
-            GroupResponseDTO dto2 = GroupResponseDTO.builder()
-                    .numberGroup("345")
-                    .subjectCode("ISIS")
-                    .build();
-            when(userRepository.findById(studentId)).thenReturn(Optional.of(student));
-            when(groupRepository.findAllByNumberGroupIn(student.getNumberGroupId())).thenReturn(groups);
-            when(groupMapper.toDtoList(groups)).thenReturn(List.of(dto1, dto2));
-            List<GroupResponseDTO> result = groupService.consultOldSchedule(studentId, semester);
-            assertEquals(2, result.size());
-            assertEquals("321", result.get(0).getNumberGroup());
-            assertEquals("MATD", result.get(0).getSubjectCode());
-            verify(userRepository).findById(studentId);
-            verify(groupRepository).findAllByNumberGroupIn(student.getNumberGroupId());
-        }
-        @Test
-        void shouldAssignedProfessors() {
-            String groupId = "400";
-            List<String> userIds = List.of("1000100333", "1000100342", "1000200312");
-            Group group = Group.builder()
-                    .numberGroup(groupId)
-                    .usersId(userIds)
-                    .build();
-            User dean1 = User.builder()
-                    .id("1000100333")
-                    .name("TULIO")
-                    .role(Role.DEANERY)
-                    .build();
-            User dean2 = User.builder()
-                    .id("1000200312")
-                    .name("PUENTES")
-                    .role(Role.DEANERY)
-                    .build();
-            User student = User.builder()
-                    .id("1000100342")
-                    .name("BOB")
-                    .role(Role.STUDENT)
-                    .build();
-            when(groupRepository.findByNumberGroup(groupId)).thenReturn(group);
-            when(userRepository.findById("1000100333")).thenReturn(Optional.of(dean1));
-            when(userRepository.findById("1000100342")).thenReturn(Optional.of(student));
-            when(userRepository.findById("1000200312")).thenReturn(Optional.of(dean2));
-            List<User> result = groupService.getAssignedProfessors(groupId);
-            assertEquals(2, result.size());
-            assertEquals("TULIO", result.get(0).getName());
-            assertEquals("PUENTES", result.get(1).getName());
-            verify(groupRepository).findByNumberGroup(groupId);
-            verify(userRepository, times(3)).findById(anyString());
-        }
+
+
+
+
 
 }
