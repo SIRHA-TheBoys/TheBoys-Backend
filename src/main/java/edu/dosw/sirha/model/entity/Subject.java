@@ -20,6 +20,8 @@ public class Subject {
 
     private int credits;
 
+    private int semester;
+
     private Status status;
 
     private Faculty faculty;
