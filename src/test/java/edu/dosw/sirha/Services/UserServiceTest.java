@@ -2,10 +2,10 @@ package edu.dosw.sirha.Services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,6 @@ import edu.dosw.sirha.model.entity.enums.Career;
 import edu.dosw.sirha.model.entity.enums.Faculty;
 import edu.dosw.sirha.model.entity.enums.Role;
 import edu.dosw.sirha.repository.UserRepository;
-import edu.dosw.sirha.service.UserService;
 import edu.dosw.sirha.service.Impl.AdministratorService;
 import edu.dosw.sirha.service.Impl.DeaneryService;
 import edu.dosw.sirha.service.Impl.StudentService;
@@ -431,6 +430,108 @@ public class UserServiceTest {
                                 () -> administratorService.deleteUser(id));
 
                 assertEquals("ID with ID '" + id + "' not found", ex.getMessage());
+        }
+
+        @Test
+        void consultAdministratorBasicInformation() {
+                User admin = User.builder()
+                        .id("100099999")
+                        .name("Tulin Riaño Sancho")
+                        .email("tulio@escuelaing.edu.co")
+                        .role(Role.ADMINISTRATOR)
+                        .build();
+                doReturn(java.util.Optional.of(admin)).when(userRepository).findByRoleAndId(Role.ADMINISTRATOR, "100099999");
+
+                UserResponseDTO dto = UserResponseDTO.builder()
+                        .id("100099999")
+                        .name("Tulin Riaño Sancho")
+                        .email("tulio@escuelaing.edu.co")
+                        .role(Role.ADMINISTRATOR)
+                        .build();
+                when(userMapper.toDto(admin)).thenReturn(dto);
+
+                UserResponseDTO result = administratorService.consultBasicInformation("100099999");
+
+                assertEquals("Tulin Riaño Sancho", result.getName());
+                assertEquals("100099999", result.getId());
+        }
+
+        @Test
+        void consultAdministratorBasicInformationShouldThrowException() {
+                doReturn(java.util.Optional.empty()).when(userRepository).findByRoleAndId(Role.ADMINISTRATOR, "1000100432");
+
+                ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
+                                () -> administratorService.consultBasicInformation("1000100432"));
+
+                assertEquals("ID with ID '1000100432' not found", exception.getMessage());
+        }
+
+        @Test
+        void consultStudentBasicInformation() {
+                User student = User.builder()
+                        .id("1000100444")
+                        .name("Juan Puentes")
+                        .email("puentes@escuelaing.edu.co")
+                        .role(Role.STUDENT)
+                        .build();
+                doReturn(java.util.Optional.of(student)).when(userRepository).findByRoleAndId(Role.STUDENT, "1000100444");
+
+                UserResponseDTO dto = UserResponseDTO.builder()
+                        .id("1000100444")
+                        .name("Juan Puentes")
+                        .email("puentes@escuelaing.edu.co")
+                        .role(Role.STUDENT)
+                        .build();
+                when(userMapper.toDto(student)).thenReturn(dto);
+
+                UserResponseDTO result = studentService.consultStudentInformation("1000100444");
+
+                assertEquals("Juan Puentes", result.getName());
+                assertEquals("1000100444", result.getId());
+        }
+
+        @Test
+        void consultStudentBasicInformationShouldThrowException() {
+                doReturn(java.util.Optional.empty()).when(userRepository).findByRoleAndId(Role.STUDENT, "1000100444");
+
+                ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
+                                () -> studentService.consultStudentInformation("1000100444"));
+
+                assertEquals("ID with ID '1000100444' not found", exception.getMessage());
+        }
+
+        @Test
+        void consultDeaneryBasicInformation() {
+                User deanery = User.builder()
+                        .id("10006969")
+                        .name("Bob Patiño")
+                        .email("bob@escuelaing.edu.co")
+                        .role(Role.DEANERY)
+                        .build();
+                doReturn(java.util.Optional.of(deanery)).when(userRepository).findByRoleAndId(Role.DEANERY, "10006969");
+
+                UserResponseDTO dto = UserResponseDTO.builder()
+                        .id("10006969")
+                        .name("Bob Patiño")
+                        .email("bob@escuelaing.edu.co")
+                        .role(Role.DEANERY)
+                        .build();
+                when(userMapper.toDto(deanery)).thenReturn(dto);
+
+                UserResponseDTO result = deaneryService.consultBasicInformation("10006969");
+
+                assertEquals("Bob Patiño", result.getName());
+                assertEquals("10006969", result.getId());
+        }
+
+        @Test
+        void consultDeaneryBasicInformationShouldThrowException() {
+                doReturn(java.util.Optional.empty()).when(userRepository).findByRoleAndId(Role.DEANERY, "10006969");
+
+                ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
+                                () -> deaneryService.consultBasicInformation("10006969"));
+
+                assertEquals("ID with ID '10006969' not found", exception.getMessage());
         }
         /*
          * @Test
