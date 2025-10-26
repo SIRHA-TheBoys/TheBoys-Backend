@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/administrator")
 @RequiredArgsConstructor
 public class UserController {
 
