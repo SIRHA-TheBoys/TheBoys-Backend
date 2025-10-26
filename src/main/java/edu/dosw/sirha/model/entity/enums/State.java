@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum State {
-    PENDING,
+    PENDIENT,
     INPROGRESS,
     APPROVED,
     REJECTED
