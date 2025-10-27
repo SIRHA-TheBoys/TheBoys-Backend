@@ -266,8 +266,8 @@ public class UserServiceTest {
         void shouldUpdateDeanery() {
                 UserRequestDTO request = UserRequestDTO.builder()
                                 .id("100010312")
-                                .name("Alex Jimenez")
-                                .email("alex@escuelaing.edu.co")
+                                .name("Deanery1")
+                                .email("deanery@escuelaing.edu.co")
                                 .password("1234")
                                 .faculty(Faculty.INFORMATICS)
                                 .role(Role.DEANERY)
@@ -276,7 +276,7 @@ public class UserServiceTest {
                 User existingUser = User.builder()
                                 .id("100010311")
                                 .name("ActualDeanery")
-                                .email("alex@escuelaing.edu.co")
+                                .email("actuald@escuelaing.edu.co")
                                 .password("Imthebest")
                                 .faculty(Faculty.INFORMATICS)
                                 .role(Role.DEANERY)
@@ -284,8 +284,8 @@ public class UserServiceTest {
 
                 User updatedUser = User.builder()
                                 .id("100010312")
-                                .name("Alex Jimenez")
-                                .email("alex@escuelaing.edu.co")
+                                .name("Deanery1")
+                                .email("deanery@escuelaing.edu.co")
                                 .password("1234")
                                 .faculty(Faculty.INFORMATICS)
                                 .role(Role.DEANERY)
@@ -293,8 +293,8 @@ public class UserServiceTest {
 
                 UserResponseDTO fakeResponse = UserResponseDTO.builder()
                                 .id("100010312")
-                                .name("Alex Jimenez")
-                                .email("alex@escuelaing.edu.co")
+                                .name("Deanery1")
+                                .email("deanery@escuelaing.edu.co")
                                 .faculty(Faculty.INFORMATICS)
                                 .role(Role.DEANERY)
                                 .build();
@@ -305,8 +305,8 @@ public class UserServiceTest {
 
                 UserResponseDTO response = deaneryService.updateUser("100010312", request);
 
-                assertEquals("Alex Jimenez", response.getName());
-                assertEquals("alex@escuelaing.edu.co", response.getEmail());
+                assertEquals("Deanery1", response.getName());
+                assertEquals("deanery@escuelaing.edu.co", response.getEmail());
                 assertEquals(Role.DEANERY, response.getRole());
                 assertEquals(Faculty.INFORMATICS, response.getFaculty());
         }
@@ -408,7 +408,7 @@ public class UserServiceTest {
                 ResourceNotFoundException ex = assertThrows(ResourceNotFoundException.class,
                                 () -> deaneryService.deleteUser(id));
 
-                assertEquals("ID with id '" + id + "' not found", ex.getMessage());
+                assertEquals("ID with ID '" + id + "' not found", ex.getMessage());
         }
 
         @Test
