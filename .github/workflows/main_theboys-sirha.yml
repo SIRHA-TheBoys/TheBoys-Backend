@@ -85,4 +85,10 @@ jobs:
           app-name: 'theboys-sirha'
           slot-name: 'Production'
           package: '*.jar'
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_HOST_URL: 'https://sonarcloude.io/'
+            
           
