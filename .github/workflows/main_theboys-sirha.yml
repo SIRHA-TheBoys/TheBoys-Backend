@@ -92,8 +92,8 @@ jobs:
             SONAR_HOST_URL: 'https://sonarcloud.io'
         with:
           args: >
-            -Dsonar.projectKey=SIRHA-TheBoys_TheBoys-Backend
-            -Dsonar.organization=SIRHA-TheBoys
+            -Dsonar.projectKey=sirha-theboys
+            -Dsonar.organization=sirha-theboys_TheBoys-Backend
             -Dsonar.java.binaries=target
           
             
