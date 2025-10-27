@@ -30,7 +30,7 @@
 		<java.version>17</java.version>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.organization>SIRHA-TheBoys</sonar.organization>
-		<sonar.projectKey>sirha-theboys_TheBoys-Backend</sonar.projectKey>
+		<sonar.projectKey>SIRHA-TheBoys_TheBoys-Backend</sonar.projectKey>
 		<sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.coverage.exclusions>src//configurators/*</sonar.coverage.exclusions>
 
