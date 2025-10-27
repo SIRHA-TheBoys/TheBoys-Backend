@@ -63,6 +63,7 @@ public class RequestService {
 
     /**
      * Updates a request with a response date and a state
+     * 
      * @param id
      * @param dto
      * @return the request response after update the response date and state
@@ -90,6 +91,7 @@ public class RequestService {
 
     /**
      * delete a request
+     * 
      * @param id
      */
     @Transactional

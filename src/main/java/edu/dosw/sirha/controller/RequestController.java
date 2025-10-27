@@ -73,4 +73,9 @@ public class RequestController {
         return ResponseEntity.ok(requestService.requestForFaculty(faculty));
     }
 
+    @GetMapping("/allRequests")
+    public ResponseEntity<List<RequestResponseDTO>> allRequests() {
+        return ResponseEntity.ok(requestService.allRequests());
+    }
+
 }
