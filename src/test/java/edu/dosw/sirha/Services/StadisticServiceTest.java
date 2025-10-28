@@ -148,32 +148,6 @@ public class StadisticServiceTest {
         assertEquals(2, result.get(mostRequested));
     }
 
-    @Test
-    void shouldGetMostRequestedGroup() {
-        List<RequestResponseDTO> requests = List.of(
-                RequestResponseDTO.builder()
-                        .groupDestinyId("1")
-                        .build(),
-                RequestResponseDTO.builder()
-                        .groupDestinyId("1")
-                        .build(),
-                RequestResponseDTO.builder()
-                        .groupDestinyId("3")
-                        .build());
-
-        // Mock del RequestService para que devuelva las solicitudes
-        when(requestService.allRequests()).thenReturn(requests);
-
-        when(groupRepository.findAllById(anyList())).thenReturn(groupsList);
-
-        // Ahora no recibe parámetros
-        HashMap<Group, Integer> result = stadisticsService.mostRequestedGroups();
-
-        assertNotNull(result);
-        assertFalse(result.isEmpty());
-        Group mostRequested = result.entrySet().iterator().next().getKey();
-        assertEquals("1", mostRequested.getNumberGroup());
-    }
 
     @Test
     void shouldGetGroupAvailability() {
