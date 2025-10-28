@@ -172,4 +172,79 @@ public class StadisticServiceTest {
                 assertNotNull(result);
                 assertEquals(0.08, result);
         }
+
+        @Test
+        void shouldGetMostRequestedGroups_countsAndSorts() {
+                // Two requests for group "1" and one for group "3"
+                when(requestService.allRequests()).thenReturn(List.of(
+                                RequestResponseDTO.builder().groupDestinyId("1").build(),
+                                RequestResponseDTO.builder().groupDestinyId("1").build(),
+                                RequestResponseDTO.builder().groupDestinyId("3").build()));
+
+                Group g1 = Group.builder().numberGroup("1").capacity(25).availableQuotas(5).subjectCode("DOSW").build();
+                Group g3 = Group.builder().numberGroup("3").capacity(20).availableQuotas(2).subjectCode("TPYC").build();
+
+                // Return duplicates to reflect request frequency
+                when(groupRepository.findAllByNumberGroupIn(anyList()))
+                                .thenReturn(List.of(g1, g1, g3));
+
+                HashMap<Group, Integer> result = stadisticsService.mostRequestedGroups();
+
+                assertNotNull(result);
+                assertEquals(2, result.size());
+
+                var it = result.entrySet().iterator();
+                var first = it.next();
+                assertEquals("1", first.getKey().getNumberGroup());
+                assertEquals(2, first.getValue());
+
+                var second = it.next();
+                assertEquals("3", second.getKey().getNumberGroup());
+                assertEquals(1, second.getValue());
+        }
+
+        @Test
+        void shouldGetMostRequestedGroups_tie_returnsBoth() {
+                when(requestService.allRequests()).thenReturn(List.of(
+                                RequestResponseDTO.builder().groupDestinyId("1").build(),
+                                RequestResponseDTO.builder().groupDestinyId("2").build()));
+
+                Group g1 = Group.builder().numberGroup("1").subjectCode("DOSW").build();
+                Group g2 = Group.builder().numberGroup("2").subjectCode("TPYC").build();
+
+                when(groupRepository.findAllByNumberGroupIn(anyList()))
+                                .thenReturn(List.of(g1, g2));
+
+                HashMap<Group, Integer> result = stadisticsService.mostRequestedGroups();
+                assertNotNull(result);
+                assertEquals(2, result.size());
+                assertEquals(1, result.get(g1));
+                assertEquals(1, result.get(g2));
+        }
+
+        @Test
+        void shouldGetMostRequestedGroups_ignoresNullIds() {
+                when(requestService.allRequests()).thenReturn(List.of(
+                                RequestResponseDTO.builder().groupDestinyId(null).build(),
+                                RequestResponseDTO.builder().groupDestinyId("X").build()));
+
+                Group gx = Group.builder().numberGroup("X").subjectCode("AYSR").build();
+                when(groupRepository.findAllByNumberGroupIn(anyList()))
+                                .thenReturn(List.of(gx));
+
+                HashMap<Group, Integer> result = stadisticsService.mostRequestedGroups();
+                assertNotNull(result);
+                assertEquals(1, result.size());
+                assertEquals(1, result.get(gx));
+        }
+
+        @Test
+        void shouldGetMostRequestedGroups_whenNoRequests_returnsEmpty() {
+                when(requestService.allRequests()).thenReturn(List.of());
+                when(groupRepository.findAllByNumberGroupIn(anyList())).thenReturn(List.of());
+
+                HashMap<Group, Integer> result = stadisticsService.mostRequestedGroups();
+                assertNotNull(result);
+                assertTrue(result.isEmpty());
+        }
 }
