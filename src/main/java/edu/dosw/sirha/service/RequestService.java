@@ -1,6 +1,7 @@
 package edu.dosw.sirha.service;
 
 import java.util.List;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -79,7 +80,7 @@ public class RequestService {
             throw new GroupResourceException();
         }
 
-        request.setResponseDate(dto.getResponseDate());
+        request.setResponseDate(LocalDateTime.now());
 
         request.setState(dto.getState());
 
