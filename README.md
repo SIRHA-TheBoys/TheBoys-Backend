@@ -12,11 +12,7 @@ Integrantes:
 
 ## 🌲Ramificacion y Estrategia de Versionamiento de Ramas
 
-- Para mantener un control claro del desarrollo, seguimos una estructura de ramas basada en Git Flow:
-
-  - `main`: Contiene el código estable y listo para producción.
-  - `develop`: Rama principal de desarrollo.
-  - `feature/<funcionalidadRealizada>`: Se crea a partir de develop para implementar una nueva característica o mejora.
+Implementamos una estrategia de ramificación basada en Git Flow, utilizando las ramas main para producción y develop para integración, complementadas con ramas feature para nuevas funcionalidades, posteriormente las ramas feature se eliminan para generar un mejor flujo y no generar ruido en nuestro repostorio 
 
 ---
 
@@ -144,7 +140,7 @@ Esta estructura muestra la arquitectura logica del sistema, donde se especifican
 
 Cobertura Actual Del Codigo:
 
-## ![alt text](docs/imagenes/jacocoCoberturaActual.png)
+## ![alt text](docs/imagenes/CoberturaJacoco.png)
 
 ---
 

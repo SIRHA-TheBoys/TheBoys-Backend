@@ -1,13 +1,8 @@
 package edu.dosw.sirha.controller;
 
-import java.util.HashMap;
-
+import java.util.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import edu.dosw.sirha.model.entity.Group;
 import edu.dosw.sirha.model.entity.Subject;
 import edu.dosw.sirha.service.StadisticService;
@@ -26,13 +21,30 @@ public class StatisticController {
     }
 
     @GetMapping("/mostRequestedSubject")
-    public ResponseEntity<HashMap<Subject, Integer>> consultMostRequestedSubject() {
-        return ResponseEntity.ok(stadisticService.mostRequestedSubject());
-    }
+    public ResponseEntity<List<Map<String, Object>>> consultMostRequestedSubject() {
+        List<Map<String, Object>> result = new ArrayList<>();
 
+        stadisticService.mostRequestedSubject().forEach((subject, count) -> {
+            Map<String, Object> item = new HashMap<>();
+            item.put("name", subject.getName());
+            item.put("count", count);
+            result.add(item);
+        });
+
+        return ResponseEntity.ok(result);
+    }
     @GetMapping("/mostRequestedGroups")
-    public ResponseEntity<HashMap<Group, Integer>> consultMostRequestedGroups() {
-        return ResponseEntity.ok(stadisticService.mostRequestedGroups());
+    public ResponseEntity<List<Map<String, Object>>> consultMostRequestedGroups() {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        stadisticService.mostRequestedGroups().forEach((group, count) -> {
+            Map<String, Object> item = new HashMap<>();
+            item.put("name", group.getSubjectCode()); 
+            item.put("count", count);
+            result.add(item);
+        });
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/groupAvailability/{groupId}")
