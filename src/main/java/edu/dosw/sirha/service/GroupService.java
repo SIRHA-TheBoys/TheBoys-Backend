@@ -159,7 +159,6 @@ public class GroupService {
                                                                                                  // todos los grupos no
                                                                                                  // lo estoy filtrnado
                                                                                                  // por semestre
-
         return groupMapper.toDtoList(groups);
     }
 

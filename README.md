@@ -12,11 +12,7 @@ Integrantes:
 
 ## 🌲Ramificacion y Estrategia de Versionamiento de Ramas
 
-- Para mantener un control claro del desarrollo, seguimos una estructura de ramas basada en Git Flow:
-
-  - `main`: Contiene el código estable y listo para producción.
-  - `develop`: Rama principal de desarrollo.
-  - `feature/<funcionalidadRealizada>`: Se crea a partir de develop para implementar una nueva característica o mejora.
+Implementamos una estrategia de ramificación basada en Git Flow, utilizando las ramas main para producción y develop para integración, complementadas con ramas feature para nuevas funcionalidades, posteriormente las ramas feature se eliminan para generar un mejor flujo y no generar ruido en nuestro repostorio.
 
 ---
 
@@ -144,19 +140,19 @@ Esta estructura muestra la arquitectura logica del sistema, donde se especifican
 
 Cobertura Actual Del Codigo:
 
-## ![alt text](docs/imagenes/jacocoCoberturaActual.png)
+## ![alt text](docs/imagenes/CoberturaJacoco.png)
 
 ---
 
 ## 3. 🔥 **Swagger**
+
+Uso de SwaggerUI para visualizar con mayor detalle los EndPoints desarrollados:
 
 ![alt text](docs/imagenes/swaggeer.png)
 
 ![alt text](docs/imagenes/SWAGGER1.png)
 
 ![alt text](docs/imagenes/SWAGGER2.png)
-
-![alt text](docs/imagenes/SWAGGER3.png)
 
 ---
 
@@ -166,19 +162,185 @@ Base de datos desplegada en MongoDB Atlas:
 
 ![alt text](docs/imagenes/MongoCompass.png)
 
-Ejemplo de documento en la coleccion de materias:
-![alt text](docs/imagenes/Subjects.png)
+En las siguientes capturas se mostrará un ejemplo del JSON de diferentes documentos:
 
+- Para las solicitudes:
+
+```json
+{
+"_id": {"$oid": "671e3c2f0a2b5a00017f1001"},
+"userId": "1000099001",
+"groupOriginId": "CALD-1",
+"groupDestinyId": "CALD-2",
+"creationDate": {
+"$date": "2025-10-27T14:00:00.000Z"
+},
+"description": "I need to switch due to a schedule conflict with another course.",
+"state": "PENDIENT",
+"_class": "edu.dosw.sirha.model.entity.Request"
+}
+```
+
+- Para los usuarios (ADMINISTRADOR):
+
+```json
+{
+  "_id": "1000099097",
+  "name": "Daniel Patino Mejia",
+  "email": "daniel.patino-m@mail.escuelaing.edu.co",
+  "password": "holamundo123",
+  "role": "ADMINISTRATOR",
+  "_class": "edu.dosw.sirha.model.entity.User"
+}
+```
+- Para los usuarios (STUDENT):
+```json
+{
+  "_id": "1000100444",
+  "name": "Juan Sebastian Puentes Julio",
+  "email": "juan.puentes@mail.escuelaing.edu.co",
+  "password": "admin",
+  "role": "STUDENT",
+  "semester": 5,
+  "career": "SYSTEMS_ENGINEERING",
+  "studyPlan": {
+    "subjectsCode": [
+      "CALD",
+      "ALLI",
+      "IPRO",
+      "PRI1IS",
+      "FCO1",
+      "CALI",
+      "FIS1",
+      "MPIN",
+      "DDYA",
+      "HGCL",
+      "CALV",
+      "PRYE",
+      "MYSD",
+      "LYMD",
+      "FUEC",
+      "FIS2",
+      "ODSC",
+      "FUPR",
+      "DOPO",
+      "TPYC",
+      "ECDI",
+      "AYSR",
+      "PRI2IS",
+      "DOSW",
+      "FDSI",
+      "ARSW",
+      "PTIA",
+      "SOGR",
+      "TDSE",
+      "SWNT",
+      "ET01",
+      "ET02",
+      "ET03",
+      "OGR1",
+      "OGR2",
+      "OGR3",
+      "OGR4"
+    ],
+    "average": 4
+  },
+  "numberGroupId": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34"
+  ],
+  "requestsId": [],
+  "_class": "edu.dosw.sirha.model.entity.User"
+}
+```
+- Para las materias:
+
+```json
+{
+  "_id": "CALD",
+  "name": "Cálculo Diferencial",
+  "credits": 3,
+  "semester": 1,
+  "status": "APPROVED",
+  "faculty": "MATHEMATICS",
+  "_class": "edu.dosw.sirha.model.entity.Subject"
+}
+```
+- Para los grupos:
+```json
+{
+  "_id": "1",
+  "capacity": 28,
+  "availableQuotas": 5,
+  "subjectCode": "PRI2IS",
+  "usersId": [
+    "1000100444"
+  ],
+  "schedules": [
+    {
+      "startSession": {
+        "$date": "2025-10-27T07:00:00.000Z"
+      },
+      "endSession": {
+        "$date": "2025-10-27T08:30:00.000Z"
+      }
+    },
+    {
+      "startSession": {
+        "$date": "2025-11-01T07:00:00.000Z"
+      },
+      "endSession": {
+        "$date": "2025-11-01T08:30:00.000Z"
+      }
+    }
+  ],
+  "_class": "edu.dosw.sirha.model.entity.Group"
+}
+```
 ---
 
 ## 5. 🔥 **SonarQube**
 
-Analisis estatico ejecutado con SonarQube Actual:
+Analisis estatico ejecutado con SonarQube:
 
 ![alt text](docs/imagenes/coberturaSonarQubeActual.png)
 
 ---
 
 ## 6. 🔥 **Docker**
+
+Uso de docker para correr la aplicacion en un contenedor:
 
 ![alt text](docs/imagenes/docker.png)

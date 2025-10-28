@@ -9,8 +9,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
@@ -95,11 +98,6 @@ public class RequestControllerTest {
                 .andExpect(jsonPath("$.responseDate").doesNotExist());
     }
 
-    @DisplayName("Test for updating a request")
-    @Test
-    void shouldUpdateRequest() {
-
-    }
 
     @DisplayName("Test for deleting a request by id")
     @Test
@@ -111,6 +109,38 @@ public class RequestControllerTest {
 
         verify(requestService, times(1)).deleteRequest(id);
     }
+    @DisplayName("Test for updating a request successfully")
+    @Test
+    void shouldUpdateRequest() throws Exception {
+        when(requestService.updateRequest(any(ObjectId.class), any(RequestDTO.class))).thenReturn(requestResponse);
+        mockMvc.perform(put("/requests/requests/{id}", id)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("""
+                    {
+                        "userId": "1000100444",
+                        "groupOriginId": "GRP-001",
+                        "groupDestinyId": "GRP-002",
+                        "creationDate": "2024-10-10T10:00:00",
+                        "description": "Updated description",
+                        "state": "PENDIENT"
+                    }
+                    """))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.id").exists())
+            .andExpect(jsonPath("$.userId").value("1000100444"))
+            .andExpect(jsonPath("$.groupOriginId").value("GRP-001"));
 }
+    @DisplayName("Test for getting request history of a student")
+    @Test
+    void shouldGetRequestHistoryOfStudent() throws Exception {
+        when(requestService.allRequestByStudentId("1000100444"))
+                .thenReturn(List.of(requestResponse));
 
-
+        mockMvc.perform(get("/requests/{studentId}", "1000100444"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].userId").value("1000100444"))
+                .andExpect(jsonPath("$[0].groupOriginId").value("GRP-001"));
+    }
+}
