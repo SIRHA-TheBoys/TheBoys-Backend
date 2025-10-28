@@ -90,34 +90,29 @@ public class StadisticServiceImpl implements StadisticService {
 
         @Transactional
         public HashMap<Group, Integer> mostRequestedGroups() {
-        // 1️⃣ Obtener todas las solicitudes
-        List<RequestResponseDTO> requests = requestService.allRequests();
 
-         // 2️⃣ Extraer los IDs de los grupos destino (numberGroup)
-        List<String> groups = requests.stream()
-            .map(RequestResponseDTO::getGroupDestinyId)
-            .filter(Objects::nonNull)
-            .toList();
+                List<RequestResponseDTO> requests = requestService.allRequests();
 
-        // 3️⃣ Obtener todos los grupos por número de grupo
-        List<Group> groupList = groupRepository.findAllByNumberGroupIn(groups);
+                List<String> groups = requests.stream()
+                                .map(RequestResponseDTO::getGroupDestinyId)
+                                .filter(Objects::nonNull)
+                                .toList();
 
-        // 4️⃣ Contar cuántas veces se pidió cada grupo
-         HashMap<Group, Integer> groupCount = new HashMap<>();
-         for (Group group : groupList) {
-                groupCount.put(group, groupCount.getOrDefault(group, 0) + 1);
+                List<Group> groupList = groupRepository.findAllByNumberGroupIn(groups);
+
+                HashMap<Group, Integer> groupCount = new HashMap<>();
+                for (Group group : groupList) {
+                        groupCount.put(group, groupCount.getOrDefault(group, 0) + 1);
+                }
+
+                return groupCount.entrySet().stream()
+                                .sorted(Map.Entry.<Group, Integer>comparingByValue().reversed())
+                                .collect(Collectors.toMap(
+                                                Map.Entry::getKey,
+                                                Map.Entry::getValue,
+                                                (oldValue, newValue) -> oldValue,
+                                                LinkedHashMap::new));
         }
-
-         // 5️⃣ Ordenar por los más solicitados
-        return groupCount.entrySet().stream()
-            .sorted(Map.Entry.<Group, Integer>comparingByValue().reversed())
-            .collect(Collectors.toMap(
-                    Map.Entry::getKey,
-                    Map.Entry::getValue,
-                    (oldValue, newValue) -> oldValue,
-                    LinkedHashMap::new));
-}
-
 
         @Transactional
         public Double groupAvailability(String groupId) {
