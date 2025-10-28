@@ -28,145 +28,148 @@ import static org.mockito.Mockito.when;
 
 public class StadisticServiceTest {
 
-    @Mock
-    private UserRepository userRepository;
+        @Mock
+        private UserRepository userRepository;
 
-    @Mock
-    private SubjectRepository subjectRepository;
+        @Mock
+        private SubjectRepository subjectRepository;
 
-    @Mock
-    private GroupRepository groupRepository;
+        @Mock
+        private GroupRepository groupRepository;
 
-    @Mock
-    private UserMapper userMapper;
+        @Mock
+        private UserMapper userMapper;
 
-    @Mock
-    private RequestService requestService;
+        @Mock
+        private RequestService requestService;
 
-    @InjectMocks
-    private StadisticServiceImpl stadisticsService;
+        @InjectMocks
+        private StadisticServiceImpl stadisticsService;
 
-    private User testStudent;
-    private List<Group> groupsList;
-    private List<Subject> subjects;
+        private User testStudent;
+        private List<Group> groupsList;
+        private List<Subject> subjects;
 
-    @BeforeEach
-    void setup() {
-        MockitoAnnotations.openMocks(this);
+        @BeforeEach
+        void setup() {
+                MockitoAnnotations.openMocks(this);
 
-        Subject cali = Subject.builder().code("CALI").status(Status.REPROVED).build();
-        Subject dosw = Subject.builder().code("DOSW").status(Status.APPROVED).build();
-        Subject tpcy = Subject.builder().code("TPYC").status(Status.REPROVED).build();
-        Subject aysr = Subject.builder().code("AYSR").status(Status.APPROVED).build();
+                Subject cali = Subject.builder().code("CALI").status(Status.REPROVED).build();
+                Subject dosw = Subject.builder().code("DOSW").status(Status.APPROVED).build();
+                Subject tpcy = Subject.builder().code("TPYC").status(Status.REPROVED).build();
+                Subject aysr = Subject.builder().code("AYSR").status(Status.APPROVED).build();
 
-        subjects = List.of(cali, dosw, tpcy, aysr);
-        when(subjectRepository.findAllById(anyList())).thenReturn(subjects);
+                subjects = List.of(cali, dosw, tpcy, aysr);
+                when(subjectRepository.findAllById(anyList())).thenReturn(subjects);
 
-        Group fakeCali = Group.builder().numberGroup("1").capacity(25).availableQuotas(10).subjectCode("CALI").build();
-        Group fakeDosw = Group.builder().numberGroup("2").capacity(25).availableQuotas(10).subjectCode("DOSW").build();
-        Group fakeTpcy = Group.builder().numberGroup("3").capacity(25).availableQuotas(10).subjectCode("TPYC").build();
-        Group fakeAysr = Group.builder().numberGroup("4").capacity(25).availableQuotas(10).subjectCode("AYSR").build();
+                Group fakeCali = Group.builder().numberGroup("1").capacity(25).availableQuotas(10).subjectCode("CALI")
+                                .build();
+                Group fakeDosw = Group.builder().numberGroup("2").capacity(25).availableQuotas(10).subjectCode("DOSW")
+                                .build();
+                Group fakeTpcy = Group.builder().numberGroup("3").capacity(25).availableQuotas(10).subjectCode("TPYC")
+                                .build();
+                Group fakeAysr = Group.builder().numberGroup("4").capacity(25).availableQuotas(10).subjectCode("AYSR")
+                                .build();
 
-        groupsList = List.of(fakeCali, fakeDosw, fakeTpcy, fakeAysr);
-        when(groupRepository.findAllById(anyList())).thenReturn(groupsList);
+                groupsList = List.of(fakeCali, fakeDosw, fakeTpcy, fakeAysr);
+                when(groupRepository.findAllById(anyList())).thenReturn(groupsList);
 
-        List<String> groupIds = List.of("1", "2", "3", "4");
+                List<String> groupIds = List.of("1", "2", "3", "4");
 
-        testStudent = User.builder()
-                .id("1000099097")
-                .name("TestStudent")
-                .email("testStudent@mail.escuelaing.edu.co")
-                .password("123456")
-                .semester(2)
-                .role(Role.STUDENT)
-                .career(Career.SYSTEMS_ENGINEERING)
-                .numberGroupId(groupIds)
-                .build();
+                testStudent = User.builder()
+                                .id("1000099097")
+                                .name("TestStudent")
+                                .email("testStudent@mail.escuelaing.edu.co")
+                                .password("123456")
+                                .semester(2)
+                                .role(Role.STUDENT)
+                                .career(Career.SYSTEMS_ENGINEERING)
+                                .numberGroupId(groupIds)
+                                .build();
 
-        when(userRepository.findById(testStudent.getId())).thenReturn(Optional.of(testStudent));
-    }
+                when(userRepository.findById(testStudent.getId())).thenReturn(Optional.of(testStudent));
+        }
 
-    @Test
-    void shouldGetStudyPlanProgressPerStudent() {
-        Double result = stadisticsService.studyPlanProgressPerStudent(testStudent.getId());
-        assertNotNull(result);
-        assertEquals(0.5, result);
-    }
+        @Test
+        void shouldGetStudyPlanProgressPerStudent() {
+                Double result = stadisticsService.studyPlanProgressPerStudent(testStudent.getId());
+                assertNotNull(result);
+                assertEquals(0.5, result);
+        }
 
-    @Test
-    void shouldGetMostRequestedSubject() {
+        @Test
+        void shouldGetMostRequestedSubject() {
 
-        RequestResponseDTO req1 = RequestResponseDTO.builder()
-                .groupDestinyId("1")
-                .build();
+                RequestResponseDTO req1 = RequestResponseDTO.builder()
+                                .groupDestinyId("1")
+                                .build();
 
-        RequestResponseDTO req2 = RequestResponseDTO.builder()
-                .groupDestinyId("1")
-                .build();
+                RequestResponseDTO req2 = RequestResponseDTO.builder()
+                                .groupDestinyId("1")
+                                .build();
 
-        RequestResponseDTO req3 = RequestResponseDTO.builder()
-                .groupDestinyId("2")
-                .build();
+                RequestResponseDTO req3 = RequestResponseDTO.builder()
+                                .groupDestinyId("2")
+                                .build();
 
-        List<RequestResponseDTO> requests = List.of(req1, req2, req3);
+                List<RequestResponseDTO> requests = List.of(req1, req2, req3);
 
-        // Mock del RequestService para que devuelva las solicitudes
-        when(requestService.allRequests()).thenReturn(requests);
+                // Mock del RequestService para que devuelva las solicitudes
+                when(requestService.allRequests()).thenReturn(requests);
 
-        Group group1 = Group.builder()
-                .numberGroup("1")
-                .subjectCode("DOSW")
-                .build();
+                Group group1 = Group.builder()
+                                .numberGroup("1")
+                                .subjectCode("DOSW")
+                                .build();
 
-        Group group2 = Group.builder()
-                .numberGroup("2")
-                .subjectCode("TPYC")
-                .build();
+                Group group2 = Group.builder()
+                                .numberGroup("2")
+                                .subjectCode("TPYC")
+                                .build();
 
-        when(groupRepository.findAllById(anyList())).thenReturn(List.of(group1, group2, group1));
+                when(groupRepository.findAllById(anyList())).thenReturn(List.of(group1, group2, group1));
 
-        Subject subject1 = Subject.builder()
-                .code("DOSW")
-                .status(Status.APPROVED)
-                .build();
+                Subject subject1 = Subject.builder()
+                                .code("DOSW")
+                                .status(Status.APPROVED)
+                                .build();
 
-        Subject subject2 = Subject.builder()
-                .code("TPYC")
-                .status(Status.REPROVED)
-                .build();
+                Subject subject2 = Subject.builder()
+                                .code("TPYC")
+                                .status(Status.REPROVED)
+                                .build();
 
-        when(subjectRepository.findAllById(anyList()))
-                .thenReturn(List.of(subject1, subject1, subject2));
+                when(subjectRepository.findAllById(anyList()))
+                                .thenReturn(List.of(subject1, subject1, subject2));
 
-        // Ahora no recibe parámetros
-        HashMap<Subject, Integer> result = stadisticsService.mostRequestedSubject();
+                // Ahora no recibe parámetros
+                HashMap<Subject, Integer> result = stadisticsService.mostRequestedSubject();
 
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        Subject mostRequested = result.keySet().iterator().next();
-        assertEquals("DOSW", mostRequested.getCode());
-        assertEquals(2, result.get(mostRequested));
-    }
+                assertNotNull(result);
+                assertEquals(1, result.size());
+                Subject mostRequested = result.keySet().iterator().next();
+                assertEquals("DOSW", mostRequested.getCode());
+                assertEquals(2, result.get(mostRequested));
+        }
 
+        @Test
+        void shouldGetGroupAvailability() {
+                String groupId = "4";
 
-    @Test
-    void shouldGetGroupAvailability() {
-        String groupId = "4";
+                Group arswGroup = Group.builder()
+                                .numberGroup(groupId)
+                                .capacity(25)
+                                .availableQuotas(2)
+                                .subjectCode("ARSW")
+                                .build();
 
-        Group arswGroup = Group.builder()
-                .numberGroup(groupId)
-                .capacity(25)
-                .availableQuotas(2)
-                .subjectCode("ARSW")
-                .build();
+                // Mock para que cuando se busque el grupo por ID, devuelva el grupo
+                when(groupRepository.findById(groupId)).thenReturn(Optional.of(arswGroup));
 
-        // Mock para que cuando se busque el grupo por ID, devuelva el grupo
-        when(groupRepository.findById(groupId)).thenReturn(Optional.of(arswGroup));
+                // Ahora recibe el String groupId en lugar del objeto Group
+                Double result = stadisticsService.groupAvailability(groupId);
 
-        // Ahora recibe el String groupId en lugar del objeto Group
-        Double result = stadisticsService.groupAvailability(groupId);
-
-        assertNotNull(result);
-        assertEquals(0.08, result);
-    }
+                assertNotNull(result);
+                assertEquals(0.08, result);
+        }
 }
