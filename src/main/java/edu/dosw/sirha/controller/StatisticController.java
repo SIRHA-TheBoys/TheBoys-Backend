@@ -1,6 +1,9 @@
 package edu.dosw.sirha.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +29,31 @@ public class StatisticController {
     }
 
     @GetMapping("/mostRequestedSubject")
-    public ResponseEntity<HashMap<Subject, Integer>> consultMostRequestedSubject() {
-        return ResponseEntity.ok(stadisticService.mostRequestedSubject());
+    public ResponseEntity<List<Map<String, Object>>> consultMostRequestedSubject() {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        stadisticService.mostRequestedSubject().forEach((subject, count) -> {
+            Map<String, Object> item = new HashMap<>();
+            item.put("name", subject.getName());
+            item.put("count", count);
+            result.add(item);
+        });
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/mostRequestedGroups")
-    public ResponseEntity<HashMap<Group, Integer>> consultMostRequestedGroups() {
-        return ResponseEntity.ok(stadisticService.mostRequestedGroups());
+    public ResponseEntity<List<Map<String, Object>>> consultMostRequestedGroups() {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        stadisticService.mostRequestedGroups().forEach((group, count) -> {
+            Map<String, Object> item = new HashMap<>();
+            item.put("name", group.getSubjectCode());
+            item.put("count", count);
+            result.add(item);
+        });
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/groupAvailability/{groupId}")

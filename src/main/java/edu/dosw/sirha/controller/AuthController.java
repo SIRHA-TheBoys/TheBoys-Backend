@@ -1,10 +1,9 @@
 package edu.dosw.sirha.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import edu.dosw.sirha.model.dto.request.LoginRequestDTO;
 import edu.dosw.sirha.model.dto.response.AuthResponseDTO;
@@ -17,20 +16,19 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/auth")
 @Tag(name = "Authentication", description = "Endpoints for user authentication operations")
 public class AuthController {
+
     private final AuthService authService;
 
-    /**
-     * Endpoint to authenticate a user with email and password.
-     *
-     * @param loginRequestDTO the DTO containing user credentials (email and
-     *                        password)
-     * @return a {@link ResponseEntity} with the authentication response and HTTP
-     *         200 if login is successful
-     */
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
         AuthResponseDTO user = authService.login(loginRequestDTO);
         return ResponseEntity.ok(user);
     }
 
+    @PostMapping("/google")
+    public ResponseEntity<AuthResponseDTO> googleLogin(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        AuthResponseDTO authResponse = authService.loginWithGoogle(token);
+        return ResponseEntity.ok(authResponse);
+    }
 }
