@@ -1,28 +1,24 @@
 package edu.dosw.sirha.Services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.client.RestTemplate;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Optional;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
-import edu.dosw.sirha.controller.AuthController;
 import edu.dosw.sirha.exception.UserNotFoundException;
 import edu.dosw.sirha.model.dto.request.LoginRequestDTO;
 import edu.dosw.sirha.model.dto.response.AuthResponseDTO;
@@ -30,8 +26,8 @@ import edu.dosw.sirha.model.entity.User;
 import edu.dosw.sirha.repository.UserRepository;
 import edu.dosw.sirha.service.AuthService;
 
-@WebMvcTest(MockitoExtension.class)
-public class AuthServiceTest {
+@ExtendWith(MockitoExtension.class)
+class AuthServiceTest {
 
     @Mock
     UserRepository userRepository;
@@ -82,4 +78,68 @@ public class AuthServiceTest {
         });
     }
 
+    @Test
+    void loginWithGoogle_success() {
+
+        String token = "dummy-token";
+        String email = "test@example.com";
+
+        User user = User.builder()
+                .id("10000001")
+                .name("Test User")
+                .email(email)
+                .password("secret")
+                .build();
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+
+        Map<String, Object> googleResponse = new HashMap<>();
+        googleResponse.put("email", email);
+
+        try (var mocked = Mockito.mockConstruction(RestTemplate.class, (mock, context) -> {
+            when(mock.getForObject(anyString(), eq(Map.class))).thenReturn(googleResponse);
+        })) {
+
+            AuthResponseDTO response = authService.loginWithGoogle(token);
+
+            assertNotNull(response);
+            assertEquals(email, response.getEmail());
+            assertEquals(user.getName(), response.getName());
+        }
+    }
+
+    @Test
+    void loginWithGoogle_userNotFound() {
+
+        String token = "dummy-token";
+        String email = "unknown@example.com";
+
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        Map<String, Object> googleResponse = new HashMap<>();
+        googleResponse.put("email", email);
+
+        try (var mocked = Mockito.mockConstruction(RestTemplate.class, (mock, context) -> {
+            when(mock.getForObject(anyString(), eq(Map.class))).thenReturn(googleResponse);
+        })) {
+
+            RuntimeException ex = assertThrows(RuntimeException.class, () -> authService.loginWithGoogle(token));
+
+            assertNotNull(ex.getMessage());
+        }
+    }
+
+    @Test
+    void loginWithGoogle_invalidToken() {
+
+        String token = "invalid-token";
+
+        try (var mocked = Mockito.mockConstruction(RestTemplate.class, (mock, context) -> {
+            when(mock.getForObject(anyString(), eq(Map.class))).thenReturn(null);
+        })) {
+
+            RuntimeException ex = assertThrows(RuntimeException.class, () -> authService.loginWithGoogle(token));
+            assertNotNull(ex.getMessage());
+        }
+    }
 }

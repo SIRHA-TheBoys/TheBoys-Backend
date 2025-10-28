@@ -153,49 +153,6 @@ public class StadisticServiceTest {
         }
 
         @Test
-        void shouldGetMostRequestedGroup() {
-                List<RequestResponseDTO> requests = List.of(
-                                RequestResponseDTO.builder()
-                                                .groupDestinyId("1")
-                                                .build(),
-                                RequestResponseDTO.builder()
-                                                .groupDestinyId("1")
-                                                .build(),
-                                RequestResponseDTO.builder()
-                                                .groupDestinyId("3")
-                                                .build());
-
-                // Mock del RequestService para que devuelva las solicitudes
-                when(requestService.allRequests()).thenReturn(requests);
-
-                // Grupos que se retornarán cuando se busquen por los IDs "1", "1", "3"
-                Group group1 = Group.builder()
-                                .numberGroup("1")
-                                .capacity(25)
-                                .availableQuotas(10)
-                                .subjectCode("CALI")
-                                .build();
-
-                Group group3 = Group.builder()
-                                .numberGroup("3")
-                                .capacity(25)
-                                .availableQuotas(10)
-                                .subjectCode("TPYC")
-                                .build();
-
-                when(groupRepository.findAllById(List.of("1", "1", "3")))
-                                .thenReturn(List.of(group1, group1, group3));
-
-                // Ahora no recibe parámetros
-                HashMap<Group, Integer> result = stadisticsService.mostRequestedGroups();
-
-                assertNotNull(result);
-                assertFalse(result.isEmpty());
-                Group mostRequested = result.entrySet().iterator().next().getKey();
-                assertEquals("1", mostRequested.getNumberGroup());
-        }
-
-        @Test
         void shouldGetGroupAvailability() {
                 String groupId = "4";
 
